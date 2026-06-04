@@ -24,11 +24,13 @@ Understand the current state of the code. Issue titles and descriptions should u
 Each issue is a thin vertical slice cutting through ALL integration layers end-to-end, NOT a horizontal layer slice.
 
 **Vertical slice rules:**
+
 - Each slice delivers a narrow but COMPLETE path through every layer (schema, API, UI, tests)
 - A completed slice is demoable or verifiable on its own
 - Prefer many thin slices over few thick ones
 
 **Slice types:**
+
 - **HITL** — requires human interaction (architectural decision, design review)
 - **AFK** — can be implemented and merged without human interaction
 
@@ -37,12 +39,14 @@ Prefer AFK over HITL where possible.
 ### 4. Quiz the user
 
 Present as a numbered list. For each slice show:
+
 - **Title**: short descriptive name
 - **Type**: HITL / AFK
 - **Blocked by**: which slices must complete first (if any)
 - **User stories covered**: from the source material (if any)
 
 Ask:
+
 - Does the granularity feel right?
 - Are dependency relationships correct?
 - Should any slices be merged or split?

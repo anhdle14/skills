@@ -27,6 +27,7 @@ Surface architectural friction and propose **deepening opportunities** — refac
 Read the project's domain glossary and any ADRs first.
 
 Then explore organically, noting where you experience friction:
+
 - Where does understanding one concept require bouncing between many small modules?
 - Where are modules **shallow** — interface nearly as complex as the implementation?
 - Where have pure functions been extracted just for testability, but real bugs hide in how they're called?
@@ -38,6 +39,7 @@ Apply the **deletion test** to anything you suspect is shallow.
 ### 2. Present candidates
 
 For each candidate, provide:
+
 - **Files** — which files/modules are involved
 - **Problem** — why the current architecture causes friction
 - **Solution** — plain English description of what would change
@@ -53,5 +55,6 @@ Do NOT propose interfaces yet. Ask: "Which of these would you like to explore?"
 Once the user picks a candidate, drop into a grilling conversation. Walk the design tree — constraints, dependencies, the shape of the deepened module, what sits behind the seam, what tests survive.
 
 Side effects as decisions crystallize:
+
 - **New concept not in domain glossary?** Add it to `CONTEXT.md`.
 - **User rejects candidate with a load-bearing reason?** Offer an ADR so future reviews don't re-suggest it.

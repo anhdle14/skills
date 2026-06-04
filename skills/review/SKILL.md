@@ -27,11 +27,13 @@ git diff <ref>...HEAD
 ### 2. Gather context (in parallel)
 
 **Standards sub-agent:**
+
 - Read `CLAUDE.md`, `AGENTS.md`, any `docs/standards/` or `docs/style/` files
 - Read `docs/adr/` for architectural decisions in the changed area
 - Evaluate the diff against documented conventions
 
 **Spec sub-agent:**
+
 - Read the originating issue / PRD (ask the user for the reference if not in context)
 - Read the diff
 - Evaluate whether acceptance criteria are met
@@ -40,7 +42,7 @@ git diff <ref>...HEAD
 
 Present findings side by side:
 
-```
+```markdown
 ## Standards
 [findings]
 

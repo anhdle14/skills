@@ -43,6 +43,7 @@ args: "<arg-name> <optional-arg>"       # optional — document accepted argumen
 ## Description Requirements
 
 The description is **the only thing an agent sees** when deciding which skill to load. It must answer:
+
 1. What capability does this skill provide?
 2. When/why should it trigger? (specific keywords, contexts, file types)
 
@@ -52,7 +53,7 @@ The description is **the only thing an agent sees** when deciding which skill to
 
 ## Skill Structure
 
-```
+```text
 skills/
 └── skill-name/
     ├── SKILL.md           # required — main instructions + frontmatter
@@ -65,6 +66,7 @@ skills/
 ## When to Add Scripts
 
 Add a script (TypeScript + Deno) when:
+
 - The operation is deterministic (validation, formatting, file manipulation)
 - The same code would be generated repeatedly across sessions
 - Errors need explicit structured handling
@@ -74,6 +76,7 @@ Scripts save tokens and improve reliability vs re-generating equivalent code eac
 ## When to Split Files
 
 Split into separate reference files when:
+
 - `SKILL.md` would exceed ~100 lines
 - Content has distinct domains (e.g. separate format guides)
 - Advanced features are rarely needed and would clutter the main file

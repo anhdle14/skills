@@ -11,6 +11,7 @@ curl -fsSL https://raw.githubusercontent.com/anhdle14/skills/main/bootstrap.sh |
 ```
 
 This will:
+
 1. Clone the repo to `~/Developer/github.com/anhdle14/skills`
 2. Install Deno if not present
 3. Symlink `skills/` to `~/.claude/skills` and `~/.agent/skills`
@@ -41,7 +42,7 @@ git -C ~/Developer/github.com/anhdle14/skills pull
 
 The symlinks point at the repo, so updates are live immediately.
 
-## Skills
+## Skill Reference
 
 ### Engineering
 

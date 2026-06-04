@@ -18,14 +18,16 @@ If a question can be answered by exploring the codebase, explore the codebase in
 During exploration, look for:
 
 **Single-context layout** (most repos):
-```
+
+```text
 /
 ├── CONTEXT.md
 └── docs/adr/
 ```
 
 **Multi-context layout** (monorepos):
-```
+
+```text
 /
 ├── CONTEXT-MAP.md
 ├── docs/adr/          ← system-wide decisions
@@ -53,6 +55,7 @@ Create files lazily — only when you have something to write.
 **Update `CONTEXT.md` inline.** When a term is resolved, update `CONTEXT.md` immediately. It is a glossary only — no implementation details, no specs, no scratch-pad content.
 
 **Offer ADRs sparingly.** Only when all three are true:
+
 1. Hard to reverse — the cost of changing your mind later is meaningful
 2. Surprising without context — a future reader will wonder "why did they do it this way?"
 3. Result of a real trade-off — there were genuine alternatives

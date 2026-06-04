@@ -18,7 +18,7 @@ Tests verify behavior through public interfaces, not implementation details. Cod
 
 **Do not write all tests first, then all implementation.** This produces tests that verify the *shape* of things, not behavior. They pass when behavior breaks and fail when behavior is fine.
 
-```
+```text
 WRONG (horizontal):
   RED:   test1, test2, test3, test4, test5
   GREEN: impl1, impl2, impl3, impl4, impl5
@@ -34,6 +34,7 @@ RIGHT (vertical tracer bullets):
 ### 1. Plan
 
 Before writing any code:
+
 - [ ] Confirm what interface changes are needed
 - [ ] Confirm which behaviors to test (prioritize — you can't test everything)
 - [ ] List behaviors to test (not implementation steps)
@@ -44,7 +45,8 @@ Use the project's domain glossary for test names and interface vocabulary.
 ### 2. Tracer Bullet
 
 Write ONE test for ONE behavior:
-```
+
+```text
 RED:   write test → fails
 GREEN: write minimal code to pass → passes
 ```
@@ -54,12 +56,14 @@ This is your tracer bullet — proves the path works end-to-end.
 ### 3. Incremental Loop
 
 For each remaining behavior:
-```
+
+```text
 RED:   write next test → fails
 GREEN: minimal code to pass → passes
 ```
 
 Rules:
+
 - One test at a time
 - Only enough code to pass the current test
 - Don't anticipate future tests
@@ -68,6 +72,7 @@ Rules:
 ### 4. Refactor
 
 After all tests pass:
+
 - [ ] Extract duplication
 - [ ] Deepen modules (move complexity behind simple interfaces)
 - [ ] Run tests after each refactor step
@@ -76,7 +81,7 @@ After all tests pass:
 
 ## Per-Cycle Checklist
 
-```
+```text
 [ ] Test describes behavior, not implementation
 [ ] Test uses public interface only
 [ ] Test would survive internal refactor

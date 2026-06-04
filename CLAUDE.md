@@ -33,17 +33,18 @@ Agent skills organized as a flat directory under `skills/`. Each skill is a fold
 
 ### Adding a skill
 
-1. Create `skills/<name>/SKILL.md` with the required frontmatter:
-   ```yaml
-   ---
-   name: skill-name
-   description: What it does. Use when [specific triggers].
-   tags: [tag1, tag2]
-   args: "<arg-name>"   # optional
-   ---
-   ```
+1. Create `skills/<name>/SKILL.md` with the required frontmatter.
 2. Add supporting files in the same folder if needed.
 3. Run `deno task install --update-index` to regenerate this table.
+
+```yaml
+---
+name: skill-name
+description: What it does. Use when [specific triggers].
+tags: [tag1, tag2]
+args: "<arg-name>"   # optional
+---
+```
 
 ### Valid tags
 

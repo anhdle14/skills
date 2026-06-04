@@ -46,6 +46,7 @@ Stop and say so. List what you tried. Ask for: (a) access to the reproducing env
 ## Phase 2 — Reproduce
 
 Run the loop. Confirm:
+
 - [ ] The loop produces the failure the **user** described — not a different failure nearby.
 - [ ] The failure is reproducible (or at a high enough rate).
 - [ ] You have captured the exact symptom.
@@ -63,6 +64,7 @@ Show the ranked list to the user before testing. They often have domain knowledg
 Each probe maps to a specific prediction from Phase 3. Change one variable at a time.
 
 Tool preference:
+
 1. Debugger / REPL inspection.
 2. Targeted logs at the boundaries that distinguish hypotheses.
 3. Never "log everything and grep".
@@ -78,6 +80,7 @@ Write the regression test **before the fix** — but only at a **correct seam** 
 If no correct seam exists, note it — the architecture is preventing the bug from being locked down.
 
 If a correct seam exists:
+
 1. Turn the minimised repro into a failing test.
 2. Watch it fail.
 3. Apply the fix.
