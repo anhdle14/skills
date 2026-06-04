@@ -2,7 +2,7 @@
 
 Personal agent skills for engineering, writing, and productivity. Works with any agent that supports skill/slash-command loading (Claude Code, etc.).
 
-Inspired by [mattpocock/skills](https://github.com/mattpocock/skills) — same philosophy, no JavaScript required.
+Inspired by [mattpocock/skills](https://github.com/mattpocock/skills) — same philosophy, with Deno.
 
 ## Quickstart
 
