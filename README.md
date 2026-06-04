@@ -48,17 +48,15 @@ The symlinks point at the repo, so updates are live immediately.
 
 | skill | description |
 |-------|-------------|
+| `/code-structure` | Map modules, find structural friction, separate orchestration from services, and plan safe refactors |
 | `/diagnose` | Disciplined bug diagnosis loop: reproduce → hypothesise → instrument → fix |
 | `/tdd` | Test-driven development with red-green-refactor vertical slices |
 | `/review` | Two-axis code review: Standards + Spec, run in parallel |
-| `/improve-codebase-architecture` | Find deepening opportunities to improve testability and navigability |
 | `/prototype` | Throwaway prototype to answer a design question |
-| `/zoom-out` | Get a map of modules and callers around unfamiliar code |
 | `/to-issues` | Break a plan into vertical-slice issues |
 | `/to-prd` | Synthesize current context into a PRD |
 | `/triage` | Move issues through a triage state machine |
 | `/qa` | Conversational QA session that files structured issues |
-| `/request-refactor-plan` | Plan a refactor with tiny commits via interview |
 | `/grill-with-docs` | Grill a plan against the domain model, update CONTEXT.md + ADRs inline |
 
 ### Writing

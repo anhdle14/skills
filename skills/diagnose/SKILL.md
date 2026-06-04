@@ -95,4 +95,4 @@ If a correct seam exists:
 - [ ] Throwaway prototypes deleted
 - [ ] Correct hypothesis stated in the commit message
 
-Ask: what would have prevented this bug? If architectural change is needed, hand off to `/improve-codebase-architecture`.
+Ask: what would have prevented this bug? If architectural change is needed, hand off to `/code-structure`.
