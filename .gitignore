@@ -1,0 +1,12 @@
+# Deno cache (deps are locked via deno.lock, cache is local)
+.deno/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Local Claude Code settings (machine-specific permissions)
+.claude/settings.local.json

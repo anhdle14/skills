@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    name: Type-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Type-check install.ts
+        run: deno check install.ts
+
+  test-install:
+    name: Test install
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Help flag
+        run: deno task install --help
+      - name: Copy single skill
+        run: deno task install --copy-to /tmp/skills-test --skill grill-me --skill diagnose
+      - name: Verify copy output
+        run: |
+          test -f /tmp/skills-test/grill-me/SKILL.md
+          test -f /tmp/skills-test/diagnose/SKILL.md
+          test -f /tmp/skills-test/diagnose/scripts/hitl-loop.template.sh
+      - name: Update index
+        run: deno task update-index
+
+  validate-skills:
+    name: Validate skill frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check every SKILL.md has required frontmatter fields
+        run: |
+          fail=0
+          for f in skills/*/SKILL.md; do
+            skill=$(dirname "$f" | xargs basename)
+            # Check name field
+            if ! grep -q "^name:" "$f"; then
+              echo "FAIL: $f missing 'name:' field"
+              fail=1
+            fi
+            # Check description field
+            if ! grep -q "^description:" "$f"; then
+              echo "FAIL: $f missing 'description:' field"
+              fail=1
+            fi
+            # Check tags field
+            if ! grep -q "^tags:" "$f"; then
+              echo "FAIL: $f missing 'tags:' field"
+              fail=1
+            fi
+          done
+          exit $fail
