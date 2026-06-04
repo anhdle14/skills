@@ -1,6 +1,6 @@
 ---
 name: review
-description: Two-axis code review — Standards (does the code follow this repo's conventions?) and Spec (does it match what the issue/PRD asked for?). Runs both in parallel sub-agents and reports side by side. Use when user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
+description: Reviews code changes along standards and spec axes with parallel sub-agents. Use when user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
 tags: [analyze, engineering]
 args: "<commit, branch, tag, or merge-base to diff against>"
 ---

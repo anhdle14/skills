@@ -13,6 +13,7 @@ Core rule: preserve product meaning in orchestration, move reusable mechanics be
 ## When To Use
 
 Use this when:
+
 - You do not know an area and need a map of modules and callers.
 - A module feels shallow, leaky, or hard to test.
 - Multiple workflows repeat the same operation with small variations.
@@ -40,6 +41,7 @@ Read the domain glossary and ADRs first. Map modules, callers, owned domain conc
 ### 2. Find Friction
 
 Look for:
+
 - One concept scattered across many small modules.
 - Shallow modules where the interface is almost as complex as the implementation.
 - Helpers extracted only for testability while real bugs live in call orchestration.

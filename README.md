@@ -52,6 +52,7 @@ The symlinks point at the repo, so updates are live immediately.
 | `/diagnose` | Disciplined bug diagnosis loop: reproduce → hypothesise → instrument → fix |
 | `/tdd` | Test-driven development with red-green-refactor vertical slices |
 | `/review` | Two-axis code review: Standards + Spec, run in parallel |
+| `/autoresearch` | Set up Karpathy-style autonomous research loops around the right metric and harness |
 | `/prototype` | Throwaway prototype to answer a design question |
 | `/to-issues` | Break a plan into vertical-slice issues |
 | `/to-prd` | Synthesize current context into a PRD |

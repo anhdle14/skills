@@ -37,9 +37,9 @@ copy:
 update-index:
 	$(DENO) run --allow-read --allow-write --allow-env=HOME install.ts --update-index
 
-## check: type-check install.ts
+## check: type-check TypeScript tooling
 check:
-	$(DENO) check install.ts
+	$(DENO) check install.ts scripts/validate-skills.ts
 
 ## lint: check all markdown files
 lint:
@@ -49,17 +49,9 @@ lint:
 lint-fix:
 	$(MDLINT) --config $(MDLINT_CONF) --fix $(MD_FILES)
 
-## validate: check every SKILL.md has required frontmatter
+## validate: check every SKILL.md follows the write-a-skill schema
 validate:
-	@fail=0; \
-	for f in skills/*/SKILL.md; do \
-		skill=$$(dirname "$$f" | xargs basename); \
-		if ! grep -q "^name:" "$$f"; then echo "FAIL: $$f missing 'name:'"; fail=1; fi; \
-		if ! grep -q "^description:" "$$f"; then echo "FAIL: $$f missing 'description:'"; fail=1; fi; \
-		if ! grep -q "^tags:" "$$f"; then echo "FAIL: $$f missing 'tags:'"; fail=1; fi; \
-	done; \
-	if [ $$fail -eq 0 ]; then echo "OK: all skills have valid frontmatter"; fi; \
-	exit $$fail
+	$(DENO) run --allow-read scripts/validate-skills.ts
 
 ## ci: run all checks (matches GitHub Actions)
 ci: check lint validate

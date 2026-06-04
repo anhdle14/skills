@@ -1,6 +1,6 @@
 ---
 name: write-a-skill
-description: Interactively build a new agent skill — gather requirements, draft SKILL.md with proper frontmatter, bundle supporting files, and walk the user through it step by step. Use when user wants to create, write, or build a new skill.
+description: Builds a new agent skill with frontmatter, supporting files, and review steps. Use when user wants to create, write, or build a new skill.
 tags: [productivity, create]
 ---
 
@@ -26,7 +26,9 @@ tags: [productivity, create]
 
 4. **Write to `skills/<name>/`** in this repo after approval.
 
-5. **Run `deno task install --update-index`** to regenerate the `CLAUDE.md` skills table.
+5. **Run `deno task update-index`** to regenerate the `CLAUDE.md` skills table.
+
+6. **Run `deno task validate`** to verify every skill follows this schema.
 
 ## SKILL.md Schema
 
@@ -89,3 +91,4 @@ Split into separate reference files when:
 - [ ] Consistent terminology throughout
 - [ ] `tags` accurately reflect the skill's category
 - [ ] `args` documented if the skill accepts arguments
+- [ ] `deno task validate` passes

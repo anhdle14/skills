@@ -1,6 +1,6 @@
 ---
 name: prototype
-description: Build a throwaway prototype to answer a design question before committing. Routes to a terminal app for state/logic questions, or multiple UI variations for design questions. Use when user wants to prototype, sanity-check a data model or state machine, mock up a UI, or says "prototype this", "let me play with it", "try a few designs".
+description: Builds a throwaway prototype to answer a design question before committing. Use when user wants to prototype, sanity-check a data model or state machine, mock up a UI, or says "prototype this", "let me play with it", "try a few designs".
 tags: [create, plan, engineering]
 ---
 
