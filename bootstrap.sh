@@ -33,5 +33,5 @@ echo "Linking skills..."
 deno run --allow-read --allow-write --allow-env=HOME "$REPO_DIR/install.ts"
 
 echo ""
-echo "Done. Skills are now available in ~/.claude/skills and ~/.agent/skills."
+echo "Done. Skills are now available in ~/.claude/skills and ~/.agents/skills."
 echo "Re-run this script anytime to pull updates."

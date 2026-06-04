@@ -3,7 +3,7 @@
  * install.ts — link or copy skills to agent config directories
  *
  * Usage:
- *   deno task install                                        # symlink skills/ → ~/.claude/skills + ~/.agent/skills
+ *   deno task install                                        # symlink skills/ → ~/.claude/skills + ~/.agents/skills
  *   deno task install --copy-to /path/to/project            # copy all skills into a project
  *   deno task install --copy-to /path/to/project --skill diagnose --skill grill-me
  *   deno task install --update-index                        # regenerate CLAUDE.md skills index
@@ -57,7 +57,7 @@ function getSymlinkTargets(): string[] {
   if (!home) throw new Error("HOME environment variable is not set");
   return [
     join(home, ".claude", "skills"),
-    join(home, ".agent", "skills"),
+    join(home, ".agents", "skills"),
   ];
 }
 
@@ -157,7 +157,7 @@ if (args.help) {
 install.ts — link or copy skills to agent config directories
 
 Usage:
-  deno task install                                   symlink skills/ to ~/.claude/skills and ~/.agent/skills
+  deno task install                                   symlink skills/ to ~/.claude/skills and ~/.agents/skills
   deno task install --copy-to <dir>                   copy all skills into <dir>
   deno task install --copy-to <dir> --skill <name>    copy only named skills (repeat --skill for multiple)
   deno task install --update-index                    regenerate skills table in CLAUDE.md
