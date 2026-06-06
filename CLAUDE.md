@@ -22,6 +22,7 @@ Agent skills organized as a flat directory under `skills/`. Each skill is a fold
 | [to-issues](skills/to-issues/SKILL.md) | plan, engineering, manage | Break a plan, spec, or PRD into independently-grabbable issues using tracer-bullet vertical slices. Use when user wants to convert a plan into issues, create implementation tickets, or break down work into issues. Args: `"<issue reference, URL, or path (optional)>"` |
 | [to-prd](skills/to-prd/SKILL.md) | plan, engineering, create | Turn the current conversation context into a PRD and publish it to the project issue tracker. Use when user wants to create a PRD from the current context, formalize a feature, or document what's being built. |
 | [triage](skills/triage/SKILL.md) | manage, engineering | Triage issues through a state machine of five canonical roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow. |
+| [workflow](skills/workflow/SKILL.md) | plan, engineering, productivity | Apply one of six composable agentic workflow patterns correctly. Use when designing multi-step agent pipelines, choosing how to structure parallel or iterative work, or chaining patterns together. Invoke when user asks how to structure agent work, says "workflow", mentions any of: classify and act, fan out, adversarial verification, generate and filter, tournament, loop until done. |
 | [write-a-skill](skills/write-a-skill/SKILL.md) | productivity, create | Builds a new agent skill with frontmatter, supporting files, and review steps. Use when user wants to create, write, or build a new skill. |
 | [writing-beats](skills/writing-beats/SKILL.md) | writing, create | Shape an article as a journey of beats, choose-your-own-adventure style — pick a starting beat, write only that beat, then offer options for the next beat until the article reaches a natural end. Use when user has raw material and wants to assemble it as a narrative rather than an argument. Args: `"<path to raw material file>"` |
 | [writing-fragments](skills/writing-fragments/SKILL.md) | writing, create | Mine the user for writing fragments — claims, vignettes, sharp sentences, half-thoughts — and append them to a single document as raw material for a future article. Use when user wants to develop ideas before imposing structure, mentions "fragments", "ideate", or "raw material" for writing. Args: `"<path to save fragments (optional)>"` |
@@ -34,7 +35,8 @@ Agent skills organized as a flat directory under `skills/`. Each skill is a fold
 
 1. Create `skills/<name>/SKILL.md` with the required frontmatter.
 2. Add supporting files in the same folder if needed.
-3. Run `deno task install --update-index` to regenerate this table.
+3. Run `deno task validate` to check frontmatter and structure.
+4. Run `deno task install --update-index` to regenerate this table.
 
 ```yaml
 ---
