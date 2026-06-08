@@ -1,6 +1,11 @@
 ---
 name: workflow
-description: Apply one of six composable agentic workflow patterns correctly. Use when designing multi-step agent pipelines, choosing how to structure parallel or iterative work, or chaining patterns together. Invoke when user asks how to structure agent work, says "workflow", mentions any of: classify and act, fan out, adversarial verification, generate and filter, tournament, loop until done.
+description: >
+  Apply one of six composable agentic workflow patterns correctly. Use when
+  designing multi-step agent pipelines, choosing how to structure parallel or
+  iterative work, chaining patterns together, asking how to structure agent work,
+  saying "workflow", or mentioning classify and act, fan out, adversarial
+  verification, generate and filter, tournament, or loop until done.
 tags: [plan, engineering, productivity]
 ---
 

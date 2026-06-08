@@ -80,6 +80,33 @@ function parseFrontmatter(content: string): Frontmatter | null {
   };
 }
 
+function findFrontmatterSyntaxFailures(content: string, file: string): Failure[] {
+  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) return [];
+
+  const failures: Failure[] = [];
+  const lines = match[1].split("\n");
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index];
+    const pair = line.match(/^([a-z]+):\s*(.*)$/);
+    if (!pair) continue;
+
+    const rawValue = pair[2].trim();
+    const isQuoted =
+      (rawValue.startsWith('"') && rawValue.endsWith('"')) ||
+      (rawValue.startsWith("'") && rawValue.endsWith("'"));
+    if (rawValue && rawValue !== ">" && !isQuoted && /:\s/.test(rawValue)) {
+      failures.push({
+        file,
+        message:
+          `line ${index + 2}: unquoted YAML scalar contains ': '; quote it or use folded block syntax`,
+      });
+    }
+  }
+
+  return failures;
+}
+
 function isKebabCase(value: string): boolean {
   return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 }
@@ -95,6 +122,7 @@ async function validateSkill(skillDir: string): Promise<Failure[]> {
   const content = await Deno.readTextFile(file);
   const lines = content.split("\n").length;
   const frontmatter = parseFrontmatter(content);
+  failures.push(...findFrontmatterSyntaxFailures(content, file));
   const folderName = basename(skillDir);
 
   if (lines > 100) {
