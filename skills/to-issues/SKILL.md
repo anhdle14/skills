@@ -36,6 +36,8 @@ Each issue is a thin vertical slice cutting through ALL integration layers end-t
 
 Prefer AFK over HITL where possible.
 
+For every slice, record why this is the smallest demoable unit and what evidence would prove it done.
+
 ### 4. Quiz the user
 
 Present as a numbered list. For each slice show:
@@ -73,6 +75,16 @@ Use this issue body template:
 
 ## Blocked by
 [reference to blocking issue, or "None — can start immediately"]
+
+## Verification
+[command, test, demo, or inspection that proves this issue complete]
+
+## Out of scope
+[related work intentionally excluded]
 ```
 
 Do NOT close or modify any parent issue.
+
+## Quality Gate
+
+Before publishing, verify each issue has a user-visible outcome, acceptance criteria, verification plan, dependency status, and clear out-of-scope boundary.

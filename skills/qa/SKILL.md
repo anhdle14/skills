@@ -20,6 +20,8 @@ Let the user describe the problem in their own words. Ask **at most 2–3 short 
 
 Do NOT over-interview. If the description is clear enough to file, move on.
 
+If the user reports several issues quickly, capture them as a queue first, then process one at a time.
+
 ### 2. Explore the codebase (in background)
 
 While the user continues describing issues, explore the relevant area of the codebase to understand:
@@ -37,10 +39,18 @@ Use the project's domain language. Include:
 - What actually happened
 - Steps to reproduce
 - Which module is likely responsible (from your codebase exploration)
+- Evidence inspected and confidence level
+- Acceptance criteria for the fix
 
 ### 4. Confirm before filing
 
 Show the draft to the user: "Does this capture the issue?" File only after confirmation.
+
+## Anti-Patterns
+
+- Turning QA into debugging before an issue exists.
+- Filing implementation tasks when the user described a product symptom.
+- Combining unrelated symptoms into one catch-all issue.
 
 ## Ending the session
 

@@ -1,9 +1,17 @@
 ---
-name: edit-article
-description: Edit and improve articles by restructuring sections, improving clarity, and tightening prose. Use when user wants to edit, revise, or improve an article draft.
+name: proofreading
+description: Proofread and improve existing article drafts by restructuring sections, improving clarity, and tightening prose. Use when user wants to proofread, edit, revise, clean up, or improve an existing draft.
 tags: [writing, transform]
 args: "<path to article file>"
 ---
+
+# Proofreading
+
+## When To Use
+
+Use for an existing prose draft. If the user has only fragments, notes, raw material, or wants to draft from scratch, hand off to `/writing`.
+
+## Workflow
 
 1. Divide the article into sections based on its headings. Think about the main points in each section.
 
@@ -23,3 +31,12 @@ args: "<path to article file>"
    - Consistent terminology throughout
    - Transitions between sections
    - Opening and closing paragraphs
+
+## Output
+
+Apply approved edits to the source file. In the final response, summarize changed sections and any unresolved structural concerns.
+
+## Anti-Patterns
+
+- Rewriting the whole article before the user accepts the direction.
+- Optimizing sentences while the section order is still incoherent.

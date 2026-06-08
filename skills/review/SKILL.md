@@ -1,56 +1,73 @@
 ---
 name: review
-description: Reviews code changes along standards and spec axes with parallel sub-agents. Use when user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
+description: Reviews code changes for correctness, standards, spec fit, security, performance, and missing verification. Use when user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
 tags: [analyze, engineering]
 args: "<commit, branch, tag, or merge-base to diff against>"
 ---
 
 # Review
 
-Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
+Review the diff between `HEAD` and a fixed point the user supplies.
 
-- **Standards** — does the code conform to this repo's documented coding standards?
-- **Spec** — does the code faithfully implement the originating issue / PRD / spec?
+Primary axes:
 
-Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
+- **Correctness** — bugs, edge cases, data loss, broken behavior
+- **Standards** — repo conventions, domain language, architectural decisions
+- **Spec** — acceptance criteria and intended behavior
+- **Security** — auth, input handling, secrets, unsafe side effects
+- **Performance** — avoidable slow paths, N+1s, excessive work
+- **Verification** — missing or weak tests, unproven claims
+
+Use parallel sub-agents for independent axes when available, then aggregate findings.
 
 ## Process
 
 ### 1. Pin the fixed point
 
-The user must supply a reference: commit SHA, branch name, tag, or `main`/`master`. If not supplied, ask.
+The user must supply a reference: commit SHA, branch name, tag, or `main`/`master`. If not supplied, ask. Never review against a moving or guessed base without saying so.
 
 ```bash
 git diff <ref>...HEAD
 ```
 
-### 2. Gather context (in parallel)
+### 2. Gather context
 
-**Standards sub-agent:**
+- Read the diff and changed tests first.
+- Read `CLAUDE.md`, `AGENTS.md`, standards, style docs, and ADRs in changed areas.
+- Read the originating issue, PRD, or spec. Ask for it if not in context.
+- Run or inspect verification only when it materially changes confidence.
 
-- Read `CLAUDE.md`, `AGENTS.md`, any `docs/standards/` or `docs/style/` files
-- Read `docs/adr/` for architectural decisions in the changed area
-- Evaluate the diff against documented conventions
+### 3. Review independently
 
-**Spec sub-agent:**
+When sub-agents are available, split at least:
 
-- Read the originating issue / PRD (ask the user for the reference if not in context)
-- Read the diff
-- Evaluate whether acceptance criteria are met
+- **Standards/spec reviewer** — conventions, architecture, acceptance criteria.
+- **Bug/security reviewer** — correctness, edge cases, trust boundaries.
 
-### 3. Report
+When sub-agents are unavailable, keep the axes separate in your own notes.
 
-Present findings side by side:
+### 4. Verify the verification
+
+Do not accept "tests pass" as enough. Check whether tests cover the changed behavior, fail for the right reason, and exercise public seams.
+
+### 5. Report
 
 ```markdown
-## Standards
-[findings]
+## Findings
+- [severity] file:line — issue, impact, evidence, suggested fix
 
-## Spec
-[findings]
+## Open Questions
+[only questions that block confidence]
 
-## Summary
-[overall verdict — ship / needs work / discuss]
+## Verification
+[commands inspected/run and what they prove]
 ```
 
-Flag blockers (must fix) separately from suggestions (nice to have).
+Findings lead. Summaries are secondary. If there are no findings, say so and name residual test risk.
+
+## Anti-Patterns
+
+- Rubber-stamping because the diff is small.
+- Reporting style preferences as bugs.
+- Reviewing implementation before understanding tests and spec.
+- Treating generated or AI-written code as lower risk.

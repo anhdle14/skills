@@ -16,7 +16,9 @@ Synthesize the current conversation and codebase understanding into a PRD. Do NO
 
    Check with the user that these seams match their expectations.
 
-3. Write the PRD using the template below, then publish it to the project issue tracker.
+3. Draft scope boundaries before solution details: what changes, what stays, and what is explicitly out of scope.
+
+4. Write the PRD using the template below, then publish it to the project issue tracker.
 
 ## PRD Template
 
@@ -38,9 +40,19 @@ Synthesize the current conversation and codebase understanding into a PRD. Do NO
 ## Testing Decisions
 [what makes a good test for this feature, which modules to test, prior art in the codebase]
 
+## Acceptance Criteria
+[testable user-visible outcomes]
+
+## Rollback / Failure Handling
+[what happens if the implementation ships wrong, or why rollback is not applicable]
+
 ## Out of Scope
 [explicit list of what this PRD does NOT cover]
 
 ## Further Notes
 [anything else]
 ```
+
+## Quality Gate
+
+Before publishing, check that the PRD names current state evidence, user-visible outcomes, acceptance criteria, testing seams, out-of-scope items, and rollback/failure handling.

@@ -53,6 +53,15 @@ GREEN: write minimal code to pass → passes
 
 This is your tracer bullet — proves the path works end-to-end.
 
+### Pick the Smallest Honest Test
+
+- Pure logic or transformation → unit test through public function/module API.
+- Cross-module behavior → integration test with real collaborators where cheap.
+- User-visible flow → e2e/browser/API test at the user boundary.
+- Bug fix → first write the test that would have caught the bug.
+
+Do not mock the thing whose behavior you are trying to prove.
+
 ### 3. Incremental Loop
 
 For each remaining behavior:

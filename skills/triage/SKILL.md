@@ -48,6 +48,7 @@ Ask:
 - Is there enough information to implement this without asking questions?
 - Is this in scope for the project?
 - Can an agent implement this AFK, or does it require human judgment?
+- What evidence would prove the issue is fixed?
 
 ### 3. Apply the role
 
@@ -62,5 +63,16 @@ Write an **agent brief** in the issue body or a comment. A good brief answers:
 - Which files/modules are affected?
 - What should the agent NOT touch?
 - Are there any known gotchas?
+- How should completion be verified?
 
 An agent brief is ready when an AFK agent can implement the issue correctly with no additional context.
+
+## Quality Gate
+
+Before marking `ready-for-agent`, verify the issue has a concrete user-visible outcome, acceptance criteria, reproduction or implementation context, out-of-scope boundaries, and a verification plan.
+
+## Anti-Patterns
+
+- Moving vague issues to `ready-for-agent`.
+- Hiding uncertainty in the brief instead of using `needs-info`.
+- Filing broad epics as AFK-ready implementation tickets.

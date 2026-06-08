@@ -5,6 +5,10 @@ tags: [productivity, plan]
 args: "<what the next session will focus on (optional)>"
 ---
 
+# Handoff
+
+## Workflow
+
 Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS — not the current workspace.
 
 Include a "suggested skills" section in the document, which suggests skills that the agent should invoke.
@@ -14,3 +18,19 @@ Do not duplicate content already captured in other artifacts (PRDs, plans, ADRs,
 Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
 
 If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.
+
+## Output
+
+Use this shape:
+
+- Current objective
+- Current state
+- Files and artifacts touched
+- Commands run and results
+- Open decisions or blockers
+- Suggested next steps
+- Suggested skills
+
+## Verification
+
+Before finishing, check the handoff has enough path, command, and status detail for a fresh agent to continue without the original transcript.

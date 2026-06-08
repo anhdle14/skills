@@ -1,11 +1,6 @@
 ---
 name: workflow
-description: >
-  Apply one of six composable agentic workflow patterns correctly. Use when
-  designing multi-step agent pipelines, choosing how to structure parallel or
-  iterative work, chaining patterns together, asking how to structure agent work,
-  saying "workflow", or mentioning classify and act, fan out, adversarial
-  verification, generate and filter, tournament, or loop until done.
+description: Apply one of six composable agentic workflow patterns correctly. Use when designing multi-step agent pipelines, choosing how to structure parallel or iterative work, chaining patterns together, asking how to structure agent work, saying "workflow", or mentioning classify and act, fan out, adversarial verification, generate and filter, tournament, or loop until done.
 tags: [plan, engineering, productivity]
 ---
 
@@ -62,3 +57,7 @@ Patterns compose. Valid chains and their purpose:
 the next. Never let a loop hand off to a tournament mid-iteration.
 
 See [REFERENCE.md](REFERENCE.md) for chaining anti-patterns.
+
+## Output
+
+Return the chosen pattern, why alternatives were rejected, the exit condition, and the artifact or decision each step must produce.

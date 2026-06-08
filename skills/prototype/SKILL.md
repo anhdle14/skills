@@ -26,6 +26,16 @@ If the question is ambiguous and the user isn't reachable, default to whichever 
 5. **Surface the state.** After every action (logic) or variant switch (UI), print/render the full relevant state.
 6. **Delete or absorb when done.** Don't leave it rotting in the repo.
 
+## Output
+
+At the start, state the question the prototype answers. At the end, state the answer, evidence from running/trying it, and whether to delete, absorb, or iterate.
+
+## Anti-Patterns
+
+- Building a production-quality feature before the design question is answered.
+- Adding persistence, auth, or framework plumbing unless the question requires it.
+- Leaving multiple variants without naming what each proved.
+
 ## When done
 
 Capture the **answer** somewhere durable (commit message, ADR, issue, or `NOTES.md` next to the prototype). The prototype itself should be deleted once it's answered its question.

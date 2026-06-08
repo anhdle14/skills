@@ -2,8 +2,6 @@
 
 Personal agent skills for engineering, writing, and productivity. Works with any agent that supports skill/slash-command loading (Claude Code, etc.).
 
-Inspired by [mattpocock/skills](https://github.com/mattpocock/skills) — same philosophy, with Deno.
-
 ## Quickstart
 
 ```sh
@@ -67,10 +65,8 @@ repo's default installer uses the user-scoped Codex location, `~/.agents/skills`
 
 | skill | description |
 |-------|-------------|
-| `/edit-article` | Edit and improve an article draft section by section |
-| `/writing-fragments` | Mine ideas into raw writing fragments before imposing structure |
-| `/writing-shape` | Shape a pile of fragments into a publishable article |
-| `/writing-beats` | Build an article beat-by-beat, choose-your-own-adventure style |
+| `/proofreading` | Proofread and improve an existing article draft section by section |
+| `/writing` | Develop raw material into fragments, article drafts, or narrative beats |
 
 ### Productivity
 
