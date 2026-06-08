@@ -29,6 +29,7 @@ workspaces, nx/turbo); if found, decide root-only vs. root + per-package, and
 remember nested files **inherit** the parent — they state only deltas.
 
 Then classify the existing file:
+
 - **None** → create fresh.
 - **Partially good** (>~50% of lines still prevent real mistakes) → harvest the
   good lines, then trim/rewrite around them.

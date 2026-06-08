@@ -12,7 +12,8 @@ This will:
 
 1. Clone the repo to `~/Developer/github.com/anhdle14/skills`
 2. Install Deno if not present
-3. Symlink `skills/` to `~/.claude/skills` and `~/.agents/skills` for Codex
+3. Symlink `skills/` to `~/.claude/skills` and `~/.agents/skills`
+4. Link each personal skill under `~/.codex/skills` while preserving `.system`
 
 ## Manual install
 
@@ -38,25 +39,38 @@ deno task install --copy-to /path/to/project/.claude/skills --skill diagnose --s
 git -C ~/Developer/github.com/anhdle14/skills pull
 ```
 
-The symlinks point at the repo, so updates are live immediately.
+The symlinks point at the repo, so updates are live immediately. Re-run
+`deno task install` after adding, removing, or renaming skills so
+`~/.codex/skills` gets refreshed.
 
 For repo-scoped Codex skills, use `.agents/skills` under the repository. This
-repo's default installer uses the user-scoped Codex location, `~/.agents/skills`.
+repo's default installer uses the user-scoped Codex locations,
+`~/.agents/skills` and `~/.codex/skills`.
 
 ## Skill Reference
 
-### Engineering
+### Engineering Stack
+
+Use this as the default product-engineering flow. The names are intentionally
+plain so the next action is obvious.
+
+| stage | skill | purpose |
+|-------|-------|---------|
+| research | `/research` | Answer what exists, why it matters, what to do, and how to challenge the recommendation |
+| prototype | `/prototype` | Build a throwaway model, UI, or state machine to answer a design question |
+| plan | `/plan` | Turn evidence into scope, sequence, risks, PRDs, issues, and verification |
+| build | `/build` | Implement the planned change narrowly and in repo style |
+| test | `/test` | Prove behavior through focused checks or the red-green-refactor loop |
+| polish | `/polish` | Finish UX, code clarity, docs, edge cases, and handoff evidence |
+
+### Supporting Engineering Skills
 
 | skill | description |
 |-------|-------------|
 | `/code-structure` | Map modules, find structural friction, separate orchestration from services, and plan safe refactors |
 | `/diagnose` | Disciplined bug diagnosis loop: reproduce → hypothesise → instrument → fix |
-| `/tdd` | Test-driven development with red-green-refactor vertical slices |
 | `/review` | Two-axis code review: Standards + Spec, run in parallel |
 | `/autoresearch` | Set up Karpathy-style autonomous research loops around the right metric and harness |
-| `/prototype` | Throwaway prototype to answer a design question |
-| `/to-issues` | Break a plan into vertical-slice issues |
-| `/to-prd` | Synthesize current context into a PRD |
 | `/triage` | Move issues through a triage state machine |
 | `/qa` | Conversational QA session that files structured issues |
 | `/grill-with-docs` | Grill a plan against the domain model, update CONTEXT.md + ADRs inline |

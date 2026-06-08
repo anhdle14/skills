@@ -40,5 +40,21 @@ jobs:
           test -f /tmp/skills-test/diagnose/SKILL.md
           test -f /tmp/skills-test/diagnose/scripts/hitl-loop.template.sh
 
+      - name: Install smoke-test (user surfaces)
+        run: |
+          tmp_home="$(mktemp -d)"
+          mkdir -p "$tmp_home/.codex/skills/.system"
+          ln -s "$PWD/skills/tdd" "$tmp_home/.codex/skills/tdd"
+          HOME="$tmp_home" deno task install
+          test -L "$tmp_home/.claude/skills"
+          test -L "$tmp_home/.agents/skills"
+          test -d "$tmp_home/.codex/skills/.system"
+          test -L "$tmp_home/.codex/skills/research"
+          test -L "$tmp_home/.codex/skills/plan"
+          test -L "$tmp_home/.codex/skills/build"
+          test -L "$tmp_home/.codex/skills/test"
+          test -L "$tmp_home/.codex/skills/polish"
+          test ! -L "$tmp_home/.codex/skills/tdd"
+
       - name: Update index (idempotency check)
         run: make update-index && git diff --exit-code CLAUDE.md

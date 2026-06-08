@@ -3,7 +3,7 @@
 #
 # Quickstart on a fresh machine:
 #   make bootstrap   → clone, install deno, symlink skills
-#   make install     → symlink skills/ to ~/.claude/skills and ~/.agent/skills
+#   make install     → symlink skills/ to ~/.claude/skills, ~/.agents/skills, and ~/.codex/skills
 #   make lint        → check all markdown
 #   make check       → type-check install.ts
 #   make ci          → run everything CI runs (lint + check + validate)
@@ -19,7 +19,7 @@ MD_FILES     = README.md CLAUDE.md $(wildcard skills/*/SKILL.md)
 bootstrap:
 	@sh bootstrap.sh
 
-## install: symlink skills/ to ~/.claude/skills and ~/.agent/skills
+## install: symlink skills/ to ~/.claude/skills, ~/.agents/skills, and ~/.codex/skills
 install:
 	$(DENO) run --allow-read --allow-write --allow-env=HOME install.ts
 
