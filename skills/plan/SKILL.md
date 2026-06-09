@@ -7,6 +7,8 @@ args: "<goal, artifact, or repo area (optional)>"
 
 # Plan
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Plan is the third stage of the engineering stack:
 
 ```text

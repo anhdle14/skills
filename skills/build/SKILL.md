@@ -7,6 +7,8 @@ args: "<feature, fix, plan, or issue reference (optional)>"
 
 # Build
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Build is the fourth stage of the engineering stack:
 
 ```text

@@ -6,6 +6,8 @@ tags: [productivity, create]
 
 # Write a Skill
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Use this for new skills and for improving existing skills. For the fuller pattern library, read [REFERENCE.md](REFERENCE.md) when choosing structure, splitting files, or auditing a skill set.
 
 ## Process
@@ -86,6 +88,7 @@ Split into separate reference files when:
 - [ ] Description names synonyms users will actually type
 - [ ] `SKILL.md` under ~100 lines (split if longer)
 - [ ] Workflow has explicit output and verification expectations
+- [ ] Includes the persistence rule: context as RAM, filesystem as disk
 - [ ] No time-sensitive information baked in
 - [ ] Consistent terminology throughout
 - [ ] Anti-patterns or boundaries prevent adjacent-skill confusion

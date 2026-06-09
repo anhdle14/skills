@@ -7,6 +7,8 @@ args: "<path to article file>"
 
 # Proofreading
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 ## When To Use
 
 Use for an existing prose draft. If the user has only fragments, notes, raw material, or wants to draft from scratch, hand off to `/writing`.

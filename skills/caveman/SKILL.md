@@ -4,6 +4,8 @@ description: Provides ultra-compressed communication while preserving full techn
 tags: [productivity]
 ---
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Respond terse like smart caveman. All technical substance stay. Only fluff die.
 
 ## Persistence

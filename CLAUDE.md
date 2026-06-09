@@ -21,7 +21,7 @@ Agent skills organized as a flat directory under `skills/`. Each skill is a fold
 | [proofreading](skills/proofreading/SKILL.md) | writing, transform | Proofread and improve existing article drafts by restructuring sections, improving clarity, and tightening prose. Use when user wants to proofread, edit, revise, clean up, or improve an existing draft. Args: `"<path to article file>"` |
 | [prototype](skills/prototype/SKILL.md) | create, plan, engineering | Builds a throwaway prototype to answer a design question before committing. Use when user wants to prototype, sanity-check a data model or state machine, mock up a UI, or says "prototype this", "let me play with it", "try a few designs". |
 | [qa](skills/qa/SKILL.md) | analyze, manage, engineering | Interactive QA session where user reports bugs or issues conversationally, and the agent files structured issues on the issue tracker. Use when user wants to report bugs, do QA, file issues conversationally, or mentions "QA session". |
-| [research](skills/research/SKILL.md) | analyze, engineering, plan | Researches engineering work by answering what exists, why it matters, what to do, and how to challenge assumptions. Use when user asks to research, investigate, understand a codebase, compare approaches, or start the engineering stack. Args: `"<question, feature, bug, or repo area (optional)>"` |
+| [research](skills/research/SKILL.md) | analyze, engineering, plan | Researches engineering decisions by gathering evidence about current behavior, constraints, options, tradeoffs, and next steps. Use when user asks to research, investigate, compare approaches, answer what exists/why/what to do, or start the engineering stack. For module maps, architecture, service boundaries, or refactor shape, use code-structure. Args: `"<question, feature, bug, or repo area (optional)>"` |
 | [review](skills/review/SKILL.md) | analyze, engineering | Reviews code changes for correctness, standards, spec fit, security, performance, and missing verification. Use when user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X". Args: `"<commit, branch, tag, or merge-base to diff against>"` |
 | [test](skills/test/SKILL.md) | engineering, create, analyze | Tests engineering changes through behavior proof, coverage, and red-green-refactor loops. Use when user asks to test, verify behavior, add coverage, prove a build works, use TDD, or mentions red-green-refactor. |
 | [triage](skills/triage/SKILL.md) | manage, engineering | Triage issues through a state machine of five canonical roles. Use when user wants to create an issue, triage issues, review incoming bugs or feature requests, prepare issues for an AFK agent, or manage issue workflow. |
@@ -73,6 +73,8 @@ args: "<arg-name>"   # optional
 ### Skill file size
 
 Keep `SKILL.md` under ~100 lines. Split into `REFERENCE.md`, `EXAMPLES.md`, or `scripts/` when it grows larger.
+
+Every `SKILL.md` must carry the persistence rule: context is volatile RAM; filesystem is durable disk. Important plans, progress checkboxes, failures, and verification evidence go to files.
 
 ### Scripts
 

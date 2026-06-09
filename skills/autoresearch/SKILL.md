@@ -7,6 +7,8 @@ args: "<run tag, metric, or repo path (optional)>"
 
 # Autoresearch
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Set up and run the `karpathy/autoresearch` protocol. The goal is not "try random ML changes"; the goal is to optimize the agreed metric under the agreed harness.
 
 ## Before Setup

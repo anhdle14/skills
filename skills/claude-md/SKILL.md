@@ -7,6 +7,8 @@ args: "<target folder (defaults to cwd)>"
 
 # Create or Replace CLAUDE.md
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 A CLAUDE.md is read on **every** turn. Bloat down-weights every instruction in
 the file, not just the tail. The job is a short, high-signal file where every
 line prevents a specific mistake — not a project wiki.

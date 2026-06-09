@@ -7,6 +7,8 @@ args: "<commit, branch, tag, or merge-base to diff against>"
 
 # Review
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Review the diff between `HEAD` and a fixed point the user supplies.
 
 Primary axes:

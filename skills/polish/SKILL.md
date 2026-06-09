@@ -7,6 +7,8 @@ args: "<feature, diff, file, or repo area (optional)>"
 
 # Polish
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Polish is the final stage of the engineering stack:
 
 ```text

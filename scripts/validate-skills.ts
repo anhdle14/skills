@@ -18,6 +18,7 @@ const VALID_TAGS = new Set([
   "engineering",
   "writing",
 ]);
+const PERSISTENCE_RULE = "Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.";
 
 interface Failure {
   file: string;
@@ -51,6 +52,14 @@ async function validateSkill(skillDir: string): Promise<Failure[]> {
     failures.push({
       file,
       message: `SKILL.md has ${lines} lines; keep it under 100`,
+    });
+  }
+
+  if (!content.includes(PERSISTENCE_RULE)) {
+    failures.push({
+      file,
+      message:
+        "missing persistence rule: treat context as RAM and filesystem as disk",
     });
   }
 

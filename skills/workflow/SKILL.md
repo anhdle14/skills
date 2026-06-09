@@ -6,6 +6,8 @@ tags: [plan, engineering, productivity]
 
 # Workflow Patterns
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Six patterns. Each has a hard boundary. See [REFERENCE.md](REFERENCE.md) for
 full definitions, anti-confusion notes, and failure modes.
 

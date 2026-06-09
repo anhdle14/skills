@@ -6,6 +6,8 @@ tags: [analyze, engineering, transform, plan]
 
 # Code Structure
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Single home for structure-level code work: map unfamiliar areas, find structural friction, separate orchestration from services, and plan safe refactors.
 
 Core rule: preserve product meaning in orchestration, move reusable mechanics behind deep, explicit interfaces.

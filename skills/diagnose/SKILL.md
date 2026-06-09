@@ -6,9 +6,9 @@ tags: [analyze, engineering]
 
 # Diagnose
 
-A discipline for hard bugs. Skip phases only when explicitly justified.
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
 
-When exploring the codebase, use the project's domain glossary to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
+A discipline for hard bugs. Skip phases only when explicitly justified. When exploring the codebase, use the project's domain glossary to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
 
 ## Phase 1 — Build a feedback loop
 

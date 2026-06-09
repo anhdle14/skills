@@ -6,6 +6,8 @@ tags: [engineering, create, analyze]
 
 # Test
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Test is the fifth stage of the engineering stack:
 
 ```text

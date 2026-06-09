@@ -6,6 +6,8 @@ tags: [manage, engineering]
 
 # Triage
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Move issues on the project issue tracker through a small state machine of triage roles.
 
 Every comment or issue posted to the issue tracker during triage **must** start with:

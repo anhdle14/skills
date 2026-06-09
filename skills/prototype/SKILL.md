@@ -6,6 +6,8 @@ tags: [create, plan, engineering]
 
 # Prototype
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 A prototype is **throwaway code that answers a question**. The question decides the shape.
 
 ## Pick a branch

@@ -7,6 +7,8 @@ args: "<path to raw material or output file (optional)>"
 
 # Writing
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Use this for pre-draft and drafting work. For proofreading, restructuring, or improving an existing article draft, use `/proofreading`.
 
 Read [REFERENCE.md](REFERENCE.md) for the selected mode before writing.

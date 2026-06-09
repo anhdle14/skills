@@ -1,0 +1,1054 @@
+{
+  "generatedAt": "2026-06-09T18:32:26.115Z",
+  "model": "haiku",
+  "method": "LLM selector trigger eval inspired by anthropic/skills skill-creator description optimization. One Claude call per engineering skill; each skill has trigger and near-miss prompts.",
+  "skills": [
+    {
+      "skill": "autoresearch",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Set up Karpathy-style autoresearch in this training repo to maximize eval accuracy. Start by clarifying the metric and experiment loop.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "autoresearch"
+          ],
+          "reason": "Explicitly asks to set up Karpathy-style autoresearch with metric clarification—core autoresearch trigger.",
+          "passed": true
+        },
+        {
+          "query": "I want autonomous experiments on /tmp/lm-run: baseline, propose changes, run trials, and keep optimizing validation loss.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "autoresearch"
+          ],
+          "reason": "Autonomous experiments loop optimizing validation loss matches autoresearch's experiment protocol trigger.",
+          "passed": true
+        },
+        {
+          "query": "Use the upstream autoresearch protocol to tune my small transformer; metric is tokens/sec at same perplexity.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "autoresearch"
+          ],
+          "reason": "Explicitly names upstream autoresearch protocol to optimize a metric—direct autoresearch match.",
+          "passed": true
+        },
+        {
+          "query": "Research three embedding libraries and recommend one for our RAG service.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "research"
+          ],
+          "reason": "Research task comparing options, not autoresearch—no metric/experiment loop, no Karpathy protocol mentioned.",
+          "passed": true
+        },
+        {
+          "query": "Debug why pytest is failing in the FastAPI auth tests.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "Debugging failing tests matches diagnose trigger for hard bugs requiring reproduce/instrument/fix loop.",
+          "passed": true
+        },
+        {
+          "query": "Write a launch plan and issue breakdown for the billing dashboard.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Asks for launch plan and issue breakdown—direct match for plan skill's PRD/issue decomposition.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "build",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Implement the approved retry backoff plan in src/payments. Keep the diff narrow and run focused checks.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Implementing planned changes with narrow edits and focused verification",
+          "passed": true
+        },
+        {
+          "query": "Make the code change for issue #42: add the new CSV export option and wire it into the existing CLI.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Making a specific code change following repo conventions",
+          "passed": true
+        },
+        {
+          "query": "Ship the feature from docs/plan.md without broad rewrites; follow local conventions.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Shipping planned feature with narrow scope and local conventions",
+          "passed": true
+        },
+        {
+          "query": "Review this PR for correctness and security, but do not edit files.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "Reviewing PR for correctness and security without editing",
+          "passed": true
+        },
+        {
+          "query": "Before coding, turn this feature idea into an implementation plan with risks and milestones.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Turning feature idea into implementation plan with risks and milestones",
+          "passed": true
+        },
+        {
+          "query": "Use TDD to add coverage for the parser edge cases before changing implementation.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "test"
+          ],
+          "reason": "Using TDD approach to add coverage before implementation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "claude-md",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Create a concise AGENTS.md for this repo so future coding agents know the commands, conventions, and pitfalls.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "claude-md"
+          ],
+          "reason": "Direct creation of agent context file (AGENTS.md) with conventions and pitfalls",
+          "passed": true
+        },
+        {
+          "query": "Rewrite the CLAUDE.md in packages/api; keep it under 80 lines and make every line prevent a mistake.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "claude-md"
+          ],
+          "reason": "CLAUDE.md rewrite with specific 80-line constraint—core use case",
+          "passed": true
+        },
+        {
+          "query": "Bootstrap agent context for this new monorepo, including validation commands and safety notes.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "claude-md",
+            "code-structure"
+          ],
+          "reason": "code-structure maps monorepo layout to inform safety notes and validation; claude-md creates context",
+          "passed": true
+        },
+        {
+          "query": "Write a user-facing README for the CLI install flow.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [],
+          "reason": "User-facing README is not agent context; doesn't fit claude-md or other specialized skills",
+          "passed": true
+        },
+        {
+          "query": "Make a handoff note summarizing what we changed in this session.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "handoff"
+          ],
+          "reason": "handoff skill creates session summaries for agent pickup—not agent context (CLAUDE.md)",
+          "passed": true
+        },
+        {
+          "query": "Add inline JSDoc comments to the payment service methods.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [],
+          "reason": "Adding inline code comments is direct code editing; doesn't match specialized skills",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "code-structure",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Map the modules in the checkout flow and tell me where orchestration should be separated from service mechanics.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "code-structure"
+          ],
+          "reason": "Module mapping and orchestration/service separation—core code-structure work",
+          "passed": true
+        },
+        {
+          "query": "Analyze this code area for structural friction before we refactor the actions/services boundary.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "code-structure"
+          ],
+          "reason": "Structural friction analysis for refactor planning—code-structure domain",
+          "passed": true
+        },
+        {
+          "query": "Find deepening opportunities in the report generator and plan a safe architecture cleanup.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "code-structure"
+          ],
+          "reason": "Deepening opportunities and safe refactor planning—code-structure handles architecture cleanup",
+          "passed": true
+        },
+        {
+          "query": "Implement the new report filter now using the existing pattern.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Implementation task, not structural analysis—use build for narrowly-scoped implementation",
+          "passed": true
+        },
+        {
+          "query": "Diagnose the production timeout regression in the webhook worker.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "Performance regression debugging—use diagnose for hard bugs, not code-structure",
+          "passed": true
+        },
+        {
+          "query": "Review the diff since main and flag security issues.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "Code review for security—use review skill, not code-structure",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "diagnose",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Debug this: the login endpoint throws 500 only when SSO users sign in. Reproduce, isolate, instrument, then fix.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "Explicitly asks to debug, reproduce, isolate, and instrument—core diagnose workflow",
+          "passed": true
+        },
+        {
+          "query": "Diagnose why the worker got 4x slower after yesterday’s deploy; I need a hypothesis-driven investigation.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "Performance regression investigation with hypothesis-driven methodology matches diagnose exactly",
+          "passed": true
+        },
+        {
+          "query": "Something is broken in the file watcher; tests hang intermittently. Find the root cause.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "Reports broken code with intermittent failure; needs root-cause investigation via diagnose loop",
+          "passed": true
+        },
+        {
+          "query": "The cause is known: rename the config key and update callers.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Cause already known, not a diagnosis task—this is implementation of a known fix",
+          "passed": true
+        },
+        {
+          "query": "Review this PR for performance risks.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "Asking to review for risks, not to diagnose a broken system—review skill is the match",
+          "passed": true
+        },
+        {
+          "query": "Draft a roadmap for the auth migration.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Asking to create a roadmap/plan, not to debug or diagnose—plan skill applies",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "grill-with-docs",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Grill my design for tenant-scoped billing against our existing domain docs and update ADR notes as decisions crystallize.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "grill-with-docs"
+          ],
+          "reason": "Stress-tests design against existing domain docs and updates ADRs as decisions crystallize",
+          "passed": true
+        },
+        {
+          "query": "Stress-test this plan against the project vocabulary in CONTEXT.md; challenge any fuzzy terminology.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "grill-with-docs"
+          ],
+          "reason": "Challenges plan against project vocabulary and documented terminology in CONTEXT.md",
+          "passed": true
+        },
+        {
+          "query": "Use the repo docs to interrogate whether my migration plan fits the documented model before we build.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "grill-with-docs"
+          ],
+          "reason": "Uses repo docs to interrogate whether migration plan fits documented model",
+          "passed": true
+        },
+        {
+          "query": "Grill me on my personal career plan; no repo docs involved.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "grill-me"
+          ],
+          "reason": "General stress-testing without repo docs involved; personal career planning, not codebase-related",
+          "passed": true
+        },
+        {
+          "query": "Turn the approved design into a concrete issue breakdown.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Converts approved design into concrete vertical-slice issue breakdown",
+          "passed": true
+        },
+        {
+          "query": "Research how this codebase currently handles permissions.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "research"
+          ],
+          "reason": "Gathers evidence about current behavior and patterns in codebase permission handling",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "plan",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Create an implementation plan for the notifications rewrite with scope, sequence, risks, and verification.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Directly asks for implementation plan with scope, sequence, risks, verification—core plan deliverables",
+          "passed": true
+        },
+        {
+          "query": "Break this PRD into vertical-slice issues we can hand to an AFK coding agent.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Breaking PRD into vertical-slice issues for handoff—plan skill explicitly handles this",
+          "passed": true
+        },
+        {
+          "query": "Write a roadmap for replacing the legacy importer, including milestones and test strategy.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Roadmap with milestones is a planning artifact; plan covers sequencing and verification strategy",
+          "passed": true
+        },
+        {
+          "query": "Implement the importer replacement now; the plan is already approved.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Implement approved change—build skill handles coding with continuous verification",
+          "passed": true
+        },
+        {
+          "query": "Debug the flaky websocket test and find the root cause.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "Debug and root-cause analysis—diagnose skill runs reproduce/minimize/instrument/fix loop",
+          "passed": true
+        },
+        {
+          "query": "Review my branch against main for correctness.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "Review branch for correctness—review skill checks code changes against standards and correctness",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "polish",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Polish this nearly finished feature: tighten UX copy, edge cases, docs, and prepare review notes.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "polish"
+          ],
+          "reason": "Direct polish trigger: UX copy, edge cases, docs, review prep",
+          "passed": true
+        },
+        {
+          "query": "Harden the diff before review; clean up rough edges without changing scope.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "polish"
+          ],
+          "reason": "Quality pass and cleanup without scope change is polish",
+          "passed": true
+        },
+        {
+          "query": "Finish the quality pass on the settings page and call out remaining risk.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "polish"
+          ],
+          "reason": "Quality pass finish + risk callout matches polish handoff evidence",
+          "passed": true
+        },
+        {
+          "query": "Start implementing the new settings page from scratch.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Build from scratch, not polish",
+          "passed": true
+        },
+        {
+          "query": "Research the existing settings architecture.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "code-structure"
+          ],
+          "reason": "Architecture research defers to code-structure per research guidelines",
+          "passed": true
+        },
+        {
+          "query": "Use TDD to define behavior for the settings validator.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "test"
+          ],
+          "reason": "TDD behavior definition is test scope",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "prototype",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Prototype a throwaway state machine for the checkout flow so I can play with the transitions before we commit.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "prototype"
+          ],
+          "reason": "User explicitly wants throwaway prototype to explore state machine transitions before committing",
+          "passed": true
+        },
+        {
+          "query": "Sanity-check this data model by building a small mock and trying a few designs.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "prototype"
+          ],
+          "reason": "User wants to sanity-check data model by building mock and trying designs",
+          "passed": true
+        },
+        {
+          "query": "Mock up three UI interaction variants for the command palette; it can be disposable.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "prototype"
+          ],
+          "reason": "User wants to mock up disposable UI variants to explore interaction designs",
+          "passed": true
+        },
+        {
+          "query": "Implement the production command palette using the approved design.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "User is implementing production code from an approved design",
+          "passed": true
+        },
+        {
+          "query": "Write a formal implementation plan for the checkout work.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "User needs formal implementation plan for checkout work",
+          "passed": true
+        },
+        {
+          "query": "Review the command palette PR for accessibility.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "User is reviewing a PR for code quality and accessibility standards",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "qa",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Let’s do a QA session: I’ll report bugs conversationally and I want you to file structured issues as we go.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "qa"
+          ],
+          "reason": "User explicitly requests QA session with conversational bug reporting and structured issue filing.",
+          "passed": true
+        },
+        {
+          "query": "I found three weird UI problems in staging; interview me and turn them into tracker issues.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "qa"
+          ],
+          "reason": "User reports UI problems conversationally and wants them turned into tracker issues—core QA workflow.",
+          "passed": true
+        },
+        {
+          "query": "Run conversational QA with me for the checkout release and capture each bug cleanly.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "qa"
+          ],
+          "reason": "User explicitly requests conversational QA with structured bug capture.",
+          "passed": true
+        },
+        {
+          "query": "Run the automated test suite and summarize failures.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [],
+          "reason": "Running automated tests and summarizing failures is test execution, not conversational QA.",
+          "passed": true
+        },
+        {
+          "query": "Debug this one checkout crash and fix it.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [],
+          "reason": "Debugging and fixing a crash is diagnose work, not interactive QA session work.",
+          "passed": true
+        },
+        {
+          "query": "Triage the existing backlog of GitHub issues by severity.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [],
+          "reason": "Triaging existing issues is triage work, distinct from conversational QA discovery.",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "research",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Research how this repo handles OAuth refresh today and what we should change.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "research"
+          ],
+          "reason": "Investigate current OAuth behavior and recommend changes",
+          "passed": true
+        },
+        {
+          "query": "Investigate the options for replacing BullMQ; compare approaches and challenge the recommendation.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "research"
+          ],
+          "reason": "Compare BullMQ replacement options and evaluate recommendation",
+          "passed": true
+        },
+        {
+          "query": "Start the engineering stack for account recovery: gather evidence about current behavior and recommend the next step.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "research"
+          ],
+          "reason": "Start engineering stack: gather evidence and recommend next step",
+          "passed": true
+        },
+        {
+          "query": "Implement the chosen BullMQ replacement now.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Implement decided change with repo conventions and verification",
+          "passed": true
+        },
+        {
+          "query": "Map this unfamiliar code area: modules, callers, ownership boundaries, and refactor seams.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "code-structure"
+          ],
+          "reason": "Map modules, boundaries, and refactor seams in unfamiliar code",
+          "passed": true
+        },
+        {
+          "query": "Review this PR for standards and spec fit.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "Review PR for standards and spec fit",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "review",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Review the branch since origin/main for correctness, security, performance, and missing tests.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "Branch review since origin/main explicitly matches review skill trigger",
+          "passed": true
+        },
+        {
+          "query": "Do a code review of PR #128; focus on spec fit and risky edge cases.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "PR review with focus on spec fit and edge cases matches review skill scope",
+          "passed": true
+        },
+        {
+          "query": "Review my WIP diff and tell me what must change before merge.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "WIP diff review is explicitly covered by review skill trigger",
+          "passed": true
+        },
+        {
+          "query": "Implement the fixes from the review comments.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Implementing fixes from review matches build's trigger for implementation work",
+          "passed": true
+        },
+        {
+          "query": "Diagnose why CI started failing on this branch.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "CI failure diagnosis matches diagnose skill's 'something is broken' trigger",
+          "passed": true
+        },
+        {
+          "query": "Add regression tests for the parser bug.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "test"
+          ],
+          "reason": "Adding regression tests matches test skill's trigger for coverage and verification",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "test",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Add focused regression coverage for the parser bug, prove it fails first, then make it pass.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "test"
+          ],
+          "reason": "Red-green-refactor loop with coverage and proof of failure—core test skill trigger",
+          "passed": true
+        },
+        {
+          "query": "Verify this behavior with tests and coverage; use a red-green-refactor loop if needed.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "test"
+          ],
+          "reason": "Verify behavior with tests and coverage using red-green-refactor—explicit test triggers",
+          "passed": true
+        },
+        {
+          "query": "Run the relevant test suite, inspect failures, and add missing assertions for edge cases.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "test"
+          ],
+          "reason": "Run tests, inspect failures, add assertions—test suite verification and coverage work",
+          "passed": true
+        },
+        {
+          "query": "Diagnose the unknown root cause of the flaky parser test.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "Unknown root cause of flaky test—disciplined diagnose loop for regression/reliability",
+          "passed": true
+        },
+        {
+          "query": "Implement the parser feature from the approved plan without starting with tests.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "build"
+          ],
+          "reason": "Implement from approved plan—direct build trigger for planned feature work",
+          "passed": true
+        },
+        {
+          "query": "Review the parser PR for correctness.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "Review PR for correctness—core review skill trigger",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "triage",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Triage the incoming GitHub issues and move each through the canonical roles with clear next actions.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "triage"
+          ],
+          "reason": "Explicitly handles triaging issues through canonical roles with structured next actions",
+          "passed": true
+        },
+        {
+          "query": "Create an issue from this bug report and prepare it for an AFK coding agent.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "triage"
+          ],
+          "reason": "Direct use case: creating issues from bug reports and preparing them for AFK agents",
+          "passed": true
+        },
+        {
+          "query": "Review the backlog of feature requests and classify what needs product, design, or engineering next.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "triage"
+          ],
+          "reason": "Covers reviewing incoming feature requests and classifying them by domain need",
+          "passed": true
+        },
+        {
+          "query": "Run a conversational QA session while I describe bugs from staging.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "qa"
+          ],
+          "reason": "Matches interactive QA session where user reports bugs conversationally from staging",
+          "passed": true
+        },
+        {
+          "query": "Debug issue #77 and open a fix PR.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "diagnose",
+            "build"
+          ],
+          "reason": "Diagnose for the debug loop on issue #77, build for implementing and opening the fix PR",
+          "passed": true
+        },
+        {
+          "query": "Write an implementation plan for the selected issue.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Directly writes implementation plans with scope, sequence, and verification",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "workflow",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Design an agent workflow for this migration using fan-out research, adversarial verification, and loop-until-done.",
+          "shouldTrigger": true,
+          "id": 1,
+          "selectedSkills": [
+            "workflow"
+          ],
+          "reason": "Explicitly designing agent workflow with multiple named patterns (fan-out, adversarial verification, loop-until-done)",
+          "passed": true
+        },
+        {
+          "query": "Which pattern should I use here: classify-and-act, tournament, or generate-and-filter?",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "workflow"
+          ],
+          "reason": "Asking which workflow pattern to choose; all three options (classify-and-act, tournament, generate-and-filter) are workflow patterns",
+          "passed": true
+        },
+        {
+          "query": "Structure a multi-step agent pipeline for triaging bugs, implementing fixes, and independently verifying them.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "workflow"
+          ],
+          "reason": "Structuring multi-step agent pipeline; workflow handles chaining patterns and orchestrating parallel work",
+          "passed": true
+        },
+        {
+          "query": "Fix the GitHub Actions workflow YAML that fails on pull_request.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [
+            "diagnose"
+          ],
+          "reason": "YAML is failing; diagnose covers reproducing and fixing broken things",
+          "passed": true
+        },
+        {
+          "query": "Plan the database migration milestones.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [
+            "plan"
+          ],
+          "reason": "Explicitly asking to plan milestones for a database migration",
+          "passed": true
+        },
+        {
+          "query": "Review this branch for correctness.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [
+            "review"
+          ],
+          "reason": "Explicitly asking to review branch for correctness",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "passed": 90,
+    "total": 90,
+    "passRate": 1
+  }
+}

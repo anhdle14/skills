@@ -6,6 +6,8 @@ tags: [analyze, manage, engineering]
 
 # QA Session
 
+Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
+
 Run an interactive QA session. The user describes problems. You clarify, explore the codebase for context, and file issues that are durable, user-focused, and use the project's domain language.
 
 ## For each issue the user raises
