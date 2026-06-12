@@ -19,7 +19,7 @@ A strong personal skill usually has this shape:
 6. Anti-patterns, red flags, or "do not" rules where agents often drift.
 7. Related skill handoffs only when they change behavior.
 
-Do not force every section into every skill. A mode skill like `caveman` can stay tiny. A workflow skill like `diagnose`, `review`, or `plan` needs stronger output and verification gates.
+Do not force every section into every skill. A tiny mode skill can stay minimal. A workflow skill like `diagnose`, `review`, or `plan` needs stronger output and verification gates.
 
 ## Common Skill Families
 

@@ -16,7 +16,7 @@ Use this for new skills and for improving existing skills. For the fuller patter
 2. **Gather requirements** — ask only for missing facts that change behavior: triggers, non-triggers, artifacts, tools/scripts, references, constraints, and validation commands.
 3. **Draft progressive disclosure** — keep `SKILL.md` as the activation and workflow guide. Move long examples, framework details, schemas, or command catalogs into `REFERENCE.md`, `EXAMPLES.md`, or `scripts/`.
 4. **Review the trigger surface** — front-load the capability and likely user phrases. Include synonyms and exclude adjacent skills through body guidance.
-5. **Write and validate** — write to `skills/<name>/`, run `deno task validate`, then run `deno task install --update-index` if the skill list changed.
+5. **Write and validate** — write to `skills/<name>/`, run `deno task validate`, then update `CLAUDE.md`'s skills index if the skill list changed.
 
 ## SKILL.md Schema
 

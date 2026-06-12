@@ -1,45 +1,24 @@
-# Makefile — self-contained repo tooling
-# Works on macOS and Linux. Requires: git, deno, markdownlint (npm/brew)
+# Makefile — repo checks for the skills collection
+# Works on macOS and Linux. Requires: deno, markdownlint (npm/brew)
 #
-# Quickstart on a fresh machine:
-#   make bootstrap   → clone, install deno, symlink skills
-#   make install     → symlink skills/ to ~/.claude/skills, ~/.agents/skills, and ~/.codex/skills
+# Quickstart for using these skills:
+#   npx skills add anhdle14/skills -g --all
+#
+# Local development:
 #   make lint        → check all markdown
-#   make check       → type-check install.ts
+#   make check       → type-check validation/eval tooling
 #   make ci          → run everything CI runs (lint + check + validate)
 
-.PHONY: bootstrap install copy lint lint-fix check update-index validate ci help
+.PHONY: lint lint-fix check validate ci help
 
 DENO        ?= deno
 MDLINT      ?= markdownlint
 MDLINT_CONF  = .markdownlint.json
 MD_FILES     = README.md CLAUDE.md $(wildcard skills/*/SKILL.md)
 
-## bootstrap: one-shot setup on a fresh machine (clone + install + symlink)
-bootstrap:
-	@sh bootstrap.sh
-
-## install: symlink skills/ to ~/.claude/skills, ~/.agents/skills, and ~/.codex/skills
-install:
-	$(DENO) run --allow-read --allow-write --allow-env=HOME install.ts
-
-## copy: copy skills to a project — usage: make copy DEST=/path/to/project [SKILLS="diagnose grill-me"]
-copy:
-	@if [ -z "$(DEST)" ]; then echo "Usage: make copy DEST=/path/to/project [SKILLS=\"skill1 skill2\"]"; exit 1; fi
-	@if [ -n "$(SKILLS)" ]; then \
-		$(DENO) run --allow-read --allow-write --allow-env=HOME install.ts --copy-to $(DEST) \
-			$(foreach s,$(SKILLS),--skill $(s)); \
-	else \
-		$(DENO) run --allow-read --allow-write --allow-env=HOME install.ts --copy-to $(DEST); \
-	fi
-
-## update-index: regenerate the skills table in CLAUDE.md
-update-index:
-	$(DENO) run --allow-read --allow-write --allow-env=HOME install.ts --update-index
-
 ## check: type-check TypeScript tooling
 check:
-	$(DENO) check install.ts scripts/validate-skills.ts
+	$(DENO) check scripts/validate-skills.ts scripts/eval-engineering-skills.ts
 
 ## lint: check all markdown files
 lint:

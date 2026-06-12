@@ -1,51 +1,46 @@
 # Skills
 
-Personal agent skills for engineering, writing, and productivity. Works with any agent that supports skill/slash-command loading (Claude Code, etc.).
+Personal agent skills for engineering, writing, and productivity. Works with any agent that supports skill/slash-command loading.
 
 ## Quickstart
 
+Use the standard skills CLI instead of this repo carrying a custom installer:
+
 ```sh
-curl -fsSL https://raw.githubusercontent.com/anhdle14/skills/main/bootstrap.sh | sh
+npx skills add anhdle14/skills -g --all
 ```
 
-This will:
-
-1. Clone the repo to `~/Developer/github.com/anhdle14/skills`
-2. Install Deno if not present
-3. Symlink `skills/` to `~/.claude/skills` and `~/.agents/skills`
-4. Link each personal skill under `~/.codex/skills` while preserving `.system`
-
-## Manual install
+This installs all skills globally for supported agents. To install into a project instead, omit `-g`:
 
 ```sh
-git clone https://github.com/anhdle14/skills ~/Developer/github.com/anhdle14/skills
-cd ~/Developer/github.com/anhdle14/skills
-deno task install
+npx skills add anhdle14/skills --all
 ```
 
-## Copy skills to a specific project
+For more options, run:
 
 ```sh
-# Copy all skills
-deno task install --copy-to /path/to/project/.claude/skills
-
-# Copy specific skills only
-deno task install --copy-to /path/to/project/.claude/skills --skill diagnose --skill grill-me
+npx skills --help
 ```
 
 ## Update
 
 ```sh
+npx skills update -g
+```
+
+If you cloned this repository for development, update the clone with:
+
+```sh
 git -C ~/Developer/github.com/anhdle14/skills pull
 ```
 
-The symlinks point at the repo, so updates are live immediately. Re-run
-`deno task install` after adding, removing, or renaming skills so
-`~/.codex/skills` gets refreshed.
+## Local development
 
-For repo-scoped Codex skills, use `.agents/skills` under the repository. This
-repo's default installer uses the user-scoped Codex locations,
-`~/.agents/skills` and `~/.codex/skills`.
+```sh
+git clone https://github.com/anhdle14/skills ~/Developer/github.com/anhdle14/skills
+cd ~/Developer/github.com/anhdle14/skills
+deno task validate
+```
 
 ## Skill Reference
 
@@ -88,14 +83,14 @@ plain so the next action is obvious.
 |-------|-------------|
 | `/grill-me` | Relentless interview on any plan or design |
 | `/handoff` | Compact the current session into a handoff document |
-| `/caveman` | Ultra-compressed communication mode (~75% fewer tokens) |
 | `/write-a-skill` | Interactively build a new skill for this repo |
 
 ## Adding a skill
 
-```sh
-deno run --allow-read --allow-write install.ts  # or: deno task install
-```
+1. Create `skills/<name>/SKILL.md` with valid frontmatter.
+2. Add supporting files beside it if needed.
+3. Run `deno task validate`.
+4. Update `CLAUDE.md`'s skills index if the skill list or metadata changed.
 
 See `CLAUDE.md` for the full conventions.
 

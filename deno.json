@@ -1,9 +1,6 @@
 {
   "tasks": {
-    "install": "deno run --allow-read --allow-write --allow-env=HOME install.ts",
-    "install:copy": "deno run --allow-read --allow-write --allow-env=HOME install.ts --copy-to",
-    "update-index": "deno run --allow-read --allow-write --allow-env=HOME install.ts --update-index",
-    "check": "deno check install.ts scripts/validate-skills.ts scripts/eval-engineering-skills.ts",
+    "check": "deno check scripts/validate-skills.ts scripts/eval-engineering-skills.ts",
     "eval:engineering": "deno run --allow-read --allow-write=docs/evals --allow-run=claude --allow-env=CLAUDECODE,EVAL_MODEL,EVAL_WORKERS scripts/eval-engineering-skills.ts --live --write",
     "validate": "deno run --allow-read scripts/validate-skills.ts && deno run --allow-read scripts/eval-engineering-skills.ts"
   },
