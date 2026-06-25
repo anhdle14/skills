@@ -3,6 +3,7 @@ export interface Frontmatter {
   description?: string;
   tags?: string[];
   args?: string;
+  disableModelInvocation?: boolean;
 }
 
 export interface FrontmatterSyntaxFailure {
@@ -34,7 +35,7 @@ export function parseFrontmatter(content: string): Frontmatter | null {
 
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index];
-    const pair = line.match(/^([a-z]+):\s*(.*)$/);
+    const pair = line.match(/^([a-z][a-z-]*):\s*(.*)$/);
     if (!pair) continue;
 
     const [, key, rawValue] = pair;
@@ -59,11 +60,16 @@ export function parseFrontmatter(content: string): Frontmatter | null {
       .filter(Boolean)
     : undefined;
 
+  const disableRaw = data["disable-model-invocation"];
+
   return {
     ...(data.name ? { name: data.name } : {}),
     ...(data.description ? { description: data.description } : {}),
     ...(tags ? { tags } : {}),
     ...(data.args ? { args: data.args } : {}),
+    ...(disableRaw !== undefined
+      ? { disableModelInvocation: disableRaw === "true" }
+      : {}),
   };
 }
 
@@ -76,7 +82,7 @@ export function findFrontmatterSyntaxFailures(
   const failures: FrontmatterSyntaxFailure[] = [];
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index];
-    const pair = line.match(/^([a-z]+):\s*(.*)$/);
+    const pair = line.match(/^([a-z][a-z-]*):\s*(.*)$/);
     if (!pair) continue;
 
     const rawValue = pair[2].trim();

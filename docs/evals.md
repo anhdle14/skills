@@ -10,10 +10,11 @@ Engineering skills are selected by frontmatter tag. Each skill has six trigger-r
 |-------|--------|
 | `autoresearch` | 6/6 |
 | `build` | 6/6 |
-| `claude-md` | 6/6 |
+| `agents-md` | 6/6 |
 | `code-structure` | 6/6 |
 | `diagnose` | 6/6 |
 | `grill-with-docs` | 6/6 |
+| `orchestrate` | 6/6 |
 | `plan` | 6/6 |
 | `polish` | 6/6 |
 | `prototype` | 6/6 |
@@ -22,6 +23,7 @@ Engineering skills are selected by frontmatter tag. Each skill has six trigger-r
 | `review` | 6/6 |
 | `test` | 6/6 |
 | `triage` | 6/6 |
+| `trinity` | 6/6 |
 | `workflow` | 6/6 |
 
 ## Validation workflow
@@ -37,8 +39,8 @@ Engineering skills are selected by frontmatter tag. Each skill has six trigger-r
 - Claude Code CLI: 2.1.153
 - Eval model: `haiku`
 - Validation commands run:
-  - `deno task eval:engineering` → `summary: 90/90 (100.0%)`
-  - `deno task validate` → `OK: validated 21 skills`; `OK: eval fixtures cover 15 engineering skills (90 cases)`
+  - `deno task eval:engineering` → `summary: 102/102 (100.0%)`
+  - `deno task validate` → `OK: validated 23 skills`; `OK: eval fixtures cover 17 engineering skills (102 cases)`
   - `deno task check` → passed
 
 ## Method
@@ -57,16 +59,17 @@ Pilot note: I tried the upstream `skill-creator` `scripts.run_eval` trigger harn
 
 ## Results
 
-Aggregate pass rate: **90/90 (100.0%)**
+Aggregate pass rate: **102/102 (100.0%)**
 
 | skill | passed | failed | pass rate |
 |-------|--------|--------|-----------|
 | `autoresearch` | 6 | 0 | 100.0% |
 | `build` | 6 | 0 | 100.0% |
-| `claude-md` | 6 | 0 | 100.0% |
+| `agents-md` | 6 | 0 | 100.0% |
 | `code-structure` | 6 | 0 | 100.0% |
 | `diagnose` | 6 | 0 | 100.0% |
 | `grill-with-docs` | 6 | 0 | 100.0% |
+| `orchestrate` | 6 | 0 | 100.0% |
 | `plan` | 6 | 0 | 100.0% |
 | `polish` | 6 | 0 | 100.0% |
 | `prototype` | 6 | 0 | 100.0% |
@@ -75,6 +78,7 @@ Aggregate pass rate: **90/90 (100.0%)**
 | `review` | 6 | 0 | 100.0% |
 | `test` | 6 | 0 | 100.0% |
 | `triage` | 6 | 0 | 100.0% |
+| `trinity` | 6 | 0 | 100.0% |
 | `workflow` | 6 | 0 | 100.0% |
 
 ## Boundary coverage
@@ -85,7 +89,15 @@ The `research` cases now encode the intended boundary with `code-structure`:
 - `code-structure` should own module maps, callers, ownership boundaries, action-vs-service placement, refactor seams, and architecture cleanup.
 - The current live eval selected `research` for decision prompts and avoided it for structural map prompts.
 
+## Outcome benchmark
+
+Outcome benchmarking lives under `docs/evals/tbench/` and uses Terminal-Bench only.
+Do not add repo-local hidden tests, fixture tasks, or `workflow-bench-*` suites for
+workflow outcomes. Reproduce the current workflow A/B with `deno task bench:tbench`
+(or `bash docs/evals/tbench/run_claude.sh both`) when Docker, `uvx`, and the required
+model credentials are available.
+
 ## Next improvements
 
-1. Add isolated fixture repos for full with-skill/without-skill behavior benchmarks for the default engineering stack (`research`, `prototype`, `plan`, `build`, `test`, `polish`).
-2. Keep `deno task validate` cheap and deterministic; use `deno task eval:engineering` for live, model-dependent refreshes.
+1. Expand the Terminal-Bench task set and repeat count for workflow outcome confidence.
+2. Keep `deno task validate` cheap and deterministic; use `deno task eval:engineering` for live, model-dependent trigger-refreshes.

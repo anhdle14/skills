@@ -28,10 +28,10 @@ Create and complete tasks in this order:
 3. **Ask clarifying questions** — one at a time; understand purpose, constraints, and success criteria.
 4. **Propose 2-3 approaches** — include trade-offs and lead with your recommendation.
 5. **Present design** — scale sections to complexity; get user approval after each section.
-6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` unless user preferences override.
+6. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md` unless user preferences override.
 7. **Spec self-review** — fix placeholders, contradictions, ambiguity, and scope creep inline.
 8. **User reviews written spec** — ask user to review the committed spec before planning.
-9. **Transition to implementation planning** — invoke writing-plans; do not invoke implementation skills directly.
+9. **Transition to implementation planning** — hand off to your planning workflow; do not jump into implementation skills directly.
 
 ## Process
 
@@ -61,7 +61,7 @@ Create and complete tasks in this order:
 
 ## After the Design
 
-Write the approved design to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit it unless the user has given a different location or workflow.
+Write the approved design to `docs/specs/YYYY-MM-DD-<topic>-design.md` and commit it unless the user has given a different location or workflow.
 
 Self-review the written spec before asking the user to review it:
 
@@ -72,15 +72,7 @@ Self-review the written spec before asking the user to review it:
 
 Then ask the user to review the spec file before implementation planning. If they request changes, update the spec and repeat the self-review. Proceed only once the user approves.
 
-The next step after brainstorming is writing-plans. Do NOT invoke frontend-design, mcp-builder, or any implementation skill directly.
-
-## Key Principles
-
-- One question at a time.
-- Multiple choice preferred.
-- Explore alternatives before settling.
-- Validate incrementally.
-- Be flexible and go back when something does not make sense.
+The next step after brainstorming is implementation planning. Do NOT jump straight into building — design first, then approval, then planning.
 
 ## Visual Companion
 

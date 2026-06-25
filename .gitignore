@@ -1,6 +1,26 @@
 # Deno cache (deps are locked via deno.lock, cache is local)
 .deno/
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.python-version
+.venv/
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
 # macOS
 .DS_Store
 

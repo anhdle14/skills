@@ -1,6 +1,7 @@
 ---
 name: autoresearch
-description: Sets up and runs Karpathy-style autoresearch with metric-first clarification and the upstream experiment protocol. Use when user wants to set up autoresearch, run autonomous research experiments, optimize a training metric, or mentions karpathy/autoresearch.
+disable-model-invocation: true
+description: Sets up and runs the Karpathy-style autoresearch protocol - metric-first clarification, then an autonomous experiment loop under a fixed harness.
 tags: [engineering, plan, analyze]
 args: "<run tag, metric, or repo path (optional)>"
 ---
@@ -54,7 +55,7 @@ commit\tval_bpb\tmemory_gb\tstatus\tdescription
 
 Here `\t` means real tab characters.
 
-1. Confirm the metric, edit scope, branch, data, command, and results file with the user before starting experiments.
+**Before any experiment, confirm with the user:** the metric, edit scope, branch, data, command, and results file.
 
 ## Experiment Rules
 

@@ -11,6 +11,7 @@ type Skill = {
   name: string;
   description: string;
   tags: string[];
+  disableModelInvocation: boolean;
 };
 
 type EvalCase = {
@@ -76,6 +77,7 @@ async function readSkills(): Promise<Skill[]> {
       name: frontmatter.name,
       description: frontmatter.description,
       tags: frontmatter.tags,
+      disableModelInvocation: frontmatter.disableModelInvocation ?? false,
     });
   }
   return skills.sort((a, b) => a.name.localeCompare(b.name));
@@ -94,7 +96,16 @@ async function checkFixtures(
 ): Promise<void> {
   const skills = await readSkills();
   const allSkillNames = new Set(skills.map((skill) => skill.name));
-  const engineeringSkills = skills
+  // A skill hidden from the model (`disable-model-invocation: true`) can only
+  // be invoked by an explicit human `/skill:name` call, so it is never part of
+  // model trigger selection and must not be required to carry trigger cases.
+  const triggerableSkills = skills.filter(
+    (skill) => !skill.disableModelInvocation,
+  );
+  const disabledSkillNames = new Set(
+    skills.filter((skill) => skill.disableModelInvocation).map((s) => s.name),
+  );
+  const engineeringSkills = triggerableSkills
     .filter((skill) => skill.tags.includes("engineering"))
     .map((skill) => skill.name)
     .sort();
@@ -114,6 +125,11 @@ async function checkFixtures(
 
     if (!allSkillNames.has(group.skill)) {
       failures.push(`${casesPath}: unknown skill ${group.skill}`);
+    }
+    if (disabledSkillNames.has(group.skill)) {
+      failures.push(
+        `${casesPath}: ${group.skill} has disable-model-invocation: true and cannot be triggered; remove its trigger cases`,
+      );
     }
 
     const shouldTriggerCount = group.cases.filter((item) =>
@@ -144,7 +160,7 @@ async function checkFixtures(
     }
   }
   for (const skill of seenCaseSkills) {
-    if (!engineeringSkills.includes(skill)) {
+    if (!engineeringSkills.includes(skill) && !disabledSkillNames.has(skill)) {
       failures.push(`${casesPath}: ${skill} is not tagged engineering`);
     }
   }
@@ -250,7 +266,9 @@ async function runLiveEval(
   targetFilter: string,
   writeResults: boolean,
 ): Promise<void> {
-  const skills = await readSkills();
+  const skills = (await readSkills()).filter(
+    (skill) => !skill.disableModelInvocation,
+  );
   const caseFile = await readJson<CaseFile>(casesPath);
   const model = Deno.env.get("EVAL_MODEL") ?? "haiku";
   const workerCount = Math.max(

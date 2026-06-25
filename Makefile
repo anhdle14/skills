@@ -14,7 +14,7 @@
 DENO        ?= deno
 MDLINT      ?= markdownlint
 MDLINT_CONF  = .markdownlint.json
-MD_FILES     = README.md CLAUDE.md $(wildcard skills/*/SKILL.md)
+MD_FILES     = README.md AGENTS.md $(wildcard skills/*/SKILL.md)
 
 ## check: type-check TypeScript tooling
 check:
@@ -28,7 +28,7 @@ lint:
 lint-fix:
 	$(MDLINT) --config $(MDLINT_CONF) --fix $(MD_FILES)
 
-## validate: check every SKILL.md follows the write-a-skill schema
+## validate: check every SKILL.md follows the skill schema
 validate:
 	$(DENO) run --allow-read scripts/validate-skills.ts
 

@@ -88,18 +88,24 @@ async function validateSkill(skillDir: string): Promise<Failure[]> {
     if (frontmatter.description.length > 1024) {
       failures.push({ file, message: "description exceeds 1024 characters" });
     }
-    if (!frontmatter.description.includes("Use when")) {
-      failures.push({
-        file,
-        message: 'description must include "Use when" trigger language',
-      });
-    }
-    if (!/^[^.]+\.\s+Use when .+\.$/.test(frontmatter.description)) {
-      failures.push({
-        file,
-        message:
-          'description should be two sentences: capability, then "Use when..."',
-      });
+    // Trigger-language rules only matter when the model can auto-select the
+    // skill. A skill with `disable-model-invocation: true` is hidden from the
+    // system prompt and only runs via an explicit human `/skill:name` call, so
+    // "Use when ..." trigger phrasing serves no purpose for it.
+    if (!frontmatter.disableModelInvocation) {
+      if (!frontmatter.description.includes("Use when")) {
+        failures.push({
+          file,
+          message: 'description must include "Use when" trigger language',
+        });
+      }
+      if (!/^[^.]+\.\s+Use when .+\.$/.test(frontmatter.description)) {
+        failures.push({
+          file,
+          message:
+            'description should be two sentences: capability, then "Use when..."',
+        });
+      }
     }
   }
 
@@ -115,6 +121,14 @@ async function validateSkill(skillDir: string): Promise<Failure[]> {
 
   if (frontmatter.args && !/^".+"$/.test(frontmatter.args)) {
     failures.push({ file, message: "args must be a quoted usage string" });
+  }
+
+  const disableLine = content.match(/^disable-model-invocation:\s*(.*)$/m);
+  if (disableLine && !/^(true|false)$/.test(disableLine[1].trim())) {
+    failures.push({
+      file,
+      message: "disable-model-invocation must be a boolean (true or false)",
+    });
   }
 
   if (/\b20\d{2}\b/.test(content)) {
