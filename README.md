@@ -51,6 +51,7 @@ deno task validate
 | `/research` | Answer what exists, why it matters, what to do, and how to challenge the recommendation |
 | `/code-structure` | Map modules, find structural friction, separate orchestration from services, and plan safe refactors |
 | `/agents-md` | Create or rewrite the per-folder agent context file within the 80-line budget |
+| `/webgpu-threejs-tsl` | Build Three.js WebGPU apps with TSL node materials, GPU compute, and post-processing |
 
 ### Writing
 

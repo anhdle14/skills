@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T14:58:23.715Z",
+  "generatedAt": "2026-06-30T02:29:38.722Z",
   "model": "haiku",
   "method": "LLM selector trigger eval inspired by anthropic/skills skill-creator description optimization. One Claude call per engineering skill; each skill has trigger and near-miss prompts.",
   "skills": [
@@ -18,7 +18,7 @@
           "selectedSkills": [
             "agents-md"
           ],
-          "reason": "Creating AGENTS.md — directly matches 'create agent context file' trigger",
+          "reason": "Directly creates AGENTS.md for agent onboarding—skill is purpose-built for this",
           "passed": true
         },
         {
@@ -28,7 +28,7 @@
           "selectedSkills": [
             "agents-md"
           ],
-          "reason": "Rewriting CLAUDE.md under 80-line budget — core agents-md use case",
+          "reason": "Rewrite CLAUDE.md with tight constraint—agents-md handles the 80-line budget and mistake-prevention specifics",
           "passed": true
         },
         {
@@ -38,7 +38,7 @@
           "selectedSkills": [
             "agents-md"
           ],
-          "reason": "Bootstrap agent context — explicit 'bootstrap' trigger in agents-md description",
+          "reason": "Bootstrap agent context file with commands and safety notes—exactly what skill does",
           "passed": true
         },
         {
@@ -48,17 +48,15 @@
           "selectedSkills": [
             "writing"
           ],
-          "reason": "User-facing README — not agent context, falls under writing skill",
+          "reason": "Write user-facing README—writing skill shapes raw material into narrative documentation",
           "passed": true
         },
         {
           "query": "Make a handoff note summarizing what we changed in this session.",
           "shouldTrigger": false,
           "id": 5,
-          "selectedSkills": [
-            "handoff"
-          ],
-          "reason": "Handoff note — explicit handoff skill use case, not agent context",
+          "selectedSkills": [],
+          "reason": "Handoff note is technical summary; no skill materially changes a straightforward recap",
           "passed": true
         },
         {
@@ -66,7 +64,7 @@
           "shouldTrigger": false,
           "id": 6,
           "selectedSkills": [],
-          "reason": "JSDoc comments — direct code editing task, no specialized skill materially changes this",
+          "reason": "Adding JSDoc is code work; no skill in this set addresses inline comments",
           "passed": true
         }
       ]
@@ -86,7 +84,7 @@
           "selectedSkills": [
             "code-structure"
           ],
-          "reason": "Request directly asks to map modules and separate orchestration from service mechanics—core code-structure functions.",
+          "reason": "Directly matches: mapping modules and separating orchestration from service mechanics",
           "passed": true
         },
         {
@@ -96,7 +94,7 @@
           "selectedSkills": [
             "code-structure"
           ],
-          "reason": "Request analyzes structural friction before refactoring the actions/services boundary.",
+          "reason": "Matches: analyzing code area for structural friction and actions/services boundary decisions",
           "passed": true
         },
         {
@@ -104,40 +102,33 @@
           "shouldTrigger": true,
           "id": 3,
           "selectedSkills": [
-            "code-structure",
-            "plan"
+            "code-structure"
           ],
-          "reason": "code-structure identifies deepening opportunities; plan structures analysis into safe cleanup roadmap.",
+          "reason": "Matches: finding deepening opportunities and planning safe architecture cleanup",
           "passed": true
         },
         {
           "query": "Implement the new report filter now using the existing pattern.",
           "shouldTrigger": false,
           "id": 4,
-          "selectedSkills": [
-            "build"
-          ],
-          "reason": "Request asks to implement new feature using existing patterns—build's core function, not code-structure.",
+          "selectedSkills": [],
+          "reason": "Implementation task using existing patterns—not structure analysis or refactor planning",
           "passed": true
         },
         {
           "query": "Diagnose the production timeout regression in the webhook worker.",
           "shouldTrigger": false,
           "id": 5,
-          "selectedSkills": [
-            "diagnose"
-          ],
-          "reason": "Request asks to diagnose a production performance regression—diagnose's explicit trigger, not code-structure.",
+          "selectedSkills": [],
+          "reason": "Debugging/diagnosis of a regression—outside code-structure's scope",
           "passed": true
         },
         {
           "query": "Review the diff since main and flag security issues.",
           "shouldTrigger": false,
           "id": 6,
-          "selectedSkills": [
-            "review"
-          ],
-          "reason": "Request asks to review code and flag security issues—review's core function, not code-structure.",
+          "selectedSkills": [],
+          "reason": "Security review task—misaligned with code-structure; security-review skill would apply instead",
           "passed": true
         }
       ]
@@ -157,7 +148,7 @@
           "selectedSkills": [
             "research"
           ],
-          "reason": "Exploring current behavior and requirements for OAuth refresh changes",
+          "reason": "Explore current OAuth implementation and design recommendations for changes",
           "passed": true
         },
         {
@@ -167,7 +158,7 @@
           "selectedSkills": [
             "research"
           ],
-          "reason": "Investigating options and comparing design approaches before evaluation",
+          "reason": "Investigate replacement options and compare approaches for BullMQ",
           "passed": true
         },
         {
@@ -177,17 +168,15 @@
           "selectedSkills": [
             "research"
           ],
-          "reason": "First phase of engineering stack: gathering evidence for account recovery",
+          "reason": "Gather evidence about account recovery behavior and design next steps",
           "passed": true
         },
         {
           "query": "Implement the chosen BullMQ replacement now.",
           "shouldTrigger": false,
           "id": 4,
-          "selectedSkills": [
-            "build"
-          ],
-          "reason": "Implementing a planned software change with narrow edits",
+          "selectedSkills": [],
+          "reason": "Implementation task; no research or design phase needed",
           "passed": true
         },
         {
@@ -197,25 +186,87 @@
           "selectedSkills": [
             "code-structure"
           ],
-          "reason": "Mapping unfamiliar code, modules, boundaries, and identifying refactor seams",
+          "reason": "Map unfamiliar code area: modules, callers, ownership, and refactor seams",
           "passed": true
         },
         {
           "query": "Review this PR for standards and spec fit.",
           "shouldTrigger": false,
           "id": 6,
+          "selectedSkills": [],
+          "reason": "PR review not covered by available specialized skills",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "skill": "webgpu-threejs-tsl",
+      "model": "haiku",
+      "summary": {
+        "passed": 6,
+        "total": 6
+      },
+      "results": [
+        {
+          "query": "Set up a Three.js scene with the WebGPU renderer and write a custom node material using TSL.",
+          "shouldTrigger": true,
+          "id": 1,
           "selectedSkills": [
-            "review"
+            "webgpu-threejs-tsl"
           ],
-          "reason": "Reviewing code changes for standards and specification fit",
+          "reason": "Building Three.js WebGPU scene with custom TSL node materials — directly matches toolkit scope",
+          "passed": true
+        },
+        {
+          "query": "Port this GLSL fragment shader to TSL node syntax for a MeshStandardNodeMaterial.",
+          "shouldTrigger": true,
+          "id": 2,
+          "selectedSkills": [
+            "webgpu-threejs-tsl"
+          ],
+          "reason": "Porting GLSL to TSL for node materials — explicitly listed in skill description",
+          "passed": true
+        },
+        {
+          "query": "Write a GPU compute shader in Three.js to update a particle system with instancedArray.",
+          "shouldTrigger": true,
+          "id": 3,
+          "selectedSkills": [
+            "webgpu-threejs-tsl"
+          ],
+          "reason": "Authoring GPU compute shader in Three.js — matches GPU compute shader authoring scope",
+          "passed": true
+        },
+        {
+          "query": "Add a Three.js WebGL bloom post-processing pass using EffectComposer and the standard renderer.",
+          "shouldTrigger": false,
+          "id": 4,
+          "selectedSkills": [],
+          "reason": "WebGL bloom, not WebGPU — outside toolkit scope (WebGL ≠ WebGPU)",
+          "passed": true
+        },
+        {
+          "query": "Write a raw WGSL compute shader against the WebGPU API directly, without any Three.js.",
+          "shouldTrigger": false,
+          "id": 5,
+          "selectedSkills": [],
+          "reason": "Raw WGSL without Three.js — outside toolkit scope (toolkit is Three.js-specific)",
+          "passed": true
+        },
+        {
+          "query": "Optimize the draw-call batching in our existing Babylon.js renderer.",
+          "shouldTrigger": false,
+          "id": 6,
+          "selectedSkills": [],
+          "reason": "Babylon.js optimization — wrong renderer entirely",
           "passed": true
         }
       ]
     }
   ],
   "summary": {
-    "passed": 18,
-    "total": 18,
+    "passed": 24,
+    "total": 24,
     "passRate": 1
   }
 }

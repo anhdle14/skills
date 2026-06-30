@@ -87,6 +87,35 @@
           "shouldTrigger": false
         }
       ]
+    },
+    {
+      "skill": "webgpu-threejs-tsl",
+      "cases": [
+        {
+          "query": "Set up a Three.js scene with the WebGPU renderer and write a custom node material using TSL.",
+          "shouldTrigger": true
+        },
+        {
+          "query": "Port this GLSL fragment shader to TSL node syntax for a MeshStandardNodeMaterial.",
+          "shouldTrigger": true
+        },
+        {
+          "query": "Write a GPU compute shader in Three.js to update a particle system with instancedArray.",
+          "shouldTrigger": true
+        },
+        {
+          "query": "Add a Three.js WebGL bloom post-processing pass using EffectComposer and the standard renderer.",
+          "shouldTrigger": false
+        },
+        {
+          "query": "Write a raw WGSL compute shader against the WebGPU API directly, without any Three.js.",
+          "shouldTrigger": false
+        },
+        {
+          "query": "Optimize the draw-call batching in our existing Babylon.js renderer.",
+          "shouldTrigger": false
+        }
+      ]
     }
   ]
 }
