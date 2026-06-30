@@ -14,7 +14,6 @@ Engineering skills are selected by frontmatter tag. Each skill has six trigger-r
 | `code-structure` | 6/6 |
 | `diagnose` | 6/6 |
 | `grill-with-docs` | 6/6 |
-| `orchestrate` | 6/6 |
 | `plan` | 6/6 |
 | `polish` | 6/6 |
 | `prototype` | 6/6 |
@@ -23,7 +22,6 @@ Engineering skills are selected by frontmatter tag. Each skill has six trigger-r
 | `review` | 6/6 |
 | `test` | 6/6 |
 | `triage` | 6/6 |
-| `trinity` | 6/6 |
 | `workflow` | 6/6 |
 
 ## Validation workflow
@@ -69,7 +67,6 @@ Aggregate pass rate: **102/102 (100.0%)**
 | `code-structure` | 6 | 0 | 100.0% |
 | `diagnose` | 6 | 0 | 100.0% |
 | `grill-with-docs` | 6 | 0 | 100.0% |
-| `orchestrate` | 6 | 0 | 100.0% |
 | `plan` | 6 | 0 | 100.0% |
 | `polish` | 6 | 0 | 100.0% |
 | `prototype` | 6 | 0 | 100.0% |
@@ -78,7 +75,6 @@ Aggregate pass rate: **102/102 (100.0%)**
 | `review` | 6 | 0 | 100.0% |
 | `test` | 6 | 0 | 100.0% |
 | `triage` | 6 | 0 | 100.0% |
-| `trinity` | 6 | 0 | 100.0% |
 | `workflow` | 6 | 0 | 100.0% |
 
 ## Boundary coverage

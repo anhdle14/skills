@@ -7,14 +7,16 @@ Agent skills organized as a flat directory under `skills/`. Each skill is a fold
 <!-- skills-index-start -->
 | skill | tags | description |
 |-------|------|-------------|
-| [agents-md](skills/agents-md/SKILL.md) | create, engineering, productivity | Create or replace the per-folder agent context file that gets read on every turn, holding it to the 80-line budget where every line prevents a mistake. Use when user wants to create, write, generate, bootstrap, or rewrite an AGENTS.md / CLAUDE.md / agent context file, or onboard an agent to a repo. Args: `"<target folder (defaults to cwd)>"` |
+| [agents-md](skills/agents-md/SKILL.md) | create, engineering, productivity | Create or rewrite the per-folder agent context file that an agent reads on every turn. Use when the user wants to create, bootstrap, or rewrite an AGENTS.md / CLAUDE.md / agent context file, or onboard an agent to a repo. Args: `"<target folder (defaults to cwd)>"` |
 | [autoresearch *(human-only)*](skills/autoresearch/SKILL.md) | engineering, plan, analyze | Sets up and runs the Karpathy-style autoresearch protocol - metric-first clarification, then an autonomous experiment loop under a fixed harness. Args: `"<run tag, metric, or repo path (optional)>"` |
 | [code-structure](skills/code-structure/SKILL.md) | analyze, engineering, transform, plan | Analyze and improve code structure by mapping modules, finding deepening opportunities, separating orchestration from service mechanics, and planning safe refactors. Use when unfamiliar with a code area, deciding what belongs in actions versus services, extracting repeated operational blocks, improving architecture, or planning a refactor. |
-| [orchestrate *(human-only)*](skills/orchestrate/SKILL.md) | plan, engineering, productivity | Conductor loop that decomposes a hard task, routes each subtask to the best worker, recurses on the hard parts, and synthesizes the results. Args: `"<hard or multi-part task (optional)>"` |
-| [proofreading](skills/proofreading/SKILL.md) | writing, transform | Proofread and improve existing article drafts by restructuring sections, improving clarity, and tightening prose. Use when user wants to proofread, edit, revise, clean up, or improve an existing draft. Args: `"<path to article file>"` |
-| [research](skills/research/SKILL.md) | analyze, engineering, plan | Explores user intent, requirements, and design before implementation. Use when user asks to research, brainstorm, design, create features, build components, add functionality, or modify behavior before implementation. Args: `"<idea, feature, or behavior change (optional)>"` |
+| [proofreading](skills/proofreading/SKILL.md) | writing, transform | Proofread and improve existing article drafts by restructuring sections, improving clarity, and tightening prose. Use when the user wants to proofread, revise, or improve an existing prose draft. Args: `"<path to article file>"` |
+| [research](skills/research/SKILL.md) | analyze, engineering, plan | Explores user intent, requirements, and design before implementation. Use when the user asks to research, brainstorm, design, or modify behavior before implementation. Args: `"<idea, feature, or behavior change (optional)>"` |
 | [router *(human-only)*](skills/router/SKILL.md) | productivity | Human-only index of the disable-model-invocation skills - names each and when to reach for it. |
-| [trinity *(human-only)*](skills/trinity/SKILL.md) | engineering, analyze, productivity | Thinker-Worker-Verifier role loop that iterates accept-or-revise across turns until a result is verified or a turn budget is hit. Args: `"<task to solve via the role loop (optional)>"` |
+| [ship *(human-only)*](skills/ship/SKILL.md) | plan, engineering, productivity | Orchestrate a feature from a plan doc to shipped, reviewed vertical slices through four human-invoked phases - grill, slice, build, review. Args: `"<feature description or .ship/<feature-slug> path (optional)>"` |
+| [ship-grill *(human-only)*](skills/ship-grill/SKILL.md) | plan, engineering, productivity | Relentlessly interview a plan doc into a complete spec - resolve every grey area, build the glossary and ADRs, and write the handoff contract the autonomous build runs on. Args: `"<.ship/<feature-slug> path or feature description (optional)>"` |
+| [ship-review *(human-only)*](skills/ship-review/SKILL.md) | analyze, engineering, productivity | Deeply review shipped deliverables - verify goal-backward against the spec, attack the code adversarially for issues, and report prioritized findings. Args: `"<.ship/<feature-slug> path (optional)>"` |
+| [ship-slice *(human-only)*](skills/ship-slice/SKILL.md) | plan, engineering, productivity | Autonomously turn a spec into shipped vertical slices - decompose into tracer bullets, run them in non-blocking phases, fan out subagents, drive each to green, and commit outcomes. Args: `"<.ship/<feature-slug> path (optional)>"` |
 | [webgpu-threejs-tsl](skills/webgpu-threejs-tsl/SKILL.md) | create, design, engineering, transform | TSL and WebGPU node-shader toolkit covering node materials, GPU compute, post-processing, and WGSL integration. Use when building Three.js WebGPU apps, writing TSL shaders or node materials, porting GLSL to TSL, authoring GPU compute shaders, or assembling post-processing effects. |
 | [writing](skills/writing/SKILL.md) | writing, create, transform | Develop raw writing material into fragments, article drafts, or narrative beats without proofreading an existing draft. Use when user wants to ideate, collect fragments, shape notes into an article, write beat-by-beat, or turn raw material into publishable prose. Args: `"<path to raw material or output file (optional)>"` |
 <!-- skills-index-end -->
@@ -26,9 +28,10 @@ design, `/code-structure` for module maps and refactor shape, and `/agents-md`
 for onboarding an agent to a repo.
 
 Some skills are human-only (`disable-model-invocation: true`) and never
-auto-trigger; invoke them explicitly: `/skill:autoresearch`,
-`/skill:orchestrate`, and `/skill:trinity`. `/skill:router` is the human-only
-index that names them and when to reach for each.
+auto-trigger; invoke them explicitly: `/skill:autoresearch` and the ship
+pipeline (`/skill:ship`, `/skill:ship-grill`, `/skill:ship-slice`,
+`/skill:ship-review`). `/skill:router` is the human-only index that names them
+and when to reach for each.
 
 ## Conventions
 
@@ -70,9 +73,10 @@ Keep `SKILL.md` under ~100 lines. Split into `REFERENCE.md`, `EXAMPLES.md`, or `
 ### Two kinds of eval (do not conflate)
 
 - **Trigger eval** (`engineering-skills-trigger-*`, `deno task eval:engineering`) — does a
-  skill's description get *selected* for a query? Required for every engineering skill.
-- **Outcome benchmark** (`docs/evals/tbench/*`, `deno task bench:tbench`) — does the
-  orchestrate+trinity workflow scaffold improve a real agentic loop on Terminal-Bench?
+  skill's description get *selected* for a query? Required for every model-invocable
+  engineering skill (human-only skills are hidden from selection and exempt).
+- **Outcome benchmark** (`docs/evals/tbench/*`, `deno task bench:tbench`) — does a workflow
+  scaffold (e.g. the ship pipeline) improve a real agentic loop on Terminal-Bench?
   A/B the stock `terminus` agent against `workflow-terminus` on the same model and task
   set. Outcome benchmarking must use Terminal-Bench only; do not add repo-local hidden
   tests, fixture tasks, or workflow-bench suites. Results and reproduction notes live in

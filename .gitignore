@@ -31,3 +31,9 @@ htmlcov/
 
 # Local Claude Code settings (machine-specific permissions)
 .claude/settings.local.json
+
+# ship workflow artifacts (plans, specs, slice state, reviews) — never committed
+.ship/
+
+# Virtual skill-eval harness (fixtures, runs, judgments) — never committed
+.skill-eval/

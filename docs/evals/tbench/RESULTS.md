@@ -1,5 +1,10 @@
 # Terminal-Bench A/B — orchestrate+trinity workflow vs plain prompting
 
+> **Historical.** This A/B benchmarked an earlier `orchestrate`+`trinity` workflow
+> scaffold (since superseded by the `ship` pipeline). The runs and findings are kept as a
+> record of the verify-before-complete mechanism; the skills they reference no longer exist
+> in `skills/`.
+
 **Question:** does running the orchestrate+trinity workflow protocol beat a plain
 agentic loop on the *same model*, scored on real Terminal-Bench tasks?
 

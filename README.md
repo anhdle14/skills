@@ -69,8 +69,10 @@ must be invoked explicitly. `/skill:router` is the index that names them.
 |-------|-------------|
 | `/skill:router` | Human-only index: names the skills below and when to reach for each |
 | `/skill:autoresearch` | Run the Karpathy-style autoresearch loop around an agreed metric and fixed harness |
-| `/skill:orchestrate` | Conductor loop: decompose a hard task, route subtasks to the best worker, recurse, synthesize |
-| `/skill:trinity` | Solve a task through a Thinker-Worker-Verifier accept/revise role loop |
+| `/skill:ship` | Index + handoff contract for the four-phase feature pipeline (grill, slice, build, review) |
+| `/skill:ship-grill` | Interrogate a plan doc into a complete spec — resolve grey areas, build glossary/ADRs |
+| `/skill:ship-slice` | Autonomously build a spec as vertical slices across non-blocking phases, fanning out subagents |
+| `/skill:ship-review` | Deep review of deliverables — goal-backward against the spec plus an adversarial quality pass |
 
 ## Adding a skill
 

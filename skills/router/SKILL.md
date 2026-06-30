@@ -16,13 +16,15 @@ index: type the invocation by hand.
 | Skill | Invoke | Reach for it when |
 |-------|--------|-------------------|
 | **autoresearch** | `/skill:autoresearch` | Optimizing an agreed metric under a fixed harness with an autonomous experiment loop (Karpathy autoresearch protocol). |
-| **orchestrate** | `/skill:orchestrate` | A hard task splits into parts suited to different workers - decompose, route each subtask, recurse on the hard parts, synthesize (the Conductor loop). |
-| **trinity** | `/skill:trinity` | One coherent task whose correctness must be *earned* before you trust it - a Thinker-Worker-Verifier accept-or-revise loop. |
+| **ship** | `/skill:ship` | **Whole pipeline, incl. review.** Driving a feature from a plan doc to shipped, reviewed vertical slices - the index and handoff contract for the four-phase pipeline below. |
+| **ship-grill** | `/skill:ship-grill` | Interrogating a plan doc into a complete spec - resolve every grey area, build the glossary and ADRs, write the handoff contract. |
+| **ship-slice** | `/skill:ship-slice` | **Build-only; spec already final.** Autonomously building a spec as vertical tracer-bullet slices across non-blocking phases, fanning out subagents, pausing only on a hard blocker. |
+| **ship-review** | `/skill:ship-review` | Deeply reviewing finished deliverables - goal-backward against the spec plus an adversarial quality attack, reported as prioritized findings. |
 
 ## Choosing between them
 
-- **Split vs. verify.** `/orchestrate` when the work fans out across many workers; `/trinity` when a
-  single problem needs checking and refinement. Orchestrate hands verification-heavy subtasks to
-  trinity; trinity steps up to orchestrate when one task turns out to be many.
-- **Pattern catalog.** Both compose the abstract workflow patterns catalogued in
-  `/orchestrate`'s `PATTERNS.md` - read it to pick a shape before running either loop.
+- **One pipeline, four phases.** `/skill:ship` is the index; run its phases in order -
+  grill the plan into a spec, slice and build it autonomously, then review. Each phase is
+  also usable on its own.
+- **Pattern catalog.** The ship phases compose the abstract workflow patterns catalogued in
+  `skills/ship/PATTERNS.md` - read it to pick a shape before running a phase.
