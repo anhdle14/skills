@@ -28,6 +28,7 @@ If unclear, infer from the user's words. Ask only when choosing the wrong mode w
 - Never overwrite raw material. Shape and beats produce a separate article file.
 - Ask once for a save path if none was provided and a file artifact is needed.
 - Write incrementally. Do not batch a whole article unless explicitly asked.
+- Running non-interactively (batch/AFK): collapse the live offer-pick-grow-react loop into one pass — record the candidate choices and the direction you assume, write on that assumption, and state it in the final response instead of waiting for a turn.
 
 ## Output
 

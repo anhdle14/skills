@@ -23,16 +23,7 @@ Clarify these before touching git:
 5. What command runs one fixed-budget experiment?
 6. What log fields prove success, memory usage, and crash status?
 
-For the upstream repo, defaults are:
-
-- Metric: `val_bpb`, lower is better.
-- Ground truth evaluator: `evaluate_bpb` in `prepare.py`.
-- Editable file: `train.py` only.
-- Read-only files: `prepare.py`, evaluation harness, dependency files.
-- Experiment command: `uv run train.py`.
-- Result log fields: `val_bpb` and `peak_vram_mb`.
-
-If the repo differs, write down the equivalent answers before proceeding.
+For the upstream repo's concrete answers to these six questions, see [REFERENCE.md](REFERENCE.md). If the repo is a fork or port, write down its own answers before proceeding - including the port's exact experiment command (e.g. `python3 train.py`, not `uv run`) and the harness's memory unit; if it logs `peak_vram_mb`, convert to GB (divide by 1024) for the `memory_gb` column.
 
 ## Setup Protocol
 

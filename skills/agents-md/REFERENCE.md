@@ -63,7 +63,10 @@ Gather these so you never ask the user something the repo already answers:
 - [ ] **Manifests / stack** — package.json, deno.json, pyproject.toml, go.mod,
       Cargo.toml, Gemfile, etc. Languages, runtimes, key deps.
 - [ ] **Commands** — build, test (incl. single-test invocation), lint, format,
-      run/dev. Check scripts, Makefile, justfile, Taskfile, CI workflows.
+      run/dev. Check scripts, Makefile, justfile, Taskfile, CI workflows. If no
+      single-test script exists, derive the form from the test runner's CLI
+      (e.g. `vitest run <file> -t <name>`); if undecidable, mark `TODO(human):`
+      rather than inventing one.
 - [ ] **Structure** — top-level layout, entry points, where source vs. tests
       vs. generated code live.
 - [ ] **Linter / formatter configs** — .eslintrc, .prettierrc, ruff.toml,

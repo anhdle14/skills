@@ -1,6 +1,6 @@
 ---
 name: agents-md
-description: Create or replace the per-folder agent context file that gets read on every turn, holding it to the 80-line budget where every line prevents a mistake. Use when user wants to create, write, generate, bootstrap, or rewrite an AGENTS.md / CLAUDE.md / agent context file, or onboard an agent to a repo.
+description: Create or rewrite the per-folder agent context file that an agent reads on every turn. Use when the user wants to create, bootstrap, or rewrite an AGENTS.md / CLAUDE.md / agent context file, or onboard an agent to a repo.
 tags: [create, engineering, productivity]
 args: "<target folder (defaults to cwd)>"
 ---

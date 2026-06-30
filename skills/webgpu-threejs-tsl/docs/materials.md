@@ -72,6 +72,11 @@ material.roughnessNode = float(0.5);
 // Emissive (self-illumination)
 material.emissiveNode = color(0xff0000).mul(2.0);
 material.emissiveNode = texture(emissiveMap);
+
+// Pulsing emissive — animate self-illumination over time by combining the
+// time-driven oscillator with an intensity multiplier:
+import { time, oscSine } from 'three/tsl';
+material.emissiveNode = color(0x00ffff).mul(oscSine(time.mul(0.5))).mul(2.0);
 ```
 
 ### Normal Mapping

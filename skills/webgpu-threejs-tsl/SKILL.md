@@ -54,25 +54,15 @@ Read the file matching the task; do not load all of them at once.
 
 - `REFERENCE.md` - Quick reference cheatsheet
 
-## Key Concepts
+## Key gotcha
 
-### Import Pattern
+Always import from the WebGPU entry point (`three/webgpu`) and TSL functions from `three/tsl` — the default `three` build has neither. Node materials replace standard properties with TSL nodes (`colorNode`, `roughnessNode`, `positionNode`, …); see `docs/materials.md` for the full set.
 
-```javascript
-// Always use the WebGPU entry point
-import * as THREE from 'three/webgpu';
-import { /* TSL functions */ } from 'three/tsl';
-```
+## Before done
 
-### Node Materials
-
-Replace standard material properties with TSL nodes:
-
-```javascript
-material.colorNode = texture(map);        // instead of material.map
-material.roughnessNode = float(0.5);      // instead of material.roughness
-material.positionNode = displaced;         // vertex displacement
-```
+- Imports come from `three/webgpu` and `three/tsl`, not the default `three`.
+- Material surfaces use `*Node` properties (`colorNode`/`emissiveNode`/…), not raw props or GLSL strings.
+- `await renderer.init()` runs before the first render.
 
 ## Resources
 

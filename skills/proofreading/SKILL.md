@@ -1,6 +1,6 @@
 ---
 name: proofreading
-description: Proofread and improve existing article drafts by restructuring sections, improving clarity, and tightening prose. Use when user wants to proofread, edit, revise, clean up, or improve an existing draft.
+description: Proofread and improve existing article drafts by restructuring sections, improving clarity, and tightening prose. Use when the user wants to proofread, revise, or improve an existing prose draft.
 tags: [writing, transform]
 args: "<path to article file>"
 ---
@@ -19,6 +19,8 @@ Use for an existing prose draft. If the user has only fragments, notes, raw mate
 
    Information is a directed acyclic graph — pieces of information depend on other pieces. Make sure the order of sections respects these dependencies.
 
+   Merge duplicate or split sections (the same topic under two headings) into one, and drop orphan headings, while setting the order.
+
    Confirm the sections with the user.
 
 2. For each section:
@@ -33,6 +35,7 @@ Use for an existing prose draft. If the user has only fragments, notes, raw mate
    - Consistent terminology throughout
    - Transitions between sections
    - Opening and closing paragraphs
+   - The opening's roadmap matches delivered content — no section is promised that the body never delivers
 
 ## Output
 

@@ -1,6 +1,6 @@
 ---
 name: research
-description: "Explores user intent, requirements, and design before implementation. Use when user asks to research, brainstorm, design, create features, build components, add functionality, or modify behavior before implementation."
+description: "Explores user intent, requirements, and design before implementation. Use when the user asks to research, brainstorm, design, or modify behavior before implementation."
 tags: [analyze, engineering, plan]
 args: "<idea, feature, or behavior change (optional)>"
 ---
@@ -11,9 +11,7 @@ Persistence rule: context is volatile RAM; filesystem is durable disk. Write imp
 
 Help turn ideas into fully formed designs and specs through natural collaborative dialogue. Start by understanding the current project, then ask one question at a time, present design options, and get approval before implementation.
 
-<HARD-GATE>
-Do NOT invoke any implementation skill, write code, scaffold a project, or take implementation action until you have presented a design and the user has approved it. This applies regardless of perceived simplicity.
-</HARD-GATE>
+> **Hard gate:** Do NOT invoke any implementation skill, write code, scaffold a project, or take implementation action until you have presented a design and the user has approved it. This applies regardless of perceived simplicity.
 
 ## Anti-Pattern: "This Is Too Simple To Need A Design"
 
@@ -28,40 +26,44 @@ Create and complete tasks in this order:
 3. **Ask clarifying questions** — one at a time; understand purpose, constraints, and success criteria.
 4. **Propose 2-3 approaches** — include trade-offs and lead with your recommendation.
 5. **Present design** — scale sections to complexity; get user approval after each section.
-6. **Write design doc** — save to `docs/specs/YYYY-MM-DD-<topic>-design.md` unless user preferences override.
+6. **Write design doc** — save it under `docs/specs/` (exact path and commit policy in After the Design).
 7. **Spec self-review** — fix placeholders, contradictions, ambiguity, and scope creep inline.
 8. **User reviews written spec** — ask user to review the committed spec before planning.
 9. **Transition to implementation planning** — hand off to your planning workflow; do not jump into implementation skills directly.
 
 ## Process
 
-**Understand the idea**
+### Understand the idea
 
 - Check the current project state before asking detailed questions.
 - If the request contains multiple independent subsystems, stop and decompose it before refining details.
 - For scoped work, ask one question per message. Prefer multiple choice when possible, but use open-ended questions when needed.
 
-**Explore approaches**
+### Explore approaches
 
 - Propose 2-3 viable approaches with trade-offs.
 - Recommend one option and explain why.
 - YAGNI ruthlessly: remove features that do not serve the stated goal.
 
-**Present the design**
+### Present the design
 
 - Present architecture, components, data flow, error handling, and testing at the level the work deserves.
 - Ask after each section whether it looks right so far.
 - If feedback changes the design, revise and validate before moving on.
 
-**Work in existing codebases**
+### Work in existing codebases
 
 - Follow current structure and patterns.
 - Include targeted boundary or clarity improvements only when they directly serve the current goal.
 - Do not propose unrelated refactors.
 
+### Running non-interactively
+
+When no human can answer in turn (batch/AFK), do not fabricate approval. Record each question with the assumption you make, proceed on that assumption, and mark the written design **pending approval** so the gate stays honest rather than performative.
+
 ## After the Design
 
-Write the approved design to `docs/specs/YYYY-MM-DD-<topic>-design.md` and commit it unless the user has given a different location or workflow.
+Write the approved design to `docs/specs/YYYY-MM-DD-<topic>-design.md` and commit it unless the user has given a different location or workflow. This is the single source for the path and commit policy the checklist points to.
 
 Self-review the written spec before asking the user to review it:
 

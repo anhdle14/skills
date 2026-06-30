@@ -76,24 +76,10 @@ Each service function should accept explicit parameters, return structured data 
 3. Extract only repeated, non-domain mechanics.
 4. Replace one caller, verify, then migrate the rest.
 5. Keep auth, state transitions, and user-facing error policy in orchestration.
-6. Run the repo's normal verification commands.
+6. Run the repo's normal verification commands. If the area has no test/build harness (common for the legacy code this skill targets), define verification as a type-check plus a before/after behavior snapshot of the affected paths, and treat matching it as the gate.
 
 If the user asks for a refactor plan or issue, include: problem statement, solution, alternatives considered, scope boundaries, tiny commit plan where tests pass after each step, testing plan, risks, and rollback path.
 
-## Watch For
+## When evaluating or reviewing a change
 
-- **God service**: one huge method hides the whole flow and removes caller control.
-- **Leaky service**: service reaches into database tables or domain state directly.
-- **Inconsistent service API**: every helper has different parameter and error conventions.
-- **Premature abstraction**: logic used once is extracted because it "might" be reused.
-- **Policy drift**: service starts deciding business rules that callers should own.
-- **Map without decision**: orientation that never names the structural change it enables.
-
-## Review Questions
-
-- What module owns the domain concept?
-- Does the proposed interface hide meaningful complexity, or just rename it?
-- If this service disappeared, would the operation be duplicated across callers?
-- Can each caller still express domain rules clearly?
-- Are all inputs visible, and are success/failure states explicit?
-- Would a bug fix in this operation now apply everywhere it should?
+Consult [REFERENCE.md](REFERENCE.md) for the service anti-patterns to watch for and the review questions to run against a proposed extraction or structure plan.
