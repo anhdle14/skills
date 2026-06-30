@@ -17,6 +17,7 @@ const VALID_TAGS = new Set([
   "productivity",
   "engineering",
   "writing",
+  "design",
 ]);
 const PERSISTENCE_RULE = "Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.";
 

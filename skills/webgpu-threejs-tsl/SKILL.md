@@ -1,7 +1,7 @@
 ---
 name: webgpu-threejs-tsl
 description: TSL and WebGPU node-shader toolkit covering node materials, GPU compute, post-processing, and WGSL integration. Use when building Three.js WebGPU apps, writing TSL shaders or node materials, porting GLSL to TSL, authoring GPU compute shaders, or assembling post-processing effects.
-tags: [create, engineering, transform]
+tags: [create, design, engineering, transform]
 ---
 
 # WebGPU Three.js with TSL
