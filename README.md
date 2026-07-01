@@ -72,7 +72,7 @@ must be invoked explicitly. `/skill:router` is the index that names them.
 | `/skill:ship` | Index + handoff contract for the four-phase feature pipeline (grill, slice, build, review) |
 | `/skill:ship-grill` | Interrogate a plan doc into a complete spec — resolve grey areas, build glossary/ADRs |
 | `/skill:ship-slice` | Autonomously build a spec as vertical slices across non-blocking phases, fanning out subagents |
-| `/skill:ship-review` | Deep review of deliverables — goal-backward against the spec plus an adversarial quality pass |
+| `/skill:ship-review` | The review gate for deliverables — goal-backward against the spec, adversarial attack, then classify findings by severity and action, auto-fix the safe ones, escalate the judgment calls |
 
 ## Adding a skill
 
