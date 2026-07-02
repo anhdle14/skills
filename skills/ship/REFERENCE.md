@@ -30,6 +30,32 @@ only the actual feature **code** is committed to the project. `.ship/` is gitign
 
 Re-read the relevant files before any decision and before any done check.
 
+### Resume-detection contract (how `/skill:ship` orients)
+
+`/skill:ship` is a single self-orienting entry point: it reads the durable artifacts under
+`.ship/<feature-slug>/` to decide whether to resume a run or start one, then routes to the
+correct phase. Routing must be deterministic — driven by artifact presence and explicit
+markers, never by parsing prose. The contract:
+
+- **Artifact presence maps to phase.** `PLAN.md` → Phase 1 done; `SPEC.md` → grill done;
+  `SLICES.md` + `STATE.md` → slice started; `REVIEW.md` → review done.
+- **`STATE.md` carries a `## Status` block.** The autonomous build writes a final line
+  exactly `Overall: DONE` when every slice is accepted. Its absence means the slice phase is
+  still in progress (resume `ship-slice`).
+- **`## Open blockers`** lists `(none)` when clear, or the blocker(s) otherwise. Anything
+  other than `(none)` keeps the run in Phase 3.
+
+| Detected state | Next phase |
+|---|---|
+| No `.ship/` or no `<slug>/PLAN.md` | Phase 1: confirm/create `PLAN.md`, then `ship-grill` |
+| `PLAN.md`, no `SPEC.md` | Phase 2: `ship-grill` |
+| `SPEC.md`, no `SLICES.md`/`STATE.md` | Phase 3: `ship-slice` (fresh) |
+| `SLICES.md`+`STATE.md`, no `Overall: DONE` or open blockers | Phase 3: `ship-slice` (resume from `STATE.md`) |
+| `STATE.md` `Overall: DONE`, no `REVIEW.md` | Phase 4: `ship-review` |
+| `REVIEW.md` present | Complete; offer re-review or a new feature |
+
+---
+
 ### SPEC.md schema (the handoff contract)
 
 The spec must be complete enough that the autonomous phase needs nothing else:

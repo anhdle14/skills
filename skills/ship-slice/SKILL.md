@@ -38,7 +38,11 @@ patterns this phase composes (Fan Out and Synthesize + Loop Until Done) are in
 5. **Advance.** When a phase's slices all `ACCEPT`, re-read `SLICES.md` and `STATE.md` (to
    catch slices inserted mid-run) and start the next phase. Run the full test suite once at
    phase end.
-6. **Finish.** When every slice is accepted, write final progress to `STATE.md` and report.
+6. **Finish.** When every slice is accepted, write final progress to `STATE.md` — including
+   a `## Status` block whose last line is exactly `Overall: DONE` and an `## Open blockers`
+   section reading `(none)` — then report. That `Overall: DONE` marker is the deterministic
+   signal `/skill:ship` reads to route the run on to `ship-review` (see the resume-detection
+   contract in [../ship/REFERENCE.md](../ship/REFERENCE.md)).
 
 ## Staying hands-off
 

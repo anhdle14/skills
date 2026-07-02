@@ -1,7 +1,7 @@
 ---
 name: ship
 disable-model-invocation: true
-description: Orchestrate a feature from a plan doc to shipped, reviewed vertical slices through four human-invoked phases — grill, slice, build, review.
+description: Single self-orienting entry point for the four-phase ship pipeline — detects where a feature left off from its .ship/ artifacts and resumes it, or walks you from the start through grill, slice, build, review.
 tags: [plan, engineering, productivity]
 args: "<feature description or .ship/<feature-slug> path (optional)>"
 ---
@@ -11,10 +11,11 @@ args: "<feature description or .ship/<feature-slug> path (optional)>"
 Persistence rule: context is volatile RAM; filesystem is durable disk. Write important plans, progress checkboxes, failures, and verification to files; re-read them before decisions and done checks.
 
 Take a feature from a rough plan to shipped, reviewed vertical slices. The work splits into
-four phases, each invoked explicitly by a human. This skill is the index and the handoff
-contract between them. Shared contracts live in [REFERENCE.md](REFERENCE.md); the pattern
-catalog the phases compose is in [PATTERNS.md](PATTERNS.md); a worked trace is in
-[EXAMPLES.md](EXAMPLES.md).
+four phases. Run `/skill:ship` and it orients itself: it reads the durable `.ship/` artifacts,
+resumes an in-flight feature from wherever it stopped, or walks you from the start. This skill
+is the index, the router, and the handoff contract between phases. Shared contracts live in
+[REFERENCE.md](REFERENCE.md); the pattern catalog the phases compose is in
+[PATTERNS.md](PATTERNS.md); a worked trace is in [EXAMPLES.md](EXAMPLES.md).
 
 Everything the workflow produces lives under a gitignored `.ship/<feature-slug>/` folder —
 the durable channel that carries state between phases and subagents. Only the feature code
@@ -44,8 +45,35 @@ existing spec, review to audit any finished work.
 
 ## Running the pipeline
 
-- Confirm or create `.ship/<feature-slug>/PLAN.md`, then invoke the phases in order. Each
-  phase reads the previous phase's artifacts from `.ship/` and writes its own there.
+`/skill:ship [feature-slug | description]` orients itself, then routes. It never launches a
+phase itself — it detects state, prints a status card, and hands you the exact next command.
+
+1. **Locate the feature.** If an arg names a slug or description, use it. Otherwise scan
+   `.ship/`: exactly one in-flight `<slug>/` → resume it; several → list each with its
+   detected phase and ask which; none → start Phase 1.
+2. **Detect the phase** from artifact presence and `STATE.md` markers, per the
+   resume-detection contract and routing table in [REFERENCE.md](REFERENCE.md) (`PLAN.md` →
+   `SPEC.md` → `SLICES.md`+`STATE.md`/`Overall: DONE` → `REVIEW.md`).
+3. **Present, then route.** Print a status card and the recommended `▶ Next Up` command, then
+   wait — never auto-launch:
+
+   ```text
+   ╔═ SHIP STATUS ═════════════════╗
+    Feature: csv-export
+    Phase 2 of 4 — SPEC.md written
+    Blockers: none
+   ╚═══════════════════════════════╝
+
+   ▶ Next Up
+   /skill:ship-slice csv-export
+   (/new first → fresh context window)
+
+   Proceed?  y  ·  edit PLAN/SPEC  ·  different feature
+   ```
+
+4. **Phase 1 fallback (nothing exists).** Confirm or create `.ship/<feature-slug>/PLAN.md`
+   from whatever plan/spec/design doc you have, then hand off to `/skill:ship-grill`.
+
 - As the index, create only `PLAN.md` and a short handoff note; never pre-create `SPEC.md`,
   `SLICES.md`, `STATE.md`, or `REVIEW.md` — each downstream phase writes its own.
 - Do not skip grilling before slicing: the autonomous phase only runs hands-off because the
