@@ -69,7 +69,8 @@ must be invoked explicitly. `/skill:router` is the index that names them.
 |-------|-------------|
 | `/skill:router` | Human-only index: names the skills below and when to reach for each |
 | `/skill:autoresearch` | Run the Karpathy-style autoresearch loop around an agreed metric and fixed harness |
-| `/skill:ship` | Index + handoff contract for the four-phase feature pipeline (grill, slice, build, review) |
+| `/skill:ship` | Index + handoff contract for the four-phase feature pipeline (plan, grill, slice, review) |
+| `/skill:ship-plan` | Phase 1: pair with the user to author a reviewed PLAN.md — plannotator's visual gate when available, in-chat fallback when not |
 | `/skill:ship-grill` | Interrogate a plan doc into a complete spec — resolve grey areas, build glossary/ADRs |
 | `/skill:ship-slice` | Autonomously build a spec as vertical slices across non-blocking phases, fanning out subagents |
 | `/skill:ship-review` | The review gate for deliverables — goal-backward against the spec, adversarial attack, then classify findings by severity and action, auto-fix the safe ones, escalate the judgment calls |

@@ -15,6 +15,7 @@ Agent skills organized as a flat directory under `skills/`. Each skill is a fold
 | [router *(human-only)*](skills/router/SKILL.md) | productivity | Human-only index of the disable-model-invocation skills - names each and when to reach for it. |
 | [ship *(human-only)*](skills/ship/SKILL.md) | plan, engineering, productivity | Single self-orienting entry point for the four-phase ship pipeline - detects where a feature left off from its .ship/ artifacts and resumes it, or walks you from the start through grill, slice, build, review. Args: `"<feature description or .ship/<feature-slug> path (optional)>"` |
 | [ship-grill *(human-only)*](skills/ship-grill/SKILL.md) | plan, engineering, productivity | Relentlessly interview a plan doc into a complete spec - resolve every grey area, build the glossary and ADRs, and write the handoff contract the autonomous build runs on. Args: `"<.ship/<feature-slug> path or feature description (optional)>"` |
+| [ship-plan *(human-only)*](skills/ship-plan/SKILL.md) | plan, engineering, productivity | Phase 1 of the ship pipeline - pair with the user to author a reviewed PLAN.md, using plannotator's visual review gate when available and degrading gracefully when it is not, then hand off to ship-grill. Args: `"<feature description or .ship/<feature-slug> path (optional)>"` |
 | [ship-review *(human-only)*](skills/ship-review/SKILL.md) | analyze, engineering, productivity | The review gate for shipped deliverables - verify goal-backward against the spec, attack the code adversarially, then classify every finding by severity and action, apply the safe fixes, and escalate the judgment calls. Args: `"<.ship/<feature-slug> path (optional)>"` |
 | [ship-slice *(human-only)*](skills/ship-slice/SKILL.md) | plan, engineering, productivity | Autonomously turn a spec into shipped vertical slices - decompose into tracer bullets, run them in non-blocking phases, fan out subagents, drive each to green, and commit outcomes. Args: `"<.ship/<feature-slug> path (optional)>"` |
 | [webgpu-threejs-tsl](skills/webgpu-threejs-tsl/SKILL.md) | create, design, engineering, transform | TSL and WebGPU node-shader toolkit covering node materials, GPU compute, post-processing, and WGSL integration. Use when building Three.js WebGPU apps, writing TSL shaders or node materials, porting GLSL to TSL, authoring GPU compute shaders, or assembling post-processing effects. |
@@ -29,7 +30,7 @@ for onboarding an agent to a repo.
 
 Some skills are human-only (`disable-model-invocation: true`) and never
 auto-trigger; invoke them explicitly: `/skill:autoresearch` and the ship
-pipeline (`/skill:ship`, `/skill:ship-grill`, `/skill:ship-slice`,
+pipeline (`/skill:ship`, `/skill:ship-plan`, `/skill:ship-grill`, `/skill:ship-slice`,
 `/skill:ship-review`). `/skill:router` is the human-only index that names them
 and when to reach for each.
 

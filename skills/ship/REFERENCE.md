@@ -15,7 +15,7 @@ only the actual feature **code** is committed to the project. `.ship/` is gitign
 
 ```text
 .ship/<feature-slug>/
-├── PLAN.md          # phase 1: the source plan/spec/design/manifest doc (any format)
+├── PLAN.md          # phase 1 (ship-plan): the reviewed plan doc (any format)
 ├── SPEC.md          # phase 2: the handoff contract (schema below)
 ├── GLOSSARY.md      # phase 2: domain terms, created lazily
 ├── decisions/       # phase 2: ADRs (NNNN-title.md), created lazily
@@ -37,7 +37,7 @@ Re-read the relevant files before any decision and before any done check.
 correct phase. Routing must be deterministic — driven by artifact presence and explicit
 markers, never by parsing prose. The contract:
 
-- **Artifact presence maps to phase.** `PLAN.md` → Phase 1 done; `SPEC.md` → grill done;
+- **Artifact presence maps to phase.** `PLAN.md` → Phase 1 (`ship-plan`) done; `SPEC.md` → grill done;
   `SLICES.md` + `STATE.md` → slice started; `REVIEW.md` → review done.
 - **`STATE.md` carries a `## Status` block.** The autonomous build writes a final line
   exactly `Overall: DONE` when every slice is accepted. Its absence means the slice phase is
@@ -47,7 +47,7 @@ markers, never by parsing prose. The contract:
 
 | Detected state | Next phase |
 |---|---|
-| No `.ship/` or no `<slug>/PLAN.md` | Phase 1: confirm/create `PLAN.md`, then `ship-grill` |
+| No `.ship/` or no `<slug>/PLAN.md` | Phase 1: `ship-plan` (author + review `PLAN.md`), then `ship-grill` |
 | `PLAN.md`, no `SPEC.md` | Phase 2: `ship-grill` |
 | `SPEC.md`, no `SLICES.md`/`STATE.md` | Phase 3: `ship-slice` (fresh) |
 | `SLICES.md`+`STATE.md`, no `Overall: DONE` or open blockers | Phase 3: `ship-slice` (resume from `STATE.md`) |

@@ -28,6 +28,8 @@ htmlcov/
 .vscode/
 .idea/
 .pi/
+# ...but allow committing the ship-plan planning-phase config when activated for dogfooding
+!.pi/plannotator.json
 
 # Local Claude Code settings (machine-specific permissions)
 .claude/settings.local.json

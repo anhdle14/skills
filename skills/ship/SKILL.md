@@ -1,7 +1,7 @@
 ---
 name: ship
 disable-model-invocation: true
-description: Single self-orienting entry point for the four-phase ship pipeline — detects where a feature left off from its .ship/ artifacts and resumes it, or walks you from the start through grill, slice, build, review.
+description: Single self-orienting entry point for the four-phase ship pipeline — detects where a feature left off from its .ship/ artifacts and resumes it, or walks you from the start through plan, grill, slice, review.
 tags: [plan, engineering, productivity]
 args: "<feature description or .ship/<feature-slug> path (optional)>"
 ---
@@ -23,8 +23,9 @@ is committed. The `.ship/` layout and all file schemas are in REFERENCE.
 
 ## The four phases
 
-1. **Plan (any doc).** Start from any plan, spec, design, or manifest doc. Save it as
-   `.ship/<feature-slug>/PLAN.md`. No skill required — bring whatever you already have.
+1. **`/skill:ship-plan`.** Pair with the user to author a reviewed `.ship/<feature-slug>/PLAN.md`
+   — using plannotator's visual review gate when available, degrading gracefully when not. You
+   can also start from any plan/spec/design doc you already have and drop it in as `PLAN.md`.
 2. **`/skill:ship-grill`.** A relentless interview that makes the plan match your real
    intent and resolves every grey area, then writes `SPEC.md` — the complete handoff
    contract the rest of the workflow runs on.
@@ -71,11 +72,11 @@ phase itself — it detects state, prints a status card, and hands you the exact
    Proceed?  y  ·  edit PLAN/SPEC  ·  different feature
    ```
 
-4. **Phase 1 fallback (nothing exists).** Confirm or create `.ship/<feature-slug>/PLAN.md`
-   from whatever plan/spec/design doc you have, then hand off to `/skill:ship-grill`.
+4. **Phase 1 fallback (nothing exists).** Hand off to `/skill:ship-plan` to author and review
+   `.ship/<feature-slug>/PLAN.md` (or drop in a plan doc you already have), then `/skill:ship-grill`.
 
-- As the index, create only `PLAN.md` and a short handoff note; never pre-create `SPEC.md`,
-  `SLICES.md`, `STATE.md`, or `REVIEW.md` — each downstream phase writes its own.
+- As the index, never pre-create phase artifacts (`PLAN.md`, `SPEC.md`, `SLICES.md`, `STATE.md`,
+  `REVIEW.md`) — each phase writes its own (`PLAN.md` is `ship-plan`'s output). Emit only a short handoff note.
 - Do not skip grilling before slicing: the autonomous phase only runs hands-off because the
   spec already answers its questions. A thin spec means a blocked or wrong build.
 - Between phases, the human decides whether to proceed. Within `ship-slice`, the agent runs
