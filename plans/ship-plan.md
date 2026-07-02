@@ -35,7 +35,7 @@ Local, browser-based review surface that plugs into agents via hooks/commands. R
 | **Plan review** | Agent proposes plan → browser UI → approve / deny-with-annotations / approve-with-notes; blocks until decision. | harness hooks (Claude `ExitPlanMode`, Codex `Stop`, Pi `plannotator_submit_plan`). |
 | **Plan versioning / diff** | On resubmission, "Plan Diff" highlights what changed. | automatic |
 | **Code review** | Uncommitted changes or remote PRs; line comments; git/jj/p4/GitHub/GitLab. | `plannotator review [--git] [PR_URL]` |
-| **Annotate** | Any markdown/text/HTML file, URL, or folder. `--gate` = Approve button; `--json`/`--hook` = structured decision. | `plannotator annotate <path\|url\|folder> [--render-html]` |
+| **Annotate** | Any markdown/text/HTML file, URL, or folder. `--gate` = Approve button; `--json`/`--hook` = structured decision; `--markdown` converts HTML (raw by default). | `plannotator annotate <path\|url\|folder> [--markdown]` |
 | **Annotate-last** | Annotate the agent's last message. | `plannotator annotate-last` |
 | **AI-in-the-loop** | Ask AI about what you're reviewing; AI reviews post diff comments. | in-UI |
 | **Sharing / multiplayer** | Share plan+annotations via URL (hash or encrypted short-link); import teammate feedback. Disable via `PLANNOTATOR_SHARE=disabled`. | `room.plannotator.ai` |
@@ -90,7 +90,7 @@ Tier 3. Never ask the user which tier. Notice example when degrading: *"plannota
 
 - **In:** the core plan-authoring loop; the three-tier review gate; plan-diff on resubmit (free at
   Tier 1); **pulling arbitrary docs / URLs / HTML into the annotate UI during planning** as a
-  reference aid (`plannotator annotate <path|url> [--render-html]`, Tier 1/2 only — noted as
+  reference aid (`plannotator annotate <path|url> [--markdown]`, Tier 1/2 only — noted as
   unavailable at Tier 3).
 - **Out:** code review of diffs/PRs, annotate-last, sharing/multiplayer, setup-goal — separate
   concerns, not part of Phase-1 planning.
@@ -133,7 +133,7 @@ the deep interview → `SPEC.md`). No overlap with grill; the pipeline stays fou
 - Ship contracts: `skills/ship/REFERENCE.md` (`.ship/` layout, resume-detection, Tier A/B framing).
 - plannotator Pi config schema: `apps/pi-extension/plannotator.json` + `config.ts` (merge layers,
   overridable fields, template vars) — basis for the config template.
-- plannotator CLI: `annotate --gate --json`, `--render-html` (verified in `apps/hook/server/cli.ts`).
+- plannotator CLI: `annotate --gate --json`, `--markdown` (verified in `apps/hook/server/cli.ts`; HTML renders raw by default).
 - Existing ship skill prose conventions (persistence rule line, anti-patterns, human-only frontmatter).
 
 ## Steps

@@ -64,7 +64,8 @@ one-line notice ONLY when you drop below Tier 1. Full contract in REFERENCE.
    an explicit approval. Print: `plannotator not detected — using in-chat review gate`.
 
 At Tier 1/2 you may pull a reference doc, URL, or HTML artifact into the annotate UI while
-planning (`plannotator annotate <path|url> [--render-html]`). Not available at Tier 3.
+planning (`plannotator annotate <path|url> [--markdown]`; HTML renders raw by default, `--markdown`
+converts it). Not available at Tier 3.
 
 ## Hand off to grill
 

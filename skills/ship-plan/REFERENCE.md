@@ -51,11 +51,12 @@ While planning you may pull a reference document, URL, or rendered HTML artifact
 annotate UI to discuss it with the user:
 
 ```bash
-plannotator annotate <file.md | https://... | report.html> [--render-html]
+plannotator annotate <file.md | https://... | report.html> [--markdown]
 ```
 
-`--render-html` renders HTML as-is instead of converting to markdown. This is a reference aid,
-not the plan review gate — the gate is always the `PLAN.md` itself. Unavailable at Tier 3.
+HTML input is rendered as-is by default; `--markdown` converts it to markdown instead. This is a
+reference aid, not the plan review gate — the gate is always the `PLAN.md` itself. Unavailable at
+Tier 3.
 
 ---
 
