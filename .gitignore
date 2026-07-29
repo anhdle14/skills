@@ -1,26 +1,3 @@
-# Deno cache (deps are locked via deno.lock, cache is local)
-.deno/
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-.Python
-.python-version
-.venv/
-venv/
-env/
-ENV/
-build/
-dist/
-*.egg-info/
-.eggs/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-
 # macOS
 .DS_Store
 
@@ -28,14 +5,15 @@ htmlcov/
 .vscode/
 .idea/
 .pi/
-# ...but allow committing the ship-plan planning-phase config when activated for dogfooding
-!.pi/plannotator.json
+
+# Agent subagent run artifacts
+.pi-subagents/
 
 # Local Claude Code settings (machine-specific permissions)
 .claude/settings.local.json
 
-# ship workflow artifacts (plans, specs, slice state, reviews) — never committed
-.ship/
+# Skill RED-case transcripts (local evidence, never committed)
+skills/*/validation-*.md
 
-# Virtual skill-eval harness (fixtures, runs, judgments) — never committed
-.skill-eval/
+# Python
+__pycache__/

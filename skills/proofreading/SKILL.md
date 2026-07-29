@@ -11,7 +11,7 @@ Persistence rule: context is volatile RAM; filesystem is durable disk. Write imp
 
 ## When To Use
 
-Use for an existing prose draft. If the user has only fragments, notes, raw material, or wants to draft from scratch, hand off to `/writing`.
+Use for an existing non-technical prose draft. If the user has only fragments, notes, raw material, or wants to draft from scratch, hand off to `/prose-writing`. For technical documentation - README, API reference, how-to, design doc, runbook, release notes - hand off to `/tech-writing`, which reviews accuracy against the source of truth before prose.
 
 ## Workflow
 

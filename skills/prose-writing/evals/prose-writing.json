@@ -1,0 +1,39 @@
+{
+  "skill": "prose-writing",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "notes-to-report",
+      "prompt": "I have rough notes about our team's Q3 on-call experience in notes.md. Turn them into a publishable internal report.",
+      "should_trigger": true,
+      "tools": ["read", "write"],
+      "expect": {
+        "judge": "The response works from the notes only, leads with the finding, and does not invent numbers or quotes that the notes do not contain."
+      }
+    },
+    {
+      "name": "fragment-capture",
+      "prompt": "I want to start collecting ideas for an essay about why on-call rotations rot. Don't structure it yet.",
+      "should_trigger": true,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "api-reference",
+      "prompt": "Write the API reference page for our /v1/warm endpoint.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "proofread-existing-draft",
+      "prompt": "Proofread and tighten the existing draft in article.md.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "debug-failing-test",
+      "prompt": "This test fails intermittently. Find out why.",
+      "should_trigger": false,
+      "tools": ["read", "bash"]
+    }
+  ]
+}

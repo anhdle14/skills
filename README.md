@@ -34,14 +34,6 @@ If you cloned this repository for development, update the clone with:
 git -C ~/Developer/github.com/anhdle14/skills pull
 ```
 
-## Local development
-
-```sh
-git clone https://github.com/anhdle14/skills ~/Developer/github.com/anhdle14/skills
-cd ~/Developer/github.com/anhdle14/skills
-deno task validate
-```
-
 ## Skill Reference
 
 ### Engineering
@@ -51,6 +43,7 @@ deno task validate
 | `/research` | Answer what exists, why it matters, what to do, and how to challenge the recommendation |
 | `/code-structure` | Map modules, find structural friction, separate orchestration from services, and plan safe refactors |
 | `/agents-md` | Create or rewrite the per-folder agent context file within the 80-line budget |
+| `/manage-skill` | Create, update, evaluate, and retire skills in this repo as tested behavior |
 | `/webgpu-threejs-tsl` | Build Three.js WebGPU apps with TSL node materials, GPU compute, and post-processing |
 
 ### Writing
@@ -58,28 +51,23 @@ deno task validate
 | skill | description |
 |-------|-------------|
 | `/proofreading` | Proofread and improve an existing article draft section by section |
-| `/writing` | Develop raw material into fragments, article drafts, or narrative beats |
+| `/prose-writing` | Develop raw material into non-technical prose - essays, reports, articles, narrative beats |
+| `/tech-writing` | Write or review technical docs - READMEs, API references, runbooks, design docs - against Google's tech writing standards |
 
 ### Human-only skills
 
 These carry `disable-model-invocation: true`, so they never auto-trigger and
-must be invoked explicitly. `/skill:router` is the index that names them.
+must be invoked explicitly.
 
 | skill | description |
 |-------|-------------|
-| `/skill:router` | Human-only index: names the skills below and when to reach for each |
 | `/skill:autoresearch` | Run the Karpathy-style autoresearch loop around an agreed metric and fixed harness |
-| `/skill:ship` | Index + handoff contract for the four-phase feature pipeline (plan, grill, slice, review) |
-| `/skill:ship-plan` | Phase 1: pair with the user to author a reviewed PLAN.md — plannotator's visual gate when available, in-chat fallback when not |
-| `/skill:ship-grill` | Interrogate a plan doc into a complete spec — resolve grey areas, build glossary/ADRs |
-| `/skill:ship-slice` | Autonomously build a spec as vertical slices across non-blocking phases, fanning out subagents |
-| `/skill:ship-review` | The review gate for deliverables — goal-backward against the spec, adversarial attack, then classify findings by severity and action, auto-fix the safe ones, escalate the judgment calls |
 
 ## Adding a skill
 
 1. Create `skills/<name>/SKILL.md` with valid frontmatter.
-2. Add supporting files beside it if needed.
-3. Run `deno task validate`.
+2. Add supporting files beside it if needed, including `evals/<name>.json` eval cases.
+3. Validate with `python3 skills/manage-skill/scripts/eval-skill.py --skill skills/<name> --static --require-cases`.
 4. Update `AGENTS.md`'s skills index if the skill list or metadata changed.
 
 See `AGENTS.md` for the full conventions.

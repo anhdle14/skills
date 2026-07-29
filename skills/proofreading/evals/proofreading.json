@@ -1,0 +1,36 @@
+{
+  "skill": "proofreading",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "proofread-existing-draft",
+      "prompt": "Proofread and improve the draft article at article.md.",
+      "should_trigger": true,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "tighten-essay",
+      "prompt": "My essay draft is baggy and the sections are in a weird order. Can you revise it?",
+      "should_trigger": true,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "api-reference",
+      "prompt": "Write the API reference page for our /v1/warm endpoint.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "notes-to-article",
+      "prompt": "I have rough notes in notes.md and no draft yet. Turn them into an article.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "fix-failing-test",
+      "prompt": "This test fails intermittently. Find out why.",
+      "should_trigger": false,
+      "tools": ["read", "bash"]
+    }
+  ]
+}

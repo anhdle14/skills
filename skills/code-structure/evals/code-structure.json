@@ -1,0 +1,42 @@
+{
+  "skill": "code-structure",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "plan-refactor",
+      "prompt": "Our billing service module is shallow and leaks provider details into callers. Plan a safe refactor.",
+      "should_trigger": true,
+      "tools": ["read", "bash"]
+    },
+    {
+      "name": "map-unfamiliar-area",
+      "prompt": "I don't know this codebase. Map the modules and callers around the checkout flow.",
+      "should_trigger": true,
+      "tools": ["read", "bash"]
+    },
+    {
+      "name": "action-or-service",
+      "prompt": "Should the retry-and-timeout logic live in the controller or in a shared service?",
+      "should_trigger": true,
+      "tools": ["read", "bash"]
+    },
+    {
+      "name": "fix-single-bug",
+      "prompt": "The total is off by one cent on refunds. Fix it.",
+      "should_trigger": false,
+      "tools": ["read", "write", "bash"]
+    },
+    {
+      "name": "write-module-docs",
+      "prompt": "Write the documentation page for the billing module's public API.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "upgrade-dependency",
+      "prompt": "Bump the postgres driver to the latest version and run the tests.",
+      "should_trigger": false,
+      "tools": ["read", "bash"]
+    }
+  ]
+}

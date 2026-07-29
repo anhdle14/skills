@@ -19,7 +19,7 @@ Every project goes through this process. A todo list, single-function utility, o
 
 ## Checklist
 
-Create and complete tasks in this order:
+Create and complete tasks in this order. The Process section details each step.
 
 1. **Explore project context** — check files, docs, recent commits, and existing patterns.
 2. **Offer visual companion** — only if upcoming questions would benefit from mockups or diagrams; offer it in its own message.
@@ -29,7 +29,7 @@ Create and complete tasks in this order:
 6. **Write design doc** — save it under `docs/specs/` (exact path and commit policy in After the Design).
 7. **Spec self-review** — fix placeholders, contradictions, ambiguity, and scope creep inline.
 8. **User reviews written spec** — ask user to review the committed spec before planning.
-9. **Transition to implementation planning** — hand off to your planning workflow; do not jump into implementation skills directly.
+9. **Transition to implementation planning** — hand off to your planning workflow.
 
 ## Process
 
@@ -72,9 +72,9 @@ Self-review the written spec before asking the user to review it:
 - **Scope check:** ensure the spec is small enough for one implementation plan.
 - **Ambiguity check:** choose explicit interpretations where requirements could split two ways.
 
-Then ask the user to review the spec file before implementation planning. If they request changes, update the spec and repeat the self-review. Proceed only once the user approves.
+For a spec worth an independent check, dispatch a fresh-context reviewer with [spec-document-reviewer-prompt.md](spec-document-reviewer-prompt.md) instead of relying on your own read.
 
-The next step after brainstorming is implementation planning. Do NOT jump straight into building — design first, then approval, then planning.
+Then ask the user to review the spec file before implementation planning. If they request changes, update the spec and repeat the self-review. Proceed only once the user approves, then hand off to implementation planning.
 
 ## Visual Companion
 
@@ -84,4 +84,4 @@ When offering it, send this as its own message and wait for the user's response:
 
 > "Some of what we're working on might be easier to explain if I can show it to you in a web browser. I can put together mockups, diagrams, comparisons, and other visuals as we go. This feature is still new and can be token-intensive. Want to try it? (Requires opening a local URL)"
 
-If they agree, read `skills/research/visual-companion.md` before proceeding. Use the browser for visual choices; use the terminal for text, scope, and trade-off questions.
+If they agree, read [visual-companion.md](visual-companion.md) before proceeding. Use the browser for visual choices; use the terminal for text, scope, and trade-off questions.

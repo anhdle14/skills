@@ -1,0 +1,70 @@
+{
+  "skill": "manage-skill",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "create-new-skill",
+      "prompt": "Add a skill to this repo that reviews Terraform plans before apply.",
+      "should_trigger": true,
+      "tools": ["read", "write", "bash"],
+      "expect": {
+        "response_regex": ["fail(ing|ure)", "negative", "eval"],
+        "forbid_response_regex": ["^(?!.*fail).*wrote the skill"],
+        "judge": "The response refuses to write skill text before observing a failing case, and plans positive and negative eval cases."
+      }
+    },
+    {
+      "name": "retarget-description",
+      "prompt": "The tech-writing skill keeps firing on non-technical writing requests. Tighten its description.",
+      "should_trigger": true,
+      "tools": ["read", "write", "bash"],
+      "expect": {
+        "response_regex": ["negative", "trigger", "(regression|eval)"],
+        "judge": "The response adds the wrong-trigger prompt as a negative eval case and re-runs checks rather than editing the description and stopping."
+      }
+    },
+    {
+      "name": "retire-decision",
+      "prompt": "Is the prose-writing skill still worth keeping now that models write decent prose unaided? Remove it if not.",
+      "should_trigger": true,
+      "tools": ["read", "bash"],
+      "expect": {
+        "response_regex": ["(compare-without-skill|without the skill|baseline)", "(capability|preference)"],
+        "judge": "The response measures with and without the skill before deciding, and keeps the eval cases if it removes the skill."
+      }
+    },
+    {
+      "name": "validate-repo-skills",
+      "prompt": "Check that every skill in this repo is still valid.",
+      "should_trigger": true,
+      "tools": ["read", "bash"],
+      "expect": {
+        "response_regex": ["static", "eval-skill"]
+      }
+    },
+    {
+      "name": "ordinary-code-change",
+      "prompt": "Fix the off-by-one in the retry backoff helper and run its unit test.",
+      "should_trigger": false,
+      "tools": ["read", "bash"]
+    },
+    {
+      "name": "ordinary-doc-edit",
+      "prompt": "Fix the broken link in README.md.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "agents-md-edit",
+      "prompt": "Add a section about our commit message format to AGENTS.md.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "use-a-skill-normally",
+      "prompt": "Write the README for this project.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    }
+  ]
+}

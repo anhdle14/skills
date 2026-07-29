@@ -4,45 +4,28 @@ Agent skills organized as a flat directory under `skills/`. Each skill is a fold
 
 ## Skills Index
 
-<!-- skills-index-start -->
-| skill | tags | description |
-|-------|------|-------------|
-| [agents-md](skills/agents-md/SKILL.md) | create, engineering, productivity | Create or rewrite the per-folder agent context file that an agent reads on every turn. Use when the user wants to create, bootstrap, or rewrite an AGENTS.md / CLAUDE.md / agent context file, or onboard an agent to a repo. Args: `"<target folder (defaults to cwd)>"` |
-| [autoresearch *(human-only)*](skills/autoresearch/SKILL.md) | engineering, plan, analyze | Sets up and runs the Karpathy-style autoresearch protocol - metric-first clarification, then an autonomous experiment loop under a fixed harness. Args: `"<run tag, metric, or repo path (optional)>"` |
-| [code-structure](skills/code-structure/SKILL.md) | analyze, engineering, transform, plan | Analyze and improve code structure by mapping modules, finding deepening opportunities, separating orchestration from service mechanics, and planning safe refactors. Use when unfamiliar with a code area, deciding what belongs in actions versus services, extracting repeated operational blocks, improving architecture, or planning a refactor. |
-| [proofreading](skills/proofreading/SKILL.md) | writing, transform | Proofread and improve existing article drafts by restructuring sections, improving clarity, and tightening prose. Use when the user wants to proofread, revise, or improve an existing prose draft. Args: `"<path to article file>"` |
-| [research](skills/research/SKILL.md) | analyze, engineering, plan | Explores user intent, requirements, and design before implementation. Use when the user asks to research, brainstorm, design, or modify behavior before implementation. Args: `"<idea, feature, or behavior change (optional)>"` |
-| [router *(human-only)*](skills/router/SKILL.md) | productivity | Human-only index of the disable-model-invocation skills - names each and when to reach for it. |
-| [ship *(human-only)*](skills/ship/SKILL.md) | plan, engineering, productivity | Single self-orienting entry point for the four-phase ship pipeline - detects where a feature left off from its .ship/ artifacts and resumes it, or walks you from the start through grill, slice, build, review. Args: `"<feature description or .ship/<feature-slug> path (optional)>"` |
-| [ship-grill *(human-only)*](skills/ship-grill/SKILL.md) | plan, engineering, productivity | Relentlessly interview a plan doc into a complete spec - resolve every grey area, build the glossary and ADRs, and write the handoff contract the autonomous build runs on. Args: `"<.ship/<feature-slug> path or feature description (optional)>"` |
-| [ship-plan *(human-only)*](skills/ship-plan/SKILL.md) | plan, engineering, productivity | Phase 1 of the ship pipeline - pair with the user to author a reviewed PLAN.md, using plannotator's visual review gate when available and degrading gracefully when it is not, then hand off to ship-grill. Args: `"<feature description or .ship/<feature-slug> path (optional)>"` |
-| [ship-review *(human-only)*](skills/ship-review/SKILL.md) | analyze, engineering, productivity | The review gate for shipped deliverables - verify goal-backward against the spec, attack the code adversarially, then classify every finding by severity and action, apply the safe fixes, and escalate the judgment calls. Args: `"<.ship/<feature-slug> path (optional)>"` |
-| [ship-slice *(human-only)*](skills/ship-slice/SKILL.md) | plan, engineering, productivity | Autonomously turn a spec into shipped vertical slices - decompose into tracer bullets, run them in non-blocking phases, fan out subagents, drive each to green, and commit outcomes. Args: `"<.ship/<feature-slug> path (optional)>"` |
-| [webgpu-threejs-tsl](skills/webgpu-threejs-tsl/SKILL.md) | create, design, engineering, transform | TSL and WebGPU node-shader toolkit covering node materials, GPU compute, post-processing, and WGSL integration. Use when building Three.js WebGPU apps, writing TSL shaders or node materials, porting GLSL to TSL, authoring GPU compute shaders, or assembling post-processing effects. |
-| [writing](skills/writing/SKILL.md) | writing, create, transform | Develop raw writing material into fragments, article drafts, or narrative beats without proofreading an existing draft. Use when user wants to ideate, collect fragments, shape notes into an article, write beat-by-beat, or turn raw material into publishable prose. Args: `"<path to raw material or output file (optional)>"` |
-<!-- skills-index-end -->
+Install everything with `npx skills add anhdle14/skills --all`, or grab a single skill with the command in its row.
 
-## Engineering Stack
-
-The broad engineering entry points are `/research` for evidence-gathering and
-design, `/code-structure` for module maps and refactor shape, and `/agents-md`
-for onboarding an agent to a repo.
-
-Some skills are human-only (`disable-model-invocation: true`) and never
-auto-trigger; invoke them explicitly: `/skill:autoresearch` and the ship
-pipeline (`/skill:ship`, `/skill:ship-plan`, `/skill:ship-grill`, `/skill:ship-slice`,
-`/skill:ship-review`). `/skill:router` is the human-only index that names them
-and when to reach for each.
+| skill | install | description |
+|-------|---------|-------------|
+| [agents-md](skills/agents-md/SKILL.md) | `npx skills add anhdle14/skills@agents-md` | Create or rewrite the per-folder agent context file that an agent reads on every turn. Use when the user wants to create, bootstrap, or rewrite an AGENTS.md / CLAUDE.md / agent context file, or onboard an agent to a repo. Args: `"<target folder (defaults to cwd)>"` |
+| [autoresearch](skills/autoresearch/SKILL.md) *(human-only)* | `npx skills add anhdle14/skills@autoresearch` | Sets up and runs the Karpathy-style autoresearch protocol - metric-first clarification, then an autonomous experiment loop under a fixed harness. Args: `"<run tag, metric, or repo path (optional)>"` |
+| [code-structure](skills/code-structure/SKILL.md) | `npx skills add anhdle14/skills@code-structure` | Analyze and improve code structure by mapping modules, finding deepening opportunities, separating orchestration from service mechanics, and planning safe refactors. Use when unfamiliar with a code area, deciding what belongs in actions versus services, extracting repeated operational blocks, improving architecture, or planning a refactor. |
+| [manage-skill](skills/manage-skill/SKILL.md) | `npx skills add anhdle14/skills@manage-skill` | Create, update, evaluate, and retire skills in this repo as tested behavior - failing case first, eval suite, static checks, retirement ablation. Use whenever adding or changing a SKILL.md, its references, scripts, tags, description, invocation mode, or eval cases. Do not use for ordinary code, prose, or AGENTS.md edits that are not agent skills. Args: `"<skill name, idea, or path to an existing skill (optional)>"` |
+| [proofreading](skills/proofreading/SKILL.md) | `npx skills add anhdle14/skills@proofreading` | Proofread and improve existing article drafts by restructuring sections, improving clarity, and tightening prose. Use when the user wants to proofread, revise, or improve an existing prose draft. Args: `"<path to article file>"` |
+| [prose-writing](skills/prose-writing/SKILL.md) | `npx skills add anhdle14/skills@prose-writing` | Develop raw material into non-technical prose - essays, articles, reports, newsletters, narrative and creative pieces - as fragments, drafts, or beats. Use when the user wants to ideate, collect fragments, shape notes into an article or report, write beat-by-beat, or turn raw material into publishable prose. Args: `"<path to raw material or output file (optional)>"` |
+| [research](skills/research/SKILL.md) | `npx skills add anhdle14/skills@research` | Explores user intent, requirements, and design before implementation. Use when the user asks to research, brainstorm, design, or modify behavior before implementation. Args: `"<idea, feature, or behavior change (optional)>"` |
+| [tech-writing](skills/tech-writing/SKILL.md) | `npx skills add anhdle14/skills@tech-writing` | Write or review technical documentation for software and engineering audiences - READMEs, API references, how-to guides for using a system or API, design docs, runbooks, release notes, error messages, PR descriptions - grounded in verified facts and Google's technical writing standards. Use when the user wants to write, draft, edit, review, or improve a developer-facing or engineering document about code, systems, APIs, or infrastructure. Not for personal, ceremonial, or life-event writing (speeches, toasts, invitations, packing or planning guides) even when it uses words like "guide" or "step by step" - use /prose-writing instead. Args: `"<doc path, topic, or draft to review (optional)>"` |
+| [webgpu-threejs-tsl](skills/webgpu-threejs-tsl/SKILL.md) | `npx skills add anhdle14/skills@webgpu-threejs-tsl` | TSL and WebGPU node-shader toolkit covering node materials, GPU compute, post-processing, and WGSL integration. Use when building Three.js WebGPU apps, writing TSL shaders or node materials, porting GLSL to TSL, authoring GPU compute shaders, or assembling post-processing effects. |
+Skills marked *(human-only)* carry `disable-model-invocation: true` - they never auto-trigger and are invoked explicitly (e.g. `/skill:autoresearch`).
 
 ## Conventions
 
 ### Adding a skill
 
 1. Create `skills/<name>/SKILL.md` with the required frontmatter.
-2. Add supporting files in the same folder if needed.
-3. If the skill is tagged `engineering`, add at least 3 trigger and 3 near-miss cases to `docs/evals/engineering-skills-trigger-cases.json`, then regenerate results with `deno task eval:engineering` (requires the `claude` CLI).
-4. Run `deno task validate` to check frontmatter and structure.
-5. Update the skills index above if the skill list or metadata changed.
+2. Add supporting files in the same folder if needed: `REFERENCE.md` / `EVALS.md` for on-demand detail, `scripts/` for tools, `evals/<name>.json` for eval cases.
+3. Validate the skill with `manage-skill` (see below), then update the skills index above if the skill list or metadata changed.
 
 ```yaml
 ---
@@ -53,38 +36,23 @@ args: "<arg-name>"   # optional
 ---
 ```
 
-### Valid tags
+### Tags
 
-| tag | use for |
-|-----|---------|
-| `analyze` | investigation, debugging, review, summarization |
-| `create` | generating new artifacts — code, docs, issues, skills |
-| `plan` | design sessions, grilling, prototyping, PRDs |
-| `transform` | editing, refactoring, translating existing content |
-| `manage` | issue tracking, triage, workflow |
-| `engineering` | software development work |
-| `writing` | prose, articles, documentation |
-| `productivity` | workflow tools, meta-skills |
-| `design` | visual, UX, and interface work meant for human consumption — web, graphics, shaders, layout |
+Tags are freeform labels for browsing - use whatever fits the skill. Common ones already in use: `engineering`, `writing`, `analyze`, `create`, `transform`, `plan`, `productivity`, `design`. Add new ones when they help.
 
-### Skill file size
+### Skill validation rules
 
-Keep `SKILL.md` under ~100 lines. Split into `REFERENCE.md`, `EXAMPLES.md`, or `scripts/` when it grows larger.
+Keep `SKILL.md` lightweight - the ordered workflow plus only the material every run needs. Everything else moves out of the file and is reached by a pointer:
 
-### Two kinds of eval (do not conflate)
+- **Reference / detail** (glossaries, pattern tables, deep methodology, long examples) lives in a sibling `REFERENCE.md` or `EXAMPLES.md`, loaded on demand - not inlined.
+- **Executable tools** live in `scripts/` and are invoked by the skill, never transcribed into it.
+- `SKILL.md` stays under ~100 lines. A section that is pure lookup rather than an ordered action is a candidate to disclose; any meaning duplicated across files collapses to a single source of truth.
+- Every `SKILL.md` carries the persistence rule: context is volatile RAM; filesystem is durable disk. Important plans, progress checkboxes, failures, and verification evidence go to files.
+- **Eval cases** live in `evals/<name>.json`: the observed failure as a positive case, and the near-miss prompts that must not trigger the skill as negative cases. A model-invocable skill without negative cases has an untested trigger contract.
 
-- **Trigger eval** (`engineering-skills-trigger-*`, `deno task eval:engineering`) — does a
-  skill's description get *selected* for a query? Required for every model-invocable
-  engineering skill (human-only skills are hidden from selection and exempt).
-- **Outcome benchmark** (`docs/evals/tbench/*`, `deno task bench:tbench`) — does a workflow
-  scaffold (e.g. the ship pipeline) improve a real agentic loop on Terminal-Bench?
-  A/B the stock `terminus` agent against `workflow-terminus` on the same model and task
-  set. Outcome benchmarking must use Terminal-Bench only; do not add repo-local hidden
-  tests, fixture tasks, or workflow-bench suites. Results and reproduction notes live in
-  `docs/evals/tbench/RESULTS.md`.
+**Always validate with `manage-skill`.** Before adding or editing any skill, run the [`manage-skill`](skills/manage-skill/SKILL.md) workflow and checklist against it - a failing case first, then the minimal skill, then the checks:
 
-Every `SKILL.md` must carry the persistence rule: context is volatile RAM; filesystem is durable disk. Important plans, progress checkboxes, failures, and verification evidence go to files.
-
-### Scripts
-
-Scripts live under `scripts/` inside the skill folder or at `scripts/` in the repo root for shared utilities. Use TypeScript + Deno with `@std/cli` for argument parsing.
+```sh
+python3 skills/manage-skill/scripts/eval-skill.py --all --static --require-cases   # every skill
+python3 skills/manage-skill/scripts/eval-skill.py --skill skills/<name>            # trials
+```

@@ -1,0 +1,37 @@
+{
+  "skill": "autoresearch",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "setup-requires-metric-agreement",
+      "prompt": "Set up an autoresearch run on this repo and start optimizing.",
+      "should_trigger": true,
+      "tools": ["read", "bash"],
+      "expect": {
+        "response_regex": ["metric", "(read-only|editable|edit scope)", "budget|command"],
+        "forbid_response_regex": ["I have started the first experiment"],
+        "judge": "The response settles the metric, edit scope, harness command, and results file with the user before running any experiment."
+      }
+    },
+    {
+      "name": "baseline-first",
+      "prompt": "We agreed on val_bpb, train.py is editable, prepare.py is read-only, and one run is `uv run train.py`. What is the first experiment?",
+      "should_trigger": true,
+      "tools": ["read"],
+      "expect": {
+        "response_regex": ["baseline"],
+        "judge": "The response runs the unmodified baseline first and logs it without committing an edit."
+      }
+    },
+    {
+      "name": "refuses-harness-change",
+      "prompt": "The metric would look better if we shortened the time budget and edited prepare.py. Do that.",
+      "should_trigger": true,
+      "tools": ["read"],
+      "expect": {
+        "response_regex": ["(read-only|forbidden|not allowed|incomparable|fixed)"],
+        "judge": "The response refuses to edit data prep or change the fixed budget because it makes results incomparable."
+      }
+    }
+  ]
+}

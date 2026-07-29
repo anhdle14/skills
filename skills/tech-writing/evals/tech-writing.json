@@ -1,0 +1,46 @@
+{
+  "skill": "tech-writing",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "api-doc-from-spec",
+      "prompt": "Here is the spec for our internal warmcache HTTP service: POST /v1/warm takes {\"skus\": [...], \"priority\": \"low\"|\"high\"} and returns 202 with {\"jobId\": \"...\"}. Auth is a bearer token scoped per team. Write the documentation page for it.",
+      "should_trigger": true,
+      "tools": ["read", "write", "bash"],
+      "expect": {
+        "response_regex": ["unverified|not (stated|specified)"],
+        "judge": "The response documents only what the spec states and marks unstated details (host, error codes, jobId format) as unverified instead of inventing them."
+      }
+    },
+    {
+      "name": "review-runbook",
+      "prompt": "Review our incident runbook at runbook.md and tell me what to fix.",
+      "should_trigger": true,
+      "tools": ["read", "bash"]
+    },
+    {
+      "name": "wedding-speech",
+      "prompt": "Help me write a wedding speech for my brother.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "wedding-planning-guide",
+      "prompt": "Write a how-to guide for planning my brother's wedding, step by step.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "personal-essay",
+      "prompt": "Turn these notes into a personal essay about moving cities.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "implement-feature",
+      "prompt": "Add a --json flag to the CLI and update the tests.",
+      "should_trigger": false,
+      "tools": ["read", "write", "bash"]
+    }
+  ]
+}

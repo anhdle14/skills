@@ -1,0 +1,36 @@
+{
+  "skill": "webgpu-threejs-tsl",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "port-glsl-to-tsl",
+      "prompt": "Port this GLSL fragment shader to TSL so it works with a Three.js node material.",
+      "should_trigger": true,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "gpu-compute-particles",
+      "prompt": "Build a Three.js WebGPU particle system driven by a GPU compute shader.",
+      "should_trigger": true,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "scaffold-react-app",
+      "prompt": "Set up a React app with Vite and Tailwind.",
+      "should_trigger": false,
+      "tools": ["read", "write", "bash"]
+    },
+    {
+      "name": "css-animation",
+      "prompt": "Animate this card's hover state with CSS transitions.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "python-gpu-kernel",
+      "prompt": "Write a CUDA kernel in Python that sums a large array.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    }
+  ]
+}

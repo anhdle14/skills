@@ -1,0 +1,36 @@
+{
+  "skill": "agents-md",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "bootstrap-agents-md",
+      "prompt": "Create an AGENTS.md for this repo so an agent knows how to work here.",
+      "should_trigger": true,
+      "tools": ["read", "write", "bash"]
+    },
+    {
+      "name": "rewrite-bloated-claude-md",
+      "prompt": "Our CLAUDE.md has grown to 400 lines of stale advice. Rewrite it.",
+      "should_trigger": true,
+      "tools": ["read", "write", "bash"]
+    },
+    {
+      "name": "write-readme",
+      "prompt": "Write the README for this project.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    },
+    {
+      "name": "explain-repo",
+      "prompt": "Explain what this repo does and how the pieces fit together.",
+      "should_trigger": false,
+      "tools": ["read", "bash"]
+    },
+    {
+      "name": "edit-contributing",
+      "prompt": "Add a commit message convention section to CONTRIBUTING.md.",
+      "should_trigger": false,
+      "tools": ["read", "write"]
+    }
+  ]
+}

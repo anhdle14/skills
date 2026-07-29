@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --allow-read
 
-import { parseArgs } from "@std/cli/parse-args";
-import { basename } from "@std/path";
+import { parseArgs } from "jsr:@std/cli@^1.0.0/parse-args";
+import { basename } from "jsr:@std/path@^1.0.0";
 
 const SOFT_CAP = 80;
 const HARD_CAP = 120;
