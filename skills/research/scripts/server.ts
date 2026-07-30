@@ -238,15 +238,41 @@ function handleUpgrade(req: IncomingMessage, socket: Socket): void {
   socket.on("error", () => clients.delete(socket));
 }
 
+// ========== Event Sanitization ==========
+
+// Browser events are outsider-authored text that lands in the agent's next turn.
+// Bound them: scalars only, no control characters, capped length and key count -
+// so a click label cannot smuggle a wall of instructions into the transcript.
+const MAX_EVENT_CHARS = 300;
+const MAX_EVENT_KEYS = 12;
+const CONTROL_CHARS = /[\u0000-\u001F\u007F-\u009F]/g;
+
+function sanitizeValue(value: unknown): string | number | boolean | undefined {
+  if (typeof value === "string") return value.replace(CONTROL_CHARS, " ").slice(0, MAX_EVENT_CHARS);
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "boolean") return value;
+  return undefined;
+}
+
+function sanitizeEvent(event: Record<string, unknown>): Record<string, unknown> {
+  const clean: Record<string, unknown> = {};
+  for (const key of Object.keys(event).slice(0, MAX_EVENT_KEYS)) {
+    const value = sanitizeValue(event[key]);
+    if (value !== undefined) clean[key.replace(CONTROL_CHARS, "").slice(0, 40)] = value;
+  }
+  return clean;
+}
+
 function handleMessage(text: string): void {
-  let event: Record<string, unknown>;
+  let parsed: Record<string, unknown>;
   try {
-    event = JSON.parse(text) as Record<string, unknown>;
+    parsed = JSON.parse(text) as Record<string, unknown>;
   } catch (e) {
     console.error("Failed to parse WebSocket message:", e instanceof Error ? e.message : String(e));
     return;
   }
   touchActivity();
+  const event = sanitizeEvent(parsed);
   console.log(JSON.stringify({ source: "user-event", ...event }));
   if (event.choice) {
     const eventsFile = path.join(STATE_DIR, "events");

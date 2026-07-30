@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import contextlib
-import importlib.util
 import io
 import json
 import sys
@@ -12,12 +11,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parent.parent / "scripts" / "eval-skill.py"
-spec = importlib.util.spec_from_file_location("eval_skill", SCRIPT)
-assert spec and spec.loader
-eval_skill = importlib.util.module_from_spec(spec)
-sys.modules["eval_skill"] = eval_skill
-spec.loader.exec_module(eval_skill)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
+
+import eval_skill
 
 PERSISTENCE = "Persistence rule: context is volatile RAM; filesystem is durable disk."
 DESCRIPTION = "Validate widget configs. Use when the user edits a widget config file."
@@ -82,6 +78,14 @@ class StaticCheckTest(unittest.TestCase):
 
     def test_requires_persistence_rule(self):
         self.assertIn("persistence rule", " ".join(self.check(GOOD_SKILL.replace(PERSISTENCE, "Notes."))))
+
+    def test_reference_skill_needs_no_persistence_rule(self):
+        body = GOOD_SKILL.replace("tags: [engineering]", "tags: [engineering, reference]").replace(PERSISTENCE, "Lookup material.")
+        self.assertEqual(self.check(body), [])
+
+    def test_reference_skill_rejects_persistence_rule(self):
+        body = GOOD_SKILL.replace("tags: [engineering]", "tags: [engineering, reference]")
+        self.assertIn("must not carry the persistence rule", " ".join(self.check(body)))
 
     def test_requires_tags(self):
         self.assertIn("tags are required", " ".join(self.check(GOOD_SKILL.replace("tags: [engineering]\n", ""))))

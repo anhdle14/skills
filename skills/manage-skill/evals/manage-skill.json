@@ -39,7 +39,7 @@
       "should_trigger": true,
       "tools": ["read", "bash"],
       "expect": {
-        "response_regex": ["static", "eval-skill"]
+        "response_regex": ["static", "eval_skill"]
       }
     },
     {

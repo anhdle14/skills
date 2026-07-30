@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --allow-read
 
-import { parseArgs } from "jsr:@std/cli@^1.0.0/parse-args";
-import { basename } from "jsr:@std/path@^1.0.0";
+// No imports: a skill script that resolves remote modules at run time turns every
+// invocation into a network fetch of code the skill does not pin.
 
 const SOFT_CAP = 80;
 const HARD_CAP = 120;
@@ -13,6 +13,11 @@ interface Report {
   lines: number;
   status: "OK" | "WARN" | "FAIL";
   longest: { lineNo: number; len: number; text: string }[];
+}
+
+function basename(path: string): string {
+  const trimmed = path.replace(/[/\\]+$/, "");
+  return trimmed.slice(Math.max(trimmed.lastIndexOf("/"), trimmed.lastIndexOf("\\")) + 1);
 }
 
 async function readInput(path: string | undefined): Promise<string> {
@@ -40,8 +45,7 @@ function analyze(path: string, content: string): Report {
   return { path, lines, status, longest };
 }
 
-const flags = parseArgs(Deno.args, { string: ["_"] });
-const path = flags._[0]?.toString();
+const path = Deno.args.find((arg) => !arg.startsWith("-"));
 const content = await readInput(path);
 const report = analyze(path ?? "<stdin>", content);
 

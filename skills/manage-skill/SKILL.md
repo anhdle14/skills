@@ -55,12 +55,12 @@ Address the exact failures from RED - nothing speculative. Match the form to the
 ## 5. Verify: static checks, then trials
 
 ```bash
-python3 skills/manage-skill/scripts/eval-skill.py --skill skills/<name> --static
-python3 skills/manage-skill/scripts/eval-skill.py --skill skills/<name> --trials 3 --judge
-python3 skills/manage-skill/scripts/eval-skill.py --all --static --require-cases   # whole repo
+python3 skills/manage-skill/scripts/eval_skill.py --skill skills/<name> --static
+python3 skills/manage-skill/scripts/eval_skill.py --skill skills/<name> --trials 3 --judge
+python3 skills/manage-skill/scripts/eval_skill.py --all --static --require-cases   # whole repo
 ```
 
-Static checks cover frontmatter, name/directory match, the persistence line, body size, local links, the `AGENTS.md` index row (link, install command, mode marker, and description verbatim), and suite shape. Trials measure triggering and behavior against the cases.
+Static checks cover frontmatter, name/directory match, the persistence line (required unless the skill is tagged `reference`), body size, local links, the `AGENTS.md` index row (link, install command, mode marker, and description verbatim), and suite shape. Trials measure triggering and behavior against the cases.
 
 Report **pass rates**, not a lucky single pass. Then REFACTOR: every new rationalization gets an explicit counter and a permanent regression case; then prune - one **single source of truth** per meaning, delete **no-ops** (lines the agent already obeys), collapse restated ideas into a **leading word**. Re-run after cutting.
 
@@ -69,7 +69,7 @@ Complete when static checks pass and every enabled-mode case passes at the suite
 ## 6. Retire
 
 ```bash
-python3 skills/manage-skill/scripts/eval-skill.py --skill skills/<name> --compare-without-skill
+python3 skills/manage-skill/scripts/eval_skill.py --skill skills/<name> --compare-without-skill
 ```
 
 Remove a **capability** skill only when baseline pass rates match the skill-enabled rates and negative-trigger behavior does not regress. Keep the eval suite after deleting the skill - it is the sentinel that justifies restoring it when a model regresses. Do not retire a **preference** skill because a base model passes generic examples; its job is the repo's contract, not raw ability.
@@ -77,7 +77,7 @@ Remove a **capability** skill only when baseline pass rates match the skill-enab
 ## 7. Wire it into the repo
 
 - Skill at `skills/<name>/SKILL.md` (name: lowercase, numbers, hyphens; matching the directory). `REFERENCE.md` / `EVALS.md` siblings for on-demand detail, `scripts/` for tools, `evals/<name>.json` for cases.
-- Body starts with the persistence rule line and stays under ~100 lines.
+- Body starts with the persistence rule line and stays under ~100 lines. A pure-lookup skill is tagged `reference` and omits that line - see AGENTS.md conventions.
 - Add the `AGENTS.md` index row with `npx skills add anhdle14/skills@<name>`, repeating the frontmatter description verbatim, marked `*(human-only)*` iff the frontmatter disables model invocation, and mirror it in `README.md`.
 - Changed the harness itself? Run `python3 skills/manage-skill/tests/test_eval_skill.py`.
 

@@ -67,7 +67,7 @@ must be invoked explicitly.
 
 1. Create `skills/<name>/SKILL.md` with valid frontmatter.
 2. Add supporting files beside it if needed, including `evals/<name>.json` eval cases.
-3. Validate with `python3 skills/manage-skill/scripts/eval-skill.py --skill skills/<name> --static --require-cases`.
+3. Validate with `python3 skills/manage-skill/scripts/eval_skill.py --skill skills/<name> --static --require-cases`.
 4. Update `AGENTS.md`'s skills index if the skill list or metadata changed.
 
 See `AGENTS.md` for the full conventions.

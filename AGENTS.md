@@ -48,11 +48,12 @@ Keep `SKILL.md` lightweight - the ordered workflow plus only the material every 
 - **Executable tools** live in `scripts/` and are invoked by the skill, never transcribed into it.
 - `SKILL.md` stays under ~100 lines. A section that is pure lookup rather than an ordered action is a candidate to disclose; any meaning duplicated across files collapses to a single source of truth.
 - Every `SKILL.md` carries the persistence rule: context is volatile RAM; filesystem is durable disk. Important plans, progress checkboxes, failures, and verification evidence go to files.
+- A pure-lookup skill is tagged `reference` and **omits** the persistence rule: it runs no multi-turn workflow, so the line would be an instruction unrelated to its purpose - which a reader has no use for and a security scanner reads as prompt injection.
 - **Eval cases** live in `evals/<name>.json`: the observed failure as a positive case, and the near-miss prompts that must not trigger the skill as negative cases. A model-invocable skill without negative cases has an untested trigger contract.
 
 **Always validate with `manage-skill`.** Before adding or editing any skill, run the [`manage-skill`](skills/manage-skill/SKILL.md) workflow and checklist against it - a failing case first, then the minimal skill, then the checks:
 
 ```sh
-python3 skills/manage-skill/scripts/eval-skill.py --all --static --require-cases   # every skill
-python3 skills/manage-skill/scripts/eval-skill.py --skill skills/<name>            # trials
+python3 skills/manage-skill/scripts/eval_skill.py --all --static --require-cases   # every skill
+python3 skills/manage-skill/scripts/eval_skill.py --skill skills/<name>            # trials
 ```

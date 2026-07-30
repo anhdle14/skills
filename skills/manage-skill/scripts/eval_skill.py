@@ -4,10 +4,13 @@
 Static mode needs nothing but Python 3. Trial mode shells out to `pi` and runs
 each case in a clean temporary workspace.
 
-  python3 skills/manage-skill/scripts/eval-skill.py --all --static
-  python3 skills/manage-skill/scripts/eval-skill.py --skill skills/tech-writing --static
-  python3 skills/manage-skill/scripts/eval-skill.py --skill skills/tech-writing --trials 3
-  python3 skills/manage-skill/scripts/eval-skill.py --skill skills/tech-writing --compare-without-skill
+  python3 skills/manage-skill/scripts/eval_skill.py --all --static
+  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/tech-writing --static
+  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/tech-writing --trials 3
+  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/tech-writing --compare-without-skill
+
+Trial mode runs each case prompt verbatim through a real agent, so a suite you did
+not author is untrusted input: read it before running trials.
 """
 
 from __future__ import annotations
@@ -28,6 +31,7 @@ NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LINK_PATTERN = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 FRONTMATTER_PATTERN = re.compile(r"^---\n(.*?)\n---\n", re.DOTALL)
 PERSISTENCE_PATTERN = re.compile(r"context is volatile RAM; filesystem is durable disk", re.IGNORECASE)
+REFERENCE_TAG = "reference"
 BODY_SOFT_CAP = 100
 BODY_HARD_CAP = 120
 DESCRIPTION_CAP = 1024
@@ -66,6 +70,10 @@ def parse_frontmatter(content: str) -> dict[str, str]:
         current = key.strip()
         fields[current] = value.strip().strip("\"'")
     return fields
+
+
+def parse_tags(value: str) -> set[str]:
+    return {tag.strip().strip("\"'").lower() for tag in value.strip().strip("[]").split(",") if tag.strip()}
 
 
 def repo_root(skill: Path) -> Path:
@@ -122,7 +130,14 @@ def skill_failures(skill_md: Path) -> tuple[list[str], dict[str, str]]:
         failures.append(f"description exceeds {DESCRIPTION_CAP} characters: {len(description)}")
     if not fields.get("tags"):
         failures.append("tags are required")
-    if not PERSISTENCE_PATTERN.search(content):
+    tags = parse_tags(fields.get("tags", ""))
+    # A reference skill is lookup material, not a multi-turn workflow, so the persistence
+    # rule would be an instruction unrelated to its purpose - which scanners read as an
+    # injected behavior change, and a reader has no use for.
+    if REFERENCE_TAG in tags:
+        if PERSISTENCE_PATTERN.search(content):
+            failures.append(f"skill tagged {REFERENCE_TAG!r} must not carry the persistence rule line")
+    elif not PERSISTENCE_PATTERN.search(content):
         failures.append("body is missing the persistence rule line")
 
     lines = len(content.splitlines())

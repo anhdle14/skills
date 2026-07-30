@@ -1,6 +1,6 @@
 # Skill Evaluation Guidance
 
-How to build and grade the eval suite the Iron Law depends on. The runner is `scripts/eval-skill.py`.
+How to build and grade the eval suite the Iron Law depends on. The runner is `scripts/eval_skill.py`.
 
 ## Case set
 
@@ -25,6 +25,8 @@ Do not require one exact reasoning path when several paths produce the correct o
 ## Isolation and trials
 
 Each trial runs in a fresh temporary workspace with sessions, extensions, ambient skills, and context files disabled, so the only variable is the skill under test. Fixtures are copied in via `workspace`; setup runs as `startup` argument arrays, never shell strings.
+
+Case prompts are executed verbatim by a real agent, so a suite is untrusted input: read any suite you did not author - including one arriving in a pull request - before running trials against it.
 
 Run at least three trials for anything nondeterministic and report pass rates. Record the model with the result - a suite that passes on one model says nothing about another.
 
