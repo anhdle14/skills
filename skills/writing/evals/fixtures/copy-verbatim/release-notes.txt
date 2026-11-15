@@ -1,0 +1,4 @@
+v2.4.0 - 2026-11-02
+* fix: dont drop jobs when the queue is full  (#812)
+* feat: add --dry-run to `warm`  (#815)
+* chore: bump deps

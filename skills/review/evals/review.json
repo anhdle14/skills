@@ -1,0 +1,192 @@
+{
+  "skill": "review",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "deep-review-plan-reports-reviewer-availability",
+      "prompt": "Do a deep review of plan.md before I approve it.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "grep",
+        "find",
+        "ls",
+        "edit",
+        "write"
+      ],
+      "workspace": "fixtures/session-plan",
+      "timeout_seconds": 400,
+      "expect": {
+        "response_regex": [
+          "(three|3)[^\\n]{0,160}(reviewer|provider|model)",
+          "(unavailable|not available|could not|couldn't|cannot|can't|unable|did not run|no (subagent|delegat))"
+        ],
+        "forbid_response_regex": [
+          "\\b\\d{1,2}(\\.\\d)?/10\\b"
+        ],
+        "file_regex": {
+          "plan.md": "2\\. Shut down the Redis cluster to stop new session writes\\.[\\s\\S]*None expected; Postgres is already in production\\."
+        },
+        "judge": "The response does not present a single-agent review as a deep, council, or multi-reviewer review: it states that three independent reviewers from different providers were not available (or names the three reviewers and providers actually used and reports each one's result). It still reports concrete findings tied to plan.md, including that step 2 shuts Redis down before step 3 copies the sessions."
+      }
+    },
+    {
+      "name": "council-review-diff-honest-reviewers-no-scores",
+      "prompt": "Council review my uncommitted change to ratelimit.py.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "bash",
+        "grep",
+        "find",
+        "ls",
+        "edit",
+        "write"
+      ],
+      "workspace": "fixtures/ratelimit-diff",
+      "startup": [
+        [
+          "git",
+          "init",
+          "-q",
+          "-b",
+          "eval-base"
+        ],
+        [
+          "git",
+          "add",
+          "ratelimit.py"
+        ],
+        [
+          "git",
+          "-c",
+          "user.name=eval",
+          "-c",
+          "user.email=eval@example.invalid",
+          "-c",
+          "commit.gpgsign=false",
+          "commit",
+          "-qm",
+          "base"
+        ],
+        [
+          "git",
+          "apply",
+          "change.patch"
+        ],
+        [
+          "rm",
+          "change.patch"
+        ]
+      ],
+      "timeout_seconds": 400,
+      "expect": {
+        "response_regex": [
+          "(three|3)[^\\n]{0,160}(reviewer|provider|model)",
+          "count > self\\.limit|off-by-one|off by one|limit \\+ 1|one extra",
+          "reset"
+        ],
+        "forbid_response_regex": [
+          "\\b\\d{1,2}(\\.\\d)?/10\\b"
+        ],
+        "file_regex": {
+          "ratelimit.py": "if count > self\\.limit:"
+        },
+        "judge": "The response reports the reviewer setup honestly: either three reviewers from three different providers with each one's result, or a clear statement that the required cross-provider reviewers were unavailable. It does not edit files, give numeric scores, or claim a PR description was updated, and it identifies both the off-by-one in `count > self.limit` and the removed per-window count reset."
+      }
+    },
+    {
+      "name": "normal-review-plan-findings-evidence-coverage",
+      "prompt": "Review plan.md and tell me what to fix before we start.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "grep",
+        "find",
+        "ls",
+        "edit",
+        "write"
+      ],
+      "workspace": "fixtures/session-plan",
+      "expect": {
+        "response_regex": [
+          "(critical|blocker|high|major|severity)",
+          "(question|unclear|assum)",
+          "(not (reviewed|covered|checked|verified)|limitation|coverage|did not (check|verify|review))"
+        ],
+        "forbid_response_regex": [
+          "council",
+          "\\b\\d{1,2}(\\.\\d)?/10\\b"
+        ],
+        "file_regex": {
+          "plan.md": "2\\. Shut down the Redis cluster to stop new session writes\\.[\\s\\S]*None expected; Postgres is already in production\\."
+        },
+        "judge": "The response is a single-reviewer substantive review that (1) gives each finding a severity, evidence from plan.md, impact, and a suggested change; (2) separates verified defects from open questions or preferences; and (3) states what the review did and did not cover or verify. It does not claim to have edited plan.md."
+      }
+    },
+    {
+      "name": "research-argument-review-not-proofreading",
+      "prompt": "Review the argument in claims.md. Does the evidence support the conclusion?",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "grep",
+        "find",
+        "ls",
+        "edit",
+        "write"
+      ],
+      "workspace": "fixtures/research-argument",
+      "expect": {
+        "response_regex": [
+          "(confound|internal tools|payments|checkout|service)",
+          "(sample|six teams|6 teams|one month|small)"
+        ],
+        "forbid_response_regex": [
+          "\\b\\d{1,2}(\\.\\d)?/10\\b"
+        ],
+        "file_regex": {
+          "claims.md": "Pairing cuts incidents by 64%, and this result will hold for every team in the company\\."
+        },
+        "judge": "The response explains that the evidence does not support the causal, company-wide conclusion (six self-reported teams, one month, confounded by which services the teams own), separates these verified problems from open questions, and states the limits of the review. It assesses substance rather than proofreading or rewriting the document."
+      }
+    },
+    {
+      "name": "proofread-cover-letter",
+      "prompt": "Review my cover letter for typos and grammar and fix them.",
+      "should_trigger": false,
+      "tools": [
+        "read",
+        "write",
+        "edit"
+      ]
+    },
+    {
+      "name": "fix-failing-test",
+      "prompt": "This test fails intermittently. Find out why.",
+      "should_trigger": false,
+      "tools": [
+        "read",
+        "bash"
+      ]
+    },
+    {
+      "name": "write-design-doc",
+      "prompt": "Write a design doc for adding rate limiting to our public API.",
+      "should_trigger": false,
+      "tools": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "name": "review-runbook",
+      "prompt": "Review our incident runbook at runbook.md and tell me what to fix.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "bash"
+      ]
+    }
+  ]
+}
