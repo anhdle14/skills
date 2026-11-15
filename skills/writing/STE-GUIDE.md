@@ -3,7 +3,7 @@
 This is an unofficial, original-wording aid for clear technical prose. It is not the ASD-STE100 standard, does not reproduce its controlled vocabulary or rules, and does not certify compliance.
 
 - Use one clear meaning for each term. Prefer a familiar word when it is accurate.
-- Keep instructions direct. Name the actor or tell the reader what action to take.
+- Write instructions as commands that name the action. Do not soften a required step with "should" or "it is recommended".
 - State one main action or condition at a time. Split long steps when the sequence or result could be unclear.
 - Put conditions before actions, and state warnings before the hazardous step.
 - Use specific quantities and units only when a source supports them. Preserve uncertainty such as "about" or "approximately"; do not turn an estimate into a minimum or guarantee.

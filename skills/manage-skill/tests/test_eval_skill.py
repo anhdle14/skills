@@ -163,6 +163,29 @@ class TraceTest(unittest.TestCase):
         parsed = self.trace("/repo/skills/bar/SKILL.md")
         self.assertFalse(parsed.loaded_skill)
         self.assertEqual(parsed.text, "done")
+        self.assertEqual(parsed.error, "")
+
+    def test_detects_skill_load_via_shell(self):
+        events = [{"type": "tool_execution_start", "toolName": "bash", "args": {"command": "cat draft.md; cat /repo/skills/foo/SKILL.md"}}]
+        parsed = eval_skill.parse_trace(json.dumps(events[0]), Path("/repo/skills/foo/SKILL.md"))
+        self.assertTrue(parsed.loaded_skill)
+        other = {"type": "tool_execution_start", "toolName": "bash", "args": {"command": "cat /repo/skills/bar/SKILL.md"}}
+        self.assertFalse(eval_skill.parse_trace(json.dumps(other), Path("/repo/skills/foo/SKILL.md")).loaded_skill)
+
+    def test_records_final_model_error(self):
+        error = {"role": "assistant", "content": [], "stopReason": "error", "errorMessage": "429 quota exceeded"}
+        ok = {"role": "assistant", "content": [{"type": "text", "text": "done"}], "stopReason": "stop"}
+        parse = lambda *messages: eval_skill.parse_trace(
+            "\n".join(json.dumps({"type": "message_end", "message": m}) for m in messages), Path("/x/SKILL.md")
+        )
+        self.assertEqual(parse(error).error, "429 quota exceeded")
+        self.assertEqual(parse(error, ok).error, "")
+
+    def test_pi_command_loads_explicit_extensions(self):
+        command = eval_skill.pi_command("p/m", ["hi"], ["/ext/provider"])
+        self.assertIn("--no-extensions", command)
+        self.assertEqual(command[command.index("--extension") + 1], "/ext/provider")
+        self.assertEqual(command[-1], "hi")
 
 
 class DeterministicFailureTest(unittest.TestCase):

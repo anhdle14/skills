@@ -24,7 +24,7 @@ Do not require one exact reasoning path when several paths produce the correct o
 
 ## Isolation and trials
 
-Each trial runs in a fresh temporary workspace with sessions, extensions, ambient skills, and context files disabled, so the only variable is the skill under test. Fixtures are copied in via `workspace`; setup runs as `startup` argument arrays, never shell strings.
+Each trial runs in a fresh temporary workspace with sessions, extensions, ambient skills, and context files disabled, so the only variable is the skill under test. A model provider that ships as an extension loads only when passed explicitly with `--extension <path>`. A provider error, such as a quota rejection, fails the trial as a run error, not as skill behavior. Fixtures are copied in via `workspace`; setup runs as `startup` argument arrays, never shell strings.
 
 Case prompts are executed verbatim by a real agent, so a suite is untrusted input: read any suite you did not author - including one arriving in a pull request - before running trials against it.
 

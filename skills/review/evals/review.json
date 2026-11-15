@@ -186,7 +186,14 @@
       "tools": [
         "read",
         "bash"
-      ]
+      ],
+      "workspace": "fixtures/runbook",
+      "expect": {
+        "judge": "The response identifies that restarting all payments pods at once can cause a full outage, and that the runbook lacks concrete rollback commands, an owner or escalation path, and a verification threshold. It reports findings with evidence and does not edit runbook.md.",
+        "file_regex": {
+          "runbook.md": "Restart all payments pods at once"
+        }
+      }
     }
   ]
 }

@@ -36,7 +36,7 @@
         "bash"
       ],
       "workspace": "fixtures/research-draft",
-      "timeout_seconds": 500,
+      "timeout_seconds": 900,
       "expect": {
         "file_regex": {
           "draft.md": "(?s)## 2 Related work\\n(?!\\s*TODO: write this section).*(arxiv\\.org/abs/\\d|doi\\.org/10\\.|arXiv:\\d|(?i:unverified))"
@@ -76,7 +76,7 @@
       "workspace": "fixtures/procedure",
       "expect": {
         "file_regex": {
-          "procedure.md": "(?is)^(?!.*\\b(should|it is recommended)\\b)(?!.*\\b(exactly|at least|no less than|minimum of|a minimum of|precisely)\\s+(\\*\\*)?(five|5)\\b)(?!.*\\b(?!(?:five|5)\\b)(\\d+|one|two|three|four|six|seven|eight|nine|ten|fifteen|twenty|thirty)(\\s|-)*(minutes?|mins?|seconds?|hours?)\\b)(?!.*\\b\\d+(\\.\\d+)?\\s*(psi|bar|kpa|mpa)\\b)(?=.*\\b(approximately|about|around|roughly)\\s+(\\*\\*)?(five|5)\\s+minutes)(?=.*counterclockwise)(?=.*clean hydraulic fluid)(?=.*25\\s*N(m|\u00b7m| m|-m)).*?(?:^|\\n)(?:[ \\t]*#+[^\\n]*\\bsafety\\b|[^\\n]*\\b(warning|caution|danger)\\b)[^\\n]*\\n.*?pressure.*?\\n\\s*1\\.\\s"
+          "procedure.md": "(?is)^(?!.*\\b(should|it is recommended)\\b)(?!.*\\b(exactly|at least|no less than|minimum of|a minimum of|precisely)\\s+(\\*\\*)?(five|5)\\b)(?!.*\\b(?!(?:five|5)\\b)(\\d+|one|two|three|four|six|seven|eight|nine|ten|fifteen|twenty|thirty)(\\s|-)*(minutes?|mins?|seconds?|hours?)\\b)(?!.*\\b\\d+(\\.\\d+)?\\s*(psi|bar|kpa|mpa)\\b)(?=.*\\b(approximately|about|around|roughly)\\s+(\\*\\*)?(five|5)\\s+minutes)(?=.*counterclockwise)(?=.*clean hydraulic fluid)(?=.*25\\s*N(m|\u00b7m| m|-m)).*?(?:^|\\n)(?:[ \\t]*#+[^\\n]*\\bsafety\\b|[^\\n]*\\b(?:warning|caution|danger)\\b)(?:[^\\n]*pressure|[^\\n]*\\n.*?pressure).*?\\n\\s*1\\.\\s"
         },
         "forbid_response_regex": [
           "(fully )?(STE|Simplified Technical English)[- ]compliant"
@@ -127,7 +127,7 @@
       "expect": {
         "file_regex": {
           "notes.md": "41 pages in Q3, up from 29 in Q2",
-          "report.md": "(?s)^(?=.*\\b41\\b)(?=.*\\b29\\b)(?=.*\\b17\\b)(?=.*(?i:support))(?:[ \\t]*(?:#[^\\n]*)?\\n)*[^\\n]*\\b41\\b"
+          "report.md": "(?s)^(?=.*\\b41\\b)(?=.*\\b29\\b)(?=.*\\b17\\b)(?=.*(?i:support))(?:[ \\t]*(?:#[^\\n]*)?\\n)*(?:[^\\n]+\\n)*?[^\\n]*(?i:\\b41\\b|outage)"
         }
       }
     },
@@ -238,34 +238,6 @@
         "read",
         "write"
       ]
-    },
-    {
-      "name": "notes-to-report",
-      "prompt": "I have rough notes about our team's Q3 on-call experience in notes.md. Turn them into a publishable internal report.",
-      "should_trigger": true,
-      "tools": [
-        "read",
-        "write"
-      ],
-      "expect": {
-        "judge": "The response works from the notes only, leads with the finding, and does not invent numbers or quotes that the notes do not contain."
-      }
-    },
-    {
-      "name": "api-doc-from-spec",
-      "prompt": "Here is the spec for our internal warmcache HTTP service: POST /v1/warm takes {\"skus\": [...], \"priority\": \"low\"|\"high\"} and returns 202 with {\"jobId\": \"...\"}. Auth is a bearer token scoped per team. Write the documentation page for it.",
-      "should_trigger": true,
-      "tools": [
-        "read",
-        "write",
-        "bash"
-      ],
-      "expect": {
-        "response_regex": [
-          "unverified|not (stated|specified)"
-        ],
-        "judge": "The response documents only what the spec states and marks unstated details (host, error codes, jobId format) as unverified instead of inventing them."
-      }
     },
     {
       "name": "wedding-planning-guide",

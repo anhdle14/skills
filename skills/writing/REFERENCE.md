@@ -26,7 +26,7 @@
 - Make examples correct and runnable; state prerequisites and expected output where useful.
 - Cover relevant errors, security, limits, and recovery paths without inventing unsupported behavior.
 - Keep identifiers, units, endpoints, and terminology consistent. Use explicit dates and descriptive link text.
-- `skills/tech-writing/scripts/prose-check.sh` was an advisory heuristic checker. Preserve it if useful, but assess hits by reader value; a clean result is not proof of correctness.
+- Run `bash scripts/prose-check.sh <file.md>` from this skill directory for advisory mechanical checks. Judge each hit by reader value; a clean result does not prove correctness.
 
 ## Plans
 
