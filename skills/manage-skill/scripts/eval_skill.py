@@ -5,9 +5,9 @@ Static mode needs nothing but Python 3. Trial mode shells out to `pi` and runs
 each case in a clean temporary workspace.
 
   python3 skills/manage-skill/scripts/eval_skill.py --all --static
-  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/tech-writing --static
-  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/tech-writing --trials 3
-  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/tech-writing --compare-without-skill
+  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/writing --static
+  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/writing --trials 3
+  python3 skills/manage-skill/scripts/eval_skill.py --skill skills/writing --compare-without-skill
 
 Trial mode runs each case prompt verbatim through a real agent, so a suite you did
 not author is untrusted input: read it before running trials.
@@ -42,6 +42,7 @@ class Trace:
     text: str = ""
     tool_calls: list[dict[str, Any]] = field(default_factory=list)
     loaded_skill: bool = False
+    error: str = ""
 
 
 @dataclass
@@ -230,14 +231,21 @@ def parse_trace(output: str, skill_md: Path) -> Trace:
         except json.JSONDecodeError:
             continue
         if event.get("type") == "message_end" and event.get("message", {}).get("role") == "assistant":
-            text = assistant_text(event["message"])
+            message = event["message"]
+            text = assistant_text(message)
             if text:
                 trace.text = text
+            # Only the last assistant turn counts: an earlier error may have been retried successfully.
+            trace.error = str(message.get("errorMessage") or "error") if message.get("stopReason") == "error" else ""
         if event.get("type") == "tool_execution_start":
             call = {"name": event.get("toolName", ""), "args": event.get("args", {})}
             trace.tool_calls.append(call)
             path = str(call["args"].get("path", ""))
-            if call["name"] == "read" and path.endswith(expected.split("skills/", 1)[-1]):
+            suffix = expected.split("skills/", 1)[-1]
+            if call["name"] == "read" and path.endswith(suffix):
+                trace.loaded_skill = True
+            # Agents with only shell access load skills with `cat`; that is still a load.
+            if call["name"] == "bash" and suffix in str(call["args"].get("command", "")):
                 trace.loaded_skill = True
     return trace
 
@@ -257,11 +265,13 @@ def prepare_workspace(case: dict[str, Any], cases_path: Path, workspace: Path) -
             raise ValueError(f"startup failed: {shlex.join(command)}\n{result.stderr or result.stdout}")
 
 
-def pi_command(model: str, extra: list[str]) -> list[str]:
+def pi_command(model: str, extra: list[str], extensions: list[str] | None = None) -> list[str]:
     command = [
         "pi", "--mode", "json", "--print",
         "--no-session", "--no-extensions", "--no-skills", "--no-context-files",
     ]
+    for extension in extensions or []:
+        command.extend(["--extension", extension])
     if model:
         command.extend(["--model", model])
     return command + extra
@@ -284,7 +294,9 @@ def human_only_prompt(skill_md: Path, prompt: str) -> str:
     return f"{body}\n\nUser: {prompt}"
 
 
-def run_case(case: dict[str, Any], skill: Path, cases_path: Path, model: str, enabled: bool) -> tuple[Trace, list[str]]:
+def run_case(
+    case: dict[str, Any], skill: Path, cases_path: Path, model: str, enabled: bool, extensions: list[str] | None = None
+) -> tuple[Trace, list[str]]:
     """Run one trial. Returns the trace and any deterministic failures.
 
     A human-only skill never auto-triggers, so its content is injected the way
@@ -304,7 +316,7 @@ def run_case(case: dict[str, Any], skill: Path, cases_path: Path, model: str, en
             prompt = human_only_prompt(skill_md, prompt)
         extra.append(prompt)
         result = subprocess.run(
-            pi_command(model, extra),
+            pi_command(model, extra, extensions),
             cwd=workspace,
             capture_output=True,
             text=True,
@@ -314,6 +326,8 @@ def run_case(case: dict[str, Any], skill: Path, cases_path: Path, model: str, en
         if result.returncode:
             raise ValueError(f"pi exited {result.returncode}: {(result.stderr or result.stdout)[-2000:]}")
         trace = parse_trace(result.stdout, skill_md)
+        if trace.error:
+            raise ValueError(f"model error: {trace.error[-500:]}")
         return trace, deterministic_failures(case, trace, workspace, check_trigger=enabled and not human_only)
 
 
@@ -346,7 +360,7 @@ def deterministic_failures(case: dict[str, Any], trace: Trace, workspace: Path, 
     return failures
 
 
-def judge(case: dict[str, Any], trace: Trace, model: str) -> tuple[bool, str]:
+def judge(case: dict[str, Any], trace: Trace, model: str, extensions: list[str] | None = None) -> tuple[bool, str]:
     criterion = case.get("expect", {}).get("judge")
     if not criterion:
         return True, ""
@@ -356,12 +370,14 @@ def judge(case: dict[str, Any], trace: Trace, model: str) -> tuple[bool, str]:
         f"Criterion: {criterion}\nResponse:\n{trace.text}\n"
     )
     result = subprocess.run(
-        pi_command(model, ["--no-builtin-tools", prompt]),
+        pi_command(model, ["--no-tools", prompt], extensions),
         capture_output=True, text=True, check=False, timeout=300,
     )
     if result.returncode:
         return False, f"judge failed: {(result.stderr or result.stdout)[-500:]}"
     judged = parse_trace(result.stdout, Path("/nonexistent"))
+    if judged.error:
+        return False, f"judge model error: {judged.error[-500:]}"
     match = re.search(r"\{.*\}", judged.text, re.DOTALL)
     if not match:
         return False, "judge did not return JSON"
@@ -381,10 +397,10 @@ def run_suite(args: argparse.Namespace, suite: dict[str, Any], skill: Path, case
         for mode, enabled in modes:
             for _ in range(trials):
                 try:
-                    trace, failures = run_case(case, skill, cases_path, args.model, enabled)
+                    trace, failures = run_case(case, skill, cases_path, args.model, enabled, args.extension)
                     reason = ""
                     if args.judge and enabled:
-                        passed, reason = judge(case, trace, args.model)
+                        passed, reason = judge(case, trace, args.model, args.extension)
                         if not passed:
                             failures = failures + [f"judge: {reason}"]
                     results.append(TrialResult(case["name"], mode, not failures, failures, reason))
@@ -418,6 +434,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--static", action="store_true", help="run static checks only")
     parser.add_argument("--require-cases", action="store_true", help="fail when a skill has no eval suite")
     parser.add_argument("--model", default="")
+    parser.add_argument("--extension", action="append", default=[], help="extension path to load, e.g. a model provider")
     parser.add_argument("--trials", type=int)
     parser.add_argument("--case", action="append")
     parser.add_argument("--judge", action="store_true")

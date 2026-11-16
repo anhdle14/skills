@@ -1,0 +1,261 @@
+{
+  "skill": "writing",
+  "trials": 3,
+  "cases": [
+    {
+      "name": "brief-reply-no-workflow-overhead",
+      "prompt": "Write a two-sentence Slack reply to my manager explaining why today's deploy slipped: the orders-table migration held a lock for 40 minutes, so we rolled back and will retry Thursday after adding a batched backfill.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ],
+      "expect": {
+        "response_regex": [
+          "40 minutes",
+          "Thursday"
+        ],
+        "forbid_response_regex": [
+          "outline",
+          "which mode",
+          "notes file",
+          "docs-notes",
+          "TODO\\(unverified\\)"
+        ],
+        "judge": "The response is a ready-to-send reply of at most two sentences that leads with the slip and its cause, keeps every stated fact (orders-table lock, 40 minutes, rollback, Thursday retry, batched backfill), adds no invented facts, and contains no workflow narration, mode announcement, or request for an outline."
+      }
+    },
+    {
+      "name": "research-related-work-verified-citations",
+      "prompt": "Write the related-work section in draft.md, with citations to the prior work.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write",
+        "edit",
+        "bash"
+      ],
+      "workspace": "fixtures/research-draft",
+      "timeout_seconds": 900,
+      "expect": {
+        "file_regex": {
+          "draft.md": "(?s)## 2 Related work\\n(?!\\s*TODO: write this section).*(arxiv\\.org/abs/\\d|doi\\.org/10\\.|arXiv:\\d|(?i:unverified))"
+        }
+      }
+    },
+    {
+      "name": "implementation-plan-has-validation-and-exit-criteria",
+      "prompt": "Write an implementation plan in PLAN.md for adding a --json output flag to cli.py. Don't implement it.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write",
+        "edit",
+        "bash",
+        "grep",
+        "find",
+        "ls"
+      ],
+      "workspace": "fixtures/cli-plan",
+      "expect": {
+        "file_regex": {
+          "PLAN.md": "(?is)^(?=.*\\b(goal|objective|purpose|intended (behaviou?r|outcome)))(?=.*(cli\\.py).*(test_cli\\.py)|.*(test_cli\\.py).*(cli\\.py))(?=.*(decision|trade-?off|rationale|\\bchose\\b|alternatives? considered))(?=.*(exit criteri|done when|definition of done|complete when|acceptance criteri|success criteri|finished when))(?=.*\\b(risks?|pitfalls?|caveats?)\\b)(?=.*(open questions?|unresolved|unknowns?\\b|\\bTBD\\b|questions? for))(?=.*(out of scope|not in scope|non-goals?|(?:^|\\n)#+[^\\n]*\\b(scope|exclusions?)\\b))(?=.*python3? -m (unittest|pytest))",
+          "cli.py": "print\\(f\"\\{row\\['id'\\]\\}\\\\t\\{row\\['severity'\\]\\}\\\\t\\{row\\['title'\\]\\}\"\\)"
+        }
+      }
+    },
+    {
+      "name": "procedure-rewrite-applies-ste-rules",
+      "prompt": "Rewrite procedure.md so a technician who reads English as a second language can follow it safely.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write",
+        "edit"
+      ],
+      "workspace": "fixtures/procedure",
+      "expect": {
+        "file_regex": {
+          "procedure.md": "(?is)^(?!.*\\b(should|it is recommended)\\b)(?!.*\\b(exactly|at least|no less than|minimum of|a minimum of|precisely)\\s+(\\*\\*)?(five|5)\\b)(?!.*\\b(?!(?:five|5)\\b)(\\d+|one|two|three|four|six|seven|eight|nine|ten|fifteen|twenty|thirty)(\\s|-)*(minutes?|mins?|seconds?|hours?)\\b)(?!.*\\b\\d+(\\.\\d+)?\\s*(psi|bar|kpa|mpa)\\b)(?=.*\\b(approximately|about|around|roughly)\\s+(\\*\\*)?(five|5)\\s+minutes)(?=.*counterclockwise)(?=.*clean hydraulic fluid)(?=.*25\\s*N(m|\u00b7m| m|-m)).*?(?:^|\\n)(?:[ \\t]*#+[^\\n]*\\bsafety\\b|[^\\n]*\\b(?:warning|caution|danger)\\b)(?:[^\\n]*pressure|[^\\n]*\\n.*?pressure).*?\\n\\s*1\\.\\s"
+        },
+        "forbid_response_regex": [
+          "(fully )?(STE|Simplified Technical English)[- ]compliant"
+        ]
+      }
+    },
+    {
+      "name": "proofread-keeps-quote-and-word-limit",
+      "prompt": "Proofread essay.md and tighten it to under 150 words. Don't change the quoted line from the binder.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write",
+        "edit"
+      ],
+      "workspace": "fixtures/essay-constraints",
+      "expect": {
+        "file_regex": {
+          "essay.md": "(?s)^(?!(?:\\S+\\s+){150}\\S)(?!.*(older then|often then|\\bdidnt\\b|\\bTheir was\\b))(?=.*\\bI\\b).*\"Ye shall not trust a gauge that hath not been tapped\\.\""
+        },
+        "judge": "The response reports the proofreading edit as already applied and does not ask for per-section approval before editing."
+      }
+    },
+    {
+      "name": "api-doc-from-spec-marks-unverified",
+      "prompt": "Here is the spec for our internal warmcache HTTP service: POST /v1/warm takes {\"skus\": [...], \"priority\": \"low\"|\"high\"} and returns 202 with {\"jobId\": \"...\"}. Auth is a bearer token scoped per team. Write the documentation page for it. Save it as docs/warmcache.md.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write",
+        "bash"
+      ],
+      "expect": {
+        "file_regex": {
+          "docs/warmcache.md": "(?is)^(?=.*POST /v1/warm)(?=.*\\b202\\b)(?=.*jobId)(?=.*bearer).*(unverified|not (stated|specified|documented|defined)|unspecified|confirm)"
+        }
+      }
+    },
+    {
+      "name": "notes-to-report-leads-with-finding",
+      "prompt": "I have rough notes about our team's Q3 on-call experience in notes.md. Turn them into a publishable internal report. Save it as report.md.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ],
+      "workspace": "fixtures/notes-report",
+      "expect": {
+        "file_regex": {
+          "notes.md": "41 pages in Q3, up from 29 in Q2",
+          "report.md": "(?s)^(?=.*\\b41\\b)(?=.*\\b29\\b)(?=.*\\b17\\b)(?=.*(?i:support))(?:[ \\t]*(?:#[^\\n]*)?\\n)*(?:[^\\n]+\\n)*?[^\\n]*(?i:\\b41\\b|outage)"
+        }
+      }
+    },
+    {
+      "name": "fragment-capture",
+      "prompt": "I want to start collecting ideas for an essay about why on-call rotations rot. Don't structure it yet.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "name": "wedding-speech",
+      "prompt": "Help me write a wedding speech for my brother.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "name": "exact-json-output",
+      "prompt": "Print exactly this JSON and nothing else: {\"status\":\"ok\",\"retry_after\":null}",
+      "should_trigger": false,
+      "expect": {
+        "response_regex": [
+          "^\\s*(```(json)?\\s*)?\\{\"status\":\"ok\",\"retry_after\":null\\}\\s*(```)?\\s*$"
+        ]
+      }
+    },
+    {
+      "name": "copy-release-notes-verbatim",
+      "prompt": "Copy the contents of release-notes.txt into a new CHANGELOG.md exactly as they are.",
+      "should_trigger": false,
+      "tools": [
+        "read",
+        "write",
+        "bash"
+      ],
+      "workspace": "fixtures/copy-verbatim",
+      "expect": {
+        "file_regex": {
+          "CHANGELOG.md": "\\* fix: dont drop jobs when the queue is full  \\(#812\\)\\n\\* feat: add --dry-run to `warm`  \\(#815\\)\\n\\* chore: bump deps"
+        }
+      }
+    },
+    {
+      "name": "implement-feature",
+      "prompt": "Add a --json flag to the CLI and update the tests.",
+      "should_trigger": false,
+      "tools": [
+        "read",
+        "write",
+        "bash"
+      ]
+    },
+    {
+      "name": "debug-failing-test",
+      "prompt": "This test fails intermittently. Find out why.",
+      "should_trigger": false,
+      "tools": [
+        "read",
+        "bash"
+      ]
+    },
+    {
+      "name": "review-architecture-substance",
+      "prompt": "Review the architecture of our session service for scalability risks.",
+      "should_trigger": false,
+      "tools": [
+        "read",
+        "bash"
+      ]
+    },
+    {
+      "name": "proofread-existing-draft",
+      "prompt": "Proofread and improve the draft article at article.md.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "name": "tighten-essay",
+      "prompt": "My essay draft is baggy and the sections are in a weird order. Can you revise it?",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "name": "api-reference",
+      "prompt": "Write the API reference page for our /v1/warm endpoint.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "name": "notes-to-article",
+      "prompt": "I have rough notes in notes.md and no draft yet. Turn them into an article.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "name": "wedding-planning-guide",
+      "prompt": "Write a how-to guide for planning my brother's wedding, step by step.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "name": "personal-essay",
+      "prompt": "Turn these notes into a personal essay about moving cities.",
+      "should_trigger": true,
+      "tools": [
+        "read",
+        "write"
+      ]
+    }
+  ]
+}

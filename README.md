@@ -46,13 +46,12 @@ git -C ~/Developer/github.com/anhdle14/skills pull
 | `/manage-skill` | Create, update, evaluate, and retire skills in this repo as tested behavior |
 | `/webgpu-threejs-tsl` | Build Three.js WebGPU apps with TSL node materials, GPU compute, and post-processing |
 
-### Writing
+### Review and Writing
 
 | skill | description |
 |-------|-------------|
-| `/proofreading` | Proofread and improve an existing article draft section by section |
-| `/prose-writing` | Develop raw material into non-technical prose - essays, reports, articles, narrative beats |
-| `/tech-writing` | Write or review technical docs - READMEs, API references, runbooks, design docs - against Google's tech writing standards |
+| `/review` | Review code, designs, plans, research arguments, and documents for substantive defects, risks, gaps, and unsupported claims |
+| `/writing` | Draft, rewrite, proofread, summarize, explain, plan, and improve prose, technical documents, research papers, and user-facing replies |
 
 ### Human-only skills
 
